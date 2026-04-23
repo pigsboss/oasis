@@ -196,24 +196,25 @@
 
 #### 3.2.6 数据段组件
 
-**Observation Layer Gateway / 观测量层网关**
-- 目标层与观测量层之间的运行时 API 边界，承接原接口段 Inter-layer Interface 的下游职责
-- 接收并转发观测量层的观测请求（坐标、波长、时间等参数），管理请求生命周期与异步任务状态
-- 执行坐标系转换（ICRS/Galactic/Ecliptic）和观测参数标准化
-- 正演时接收模型段的可观测模型内存对象，调用 FITS I/O Manager 完成序列化后输出至观测量层
-- 反演时从观测量层接收原始数据产品，调用 FITS I/O Manager 解析后交付模型段
+**Observables Interface / 观测量层接口**
+- 目标层与 observables 层之间文件级层间接口的唯一管理者
+- 定义层间目录结构、文件命名规范、就绪信号与状态回报机制
+- 正演时组织输出文件包（FITS/HD5 + 辅助文件）写入层间约定位置；反演时扫描并读取 observables 层放回的结果包
+- 向外部工作流编排器发送"输出就绪"或"输入可用"事件，但不直接 import 或调用 observables 层内部工具
 
-**FITS I/O Manager / FITS 输入输出管理器**
-- 负责 FITS 格式数据的底层编码与解码，包括高级科学数据产品的读取与标准 FITS 输出
-- 处理WCS解析、BINTABLE扩展、头部关键字验证
-- 支持大文件分块读写和内存映射（mmap）优化
+**FITS/HD5 I/O Manager / FITS/HD5 输入输出管理器**
+- 负责观测量层二进制数据格式（FITS/HD5）的底层编码与解码
+- 编码侧：接收模型段产出的内存对象，序列化为标准 FITS/HD5（含 WCS、时间戳、模型版本等元数据）
+- 解码侧：读取 observables 层返回的高级科学数据产品，解析为格式无关的标准内存对象后向上交付
+- 处理 WCS 构造与解析、BINTABLE 扩展、头部关键字验证、大文件分块读写和内存映射（mmap）优化
 
-**Catalog Connector / 源表连接器**
-- 连接Gaia、SIMBAD、VizieR等外部天文数据库
-- 解析和验证CSV/TSV格式参数表，处理缺失数据和异常值
-- 支持本地缓存和离线模式
+**Auxiliary File Manager / 辅助文件管理器**
+- 负责层间辅助文件（JSON/YAML/TSV/CSV）的生成与解析
+- 正演时产出参数侧写、观测配置摘要、处理指令等辅助文件，与主数据文件一并置于层间接口
+- 反演时解析 observables 层附带的辅助元数据，向上交付模型段与接口段
 
-**Model Repository / 模型仓库**
-- 持久化存储参数化模型（YAML）和计算结果（FITS/HD5）
-- 实现模型版本控制、分支管理和溯源追踪
-- 支持模型共享和协作开发工作流
+**Result Repository / 结果仓库**
+- 计算结果（FITS/HD5）与层间接口文件的本地持久化、缓存与版本快照
+- 管理正演产物与反演链路中 observables 层返回的数据产品的生命周期
+- 支持计算结果缓存失效策略与本地存储优化
+- **不存储参数化模型（YAML），参数化模型版本控制由模型段 Hierarchy Manager 负责**
