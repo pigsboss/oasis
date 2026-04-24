@@ -1,0 +1,59 @@
+@startuml
+!theme plain
+skinparam componentStyle rectangle
+
+package "接口段" {
+  component "User Interface" as UI
+  component "Input Validator" as IV
+  component "Result Presenter" as RP
+}
+
+package "模型段" {
+  component "Hierarchy Manager" as HM
+  component "Conflict Detector" as CD
+  component "Completeness Checker" as CC
+  component "Physics Engine" as PE
+  component "Parameter Estimator" as ParEst
+  component "Statistics Evaluator" as StatEval
+  component "Compute Runtime" as CR
+}
+
+package "数据段" {
+  component "Observables Interface" as OI
+  component "FITS/HDF5 I/O Manager" as FITSIO
+  component "Result Repository" as RR
+}
+
+' 接口段内部
+UI --> IV : 用户输入检查
+
+' 输入管道路径
+IV --> HM : 结构化模型
+
+' 模型管理
+HM --> CD : 冲突检测
+HM --> CC : 完整性检查
+
+' 正演路径
+PE --> CR : 计算资源
+PE --> OI : 正演管道
+
+' 反演路径
+ParEst --> CR : 计算资源
+ParEst <-- FITSIO : 反演管道（格式无关对象）
+
+' 统计与输出
+ParEst --> StatEval : 偏离度/后验
+StatEval --> RP : 结果管道
+
+' 数据段内部
+OI --> FITSIO : 委派序列化/反序列化
+FITSIO --> RR : 持久化/缓存
+
+' 横向服务
+RP ..> FITSIO : 数据服务接口（用户下载）
+
+' 资源状态
+CR ..> UI : 资源状态（发布-订阅）
+
+@enduml
