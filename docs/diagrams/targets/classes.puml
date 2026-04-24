@@ -1,0 +1,78 @@
+@startuml
+' 目标层核心类图
+' 基于 docs/guides/targets.md 4.1 数据类型定义
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle normal
+skinparam packageStyle rectangle
+
+package "目标层数据类型" {
+
+    abstract class TargetModel <<abstract>> {
+        + name : str
+        + source : str
+        + metadata : dict
+        + version : str
+    }
+
+    abstract class SpectralModel <<abstract>> {
+    }
+
+    class SourceModel extends TargetModel {
+        + coordinates : SkyCoord
+        + proper_motion : tuple<Quantity>
+        + spectral_model : SpectralModel
+    }
+
+    class BackgroundModel extends TargetModel {
+        + region : str
+        + spectral_model : SpectralModel
+    }
+
+    class TransmissionModel extends TargetModel {
+        + optical_depth : Quantity
+        + transmission_curve : ndarray
+        + spectral_model : SpectralModel
+    }
+
+    class TargetHistogram extends TargetModel {
+        + data : ndarray
+        + axes : list<AxisDescriptor>
+        + units : Unit
+        + uncertainty : ndarray
+        + histogram_type : HistogramType
+        + source_model_ref : str
+        + background_model_ref : str
+        + transmission_model_ref : str
+    }
+
+    enum HistogramType {
+        image
+        spectrum
+        light_curve
+        cube
+    }
+
+    SourceModel "1" --> "1" SpectralModel : uses
+    BackgroundModel "1" --> "1" SpectralModel : uses
+    TransmissionModel "1" --> "1" SpectralModel : uses
+    TargetHistogram --> HistogramType : has
+
+}
+
+note right of TargetModel
+  参数化模型抽象基类
+  携带通用标识、层级属性和溯源信息
+end note
+
+note right of SpectralModel
+  光谱描述符抽象基类
+  具体类型如黑体、幂律、多温黑体等子类实现
+end note
+
+note top of TargetHistogram
+  亮度分布直方图容器
+  关联到源、背景、透过率模型引用
+end note
+
+@enduml
