@@ -1,7 +1,7 @@
 # 统一分布表示为 TargetHistogram
 
 - **状态**：已接受
-- **日期**：2026-04-05
+- **日期**：2026-04-24
 - **决策者**：OASIS 目标层设计团队
 - **涉及文档**：docs/guides/targets.md, docs/diagrams/targets/classes.puml
 
