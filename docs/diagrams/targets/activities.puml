@@ -1,0 +1,97 @@
+@startuml
+title 目标层活动图（正演、反演、异步生命周期）
+
+|User|
+|Interface Layer|
+|Model Layer|
+|Data Layer|
+|Observables Layer|
+
+' ========== 正演流程 ==========
+start
+:User submits model\n(YAML/CLI/API);
+|Interface Layer|
+:Input Validator\n语法、字段检查;
+if (Valid?) then (no)
+    :Return error to user;
+    stop
+else (yes)
+    |Model Layer|
+    :Hierarchy Manager\n继承链解析与版本控制;
+    :Conflict Detector\n物理不自洽检测;
+    if (Conflict?) then (yes)
+        |Interface Layer|
+        :Notify user of conflicts;
+        stop
+    else (no)
+        :Completeness Checker\n计算链路完整性验证;
+        if (Incomplete?) then (yes)
+            |Interface Layer|
+            :Notify user of missing steps;
+            stop
+        else (no)
+            |Model Layer|
+            :Compute Runtime\n资源调度与缓存;
+            :Physics Engine\n综合 SourceModel, BackgroundModel,\nTransmissionModel 执行仿真;
+            :Generate TargetHistogram\n(内存对象);
+            |Data Layer|
+            :FITS/HDF5 I/O Manager\n序列化为标准 FITS 文件包;
+            :Observables Interface\n写入层间交换目录;
+            :Create .forward_ready sentinel;
+            |Observables Layer|
+            :Receive forward products;
+            |Interface Layer|
+            :Result Presenter\n(optional status query);
+            stop
+        endif
+    endif
+endif
+
+' ========== 异步任务生命周期（正演/反演通用） ==========
+|Model Layer|
+fork
+    :Compute Runtime\nTask queued;
+    :Resource admission check;
+    if (Resources sufficient?) then (yes)
+        :Execute task;
+        while (Task running?) is (running)
+            :Update status → executing;
+        endwhile (done)
+        if (Success?) then (yes)
+            :Status → completed;
+        else (failure)
+            :Status → error;
+            |Interface Layer|
+            :Notify user of error;
+        endif
+    else (no)
+        :Reject or defer;\nStatus → rejected/queued;
+        |Interface Layer|
+        :Notify user of resource shortage;
+    endif
+end fork
+
+' ========== 反演流程 ==========
+start
+|Observables Layer|
+:Place .inverse_ready sentinel\nand data products;
+|Data Layer|
+:Observables Interface\ndetect ready signal;
+if (.error sentinel exists?) then (yes)
+    |Data Layer|
+    :Read error code and summary;
+    |Interface Layer|
+    :Present error to user;
+    stop
+else (no)
+    :FITS/HDF5 I/O Manager\nparse to TargetHistogram (memory);
+    |Model Layer|
+    :Compute Runtime\nassign resources;
+    :Parameter Estimator\nMCMC / nested sampling / MLE\nusing priors from Source, Background, Transmission;
+    :Statistics Evaluator\ncompute χ², residuals, confidence intervals,\nupdate model instances;
+    |Interface Layer|
+    :Result Presenter\nformat reports (JSON/YAML/Markdown/plots);
+    stop
+endif
+
+@enduml
