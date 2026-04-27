@@ -1,13 +1,8 @@
 @startuml
 title 目标层活动图（正演、反演、异步生命周期）
 
-|User|
-|Interface Layer|
-|Model Layer|
-|Data Layer|
-|Observables Layer|
-
 ' ========== 正演流程 ==========
+|User|
 start
 :User submits model\n(YAML/CLI/API);
 |Interface Layer|
@@ -72,8 +67,8 @@ fork
 end fork
 
 ' ========== 反演流程 ==========
-start
 |Observables Layer|
+start
 :Place .inverse_ready sentinel\nand data products;
 |Data Layer|
 :Observables Interface\ndetect ready signal;
