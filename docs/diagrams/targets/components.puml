@@ -1,5 +1,4 @@
 @startuml
-!theme plain
 skinparam componentStyle rectangle
 
 package "接口段" {
