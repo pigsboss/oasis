@@ -1,13 +1,13 @@
 @startuml
 skinparam componentStyle rectangle
 
-package "接口段" {
+package "Interface Layer" {
   component "User Interface" as UI
   component "Input Validator" as IV
   component "Result Presenter" as RP
 }
 
-package "模型段" {
+package "Model Layer" {
   component "Hierarchy Manager" as HM
   component "Conflict Detector" as CD
   component "Completeness Checker" as CC
@@ -17,42 +17,45 @@ package "模型段" {
   component "Compute Runtime" as CR
 }
 
-package "数据段" {
+package "Observables Layer" {
   component "Observables Interface" as OI
+}
+
+package "Data Layer" {
   component "FITS/HDF5 I/O Manager" as FITSIO
   component "Result Repository" as RR
 }
 
-' 接口段内部
-UI --> IV : 用户输入检查
+' Interface Layer internal
+UI --> IV : User Input Validation
 
-' 输入管道路径
-IV --> HM : 结构化模型
+' Input pipeline
+IV --> HM : Structured Model
 
-' 模型管理
-HM --> CD : 冲突检测
-HM --> CC : 完整性检查
+' Model management
+HM --> CD : Conflict Detection
+HM --> CC : Completeness Check
 
-' 正演路径
-PE --> CR : 计算资源
-PE --> OI : 正演管道
+' Forward path
+PE --> CR : Compute Resources
+PE --> OI : Forward Pipeline
 
-' 反演路径
-ParEst --> CR : 计算资源
-ParEst <-- FITSIO : 反演管道（格式无关对象）
+' Inverse path
+ParEst --> CR : Compute Resources
+ParEst <-- FITSIO : Inverse Pipeline (format-agnostic)
 
-' 统计与输出
-ParEst --> StatEval : 偏离度/后验
-StatEval --> RP : 结果管道
+' Statistics and output
+ParEst --> StatEval : Deviance/Posterior
+StatEval --> RP : Result Pipeline
 
-' 数据段内部
-OI --> FITSIO : 委派序列化/反序列化
-FITSIO --> RR : 持久化/缓存
+' Data Layer internal
+OI --> FITSIO : Delegate Serialization/Deserialization
+FITSIO --> RR : Persistence/Cache
 
-' 横向服务
-RP ..> FITSIO : 数据服务接口（用户下载）
+' Horizontal services
+RP ..> FITSIO : Data Service Interface (User Download)
 
-' 资源状态
-CR ..> UI : 资源状态（发布-订阅）
+' Resource status
+CR ..> UI : Resource Status (Pub-Sub)
 
 @enduml
