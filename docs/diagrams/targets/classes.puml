@@ -10,7 +10,7 @@ package "目标层数据类型" {
 
     abstract class TargetModel <<abstract>> {
         + name : str
-        + source : str
+        + provider : str
         + metadata : dict
         + version : str
     }
