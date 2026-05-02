@@ -18,6 +18,13 @@ package "目标层数据类型" {
     abstract class SpectralModel <<abstract>> {
     }
 
+    abstract class SpatialModel <<abstract>> {
+        + type : str
+        + parameters : dict
+        + metadata : dict
+        + evaluate(coords : SkyCoord) : Quantity
+    }
+
     class SourceModel extends TargetModel {
         + coordinates : SkyCoord
         + proper_motion : tuple<Quantity>
@@ -27,6 +34,8 @@ package "目标层数据类型" {
     class BackgroundModel extends TargetModel {
         + region : str
         + spectral_model : SpectralModel
+        + is_isotropic : bool
+        + spatial_model : Optional<SpatialModel>
     }
 
     class TransmissionModel extends TargetModel {
@@ -56,6 +65,7 @@ package "目标层数据类型" {
     SourceModel "1" --> "1" SpectralModel : uses
     BackgroundModel "1" --> "1" SpectralModel : uses
     TransmissionModel "1" --> "1" SpectralModel : uses
+    BackgroundModel "0..1" --> "1" SpatialModel : uses (when anisotropic)
     TargetHistogram --> HistogramType : has
 
 }
@@ -68,6 +78,11 @@ end note
 note right of SpectralModel
   光谱描述符抽象基类
   具体类型如黑体、幂律、多温黑体等子类实现
+end note
+
+note right of SpatialModel
+  空间分布描述符抽象基类
+  具体类型如常数、多项式、HEALPix 查找表、黄道光模型等子类实现
 end note
 
 note top of TargetHistogram

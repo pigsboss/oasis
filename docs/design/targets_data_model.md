@@ -122,11 +122,17 @@
 |:---|:---|:---|:---|
 | `region` | `str` | 是 | 背景区域描述字符串，例如 `"full_sky"` 或 `"annulus_10_20_arcsec"`。具体格式由实现定义。 |
 | `spectral_model` | `SpectralModel` | 是 | 描述背景辐射光谱特征的模型。 |
+| `is_isotropic` | `bool` | 否 | 背景辐射在 `region` 内是否空间均匀。默认值为 `True`（各向同性）。若为 `False`，必须提供 `spatial_model`。 |
+| `spatial_model` | `Optional[SpatialModel]` | 否 | 描述背景亮度空间变化模型的抽象基类实例。当 `is_isotropic=True` 时应为 `None`；当 `is_isotropic=False` 时必须提供有效对象。 |
 
 ### 4.4 约束与不变量
 
 - `region` 必须为非空字符串。
 - `spectral_model` 不能为 `None`。
+- 若 `is_isotropic` 为 `False`，则 `spatial_model` 不能为 `None`。
+- 若 `is_isotropic` 为 `True`，建议 `spatial_model` 保持 `None`（忽略传入的任何值）。
+- `spatial_model` 的归一化协议由其具体子类定义，必须在文档中明确说明评估值是绝对亮度还是相对权重。
+- `spatial_model` 返回的坐标参考系应与 `TargetHistogram` 的 WCS 兼容，具体转换由物理引擎负责。
 
 ---
 
@@ -232,6 +238,32 @@
 - `name` 应与目标层上层约定保持一致。
 - `unit` 必须与 `type` 语义兼容（例如光谱轴不应使用时间单位）。
 - `coordinate` 当 `type` 为 `spatial` 或 `spectral` 时建议提供。
+
+---
+
+## 9. SpatialModel 抽象基类
+
+### 9.1 概述
+
+`SpatialModel` 是所有空间分布描述符的抽象基类，用于描述物理量（如背景亮度）随方向或像素位置的变化。它不继承自 `TargetModel`，而是作为 `BackgroundModel`（未来可能成为其他模型的）组成部分使用。设计哲学与 `SpectralModel` 对称。
+
+### 9.2 字段定义（接口级）
+
+| 字段名 | Python 类型 | 必需 | 说明 |
+|:---|:---|:---|:---|
+| `type` | `str` | 是 | 空间模型类型标识符，例如 `"constant"`、`"polynomial"`、`"healpix_map"`、`"zodiacal"` 等。 |
+| `parameters` | `dict[str, ParameterValue]` | 是 | 空间模型参数字典，每个参数以 `{value, unit}` 键值对表示。具体键集由子类规范定义。 |
+| `metadata` | `dict[str, Any]` | 否 | 附加描述信息，不影响物理计算。默认为空字典。 |
+
+### 9.3 核心接口（抽象方法）
+
+- `evaluate(coords: SkyCoord) -> Quantity`：返回在给定天球坐标处归一化或绝对表面亮度值。
+
+### 9.4 约束与不变量
+
+- `type` 必须为非空字符串，并匹配已注册的空间模型子类。
+- `parameters` 的键值对必须与子类定义的参数规范一致。
+- 子类实现需明确 `evaluate` 输出的物理意义（相对权重或绝对亮度）及其参考坐标系。
 
 ---
 
