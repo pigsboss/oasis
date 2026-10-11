@@ -22,6 +22,11 @@
 
 ## 2. `~/.config/oasis/inventory.yaml`（清单，唯一管理作用域）
 
+**清单纳入准则（2026-10-11 用户审定）**：只收**发布型 catalogue**——具有明确发布渠道
+（机构/档案服务）的数据产品（本卷口径即：Gaia DR 系列、AllWISE、2MASS PSC、TESS TIC）；
+**不纳入**：本地渲染件、公众传播媒体、测绘自采数据等非发布型资料；派生品不入清单（既有规则）。
+（配套：SPICE **kernels 底座资产**亦不入本清单——以平行注册 `kernels.yaml` 管理，见 DSM-004 §6 裁决七。）
+
 ### 2.1 完整示例
 
 ```yaml
@@ -202,6 +207,60 @@ execution: {parallel: 8, resume: true}
 ③ `slice run --chunks M-N` 支持部分块运行（估算/测试），manifest 记 `partial: true` 与块区间；
 ④ 分块记账随暂存区（`dest 旁 .oasis-staging/<spec>/chunks.jsonl`，含 sha256 校验，跨任务可续），
 任务目录留 `slice-chunks.jsonl` 副本。
+
+### 5.1 高级导出增补（F-09 天区分片 / F-10 HDF5 切片；**待审查**）
+
+**架构修订（用户方向，2026-10-11：固化优先）**：任一目录（任意格式）先**一次性固化为 HDF5 表**
+（profile 驱动解析 → 复合表：列名齐备、chunked＋压缩、attrs 携 epoch/frame/provider/profile，
+按 sort_key 建区间索引），此后**导出 = 天区条件 × 属性列表**（二维）→ HDF5 和/或 CSV.gz + manifest；
+**固化产物跟随应用工作区**（哪个应用需要就放哪个工作区，不设全局 core 目录）。
+本节 `in_cone/in_box` 与 `format: hdf5` 即在该链上实现；雏形实测：锥面条件直接可算、
+T2（17.7 万行）全扫 0.12 s、区间索引点查 ~0.65 ms/次、固化 1.5 s/17.7 万行；
+瓦片分片（healpix/native）保留为**输出组织选项**。**固化栈已定**（DSM-004 §6 裁决五，用户裁定：
+应用侧固化＝PyTables；交付锚点＝CSV.gz；可移植 rendition＝h5py 维持现状）；**定位＝应用侧
+consolidate**（FCP 语义；整目录整合 ／ 天区×属性裁剪整合 两档，见 DSM-004 §6 裁决六）；
+锥面条件与区间索引**自研**（不引用外部小工具）。
+
+**规格扩展**（§5 的向后兼容增量）：
+
+```yaml
+id: gaia_region_x
+source: gaia_gdr3_gaia_source
+select:
+  - {column: phot_g_mean_mag, op: le, value: 15.0}
+  - {op: in_cone, value: {ra: 280.0, dec: -25.0, radius: 2.0}}   # 或 in_box: {ra: [lo,hi], dec: [lo,hi]}
+columns: [source_id, ra, dec, phot_g_mean_mag, bp_rp]
+output:
+  storage: raid0_scratch
+  path: catalogs/gaia/region_x
+  format: [csv.gz, hdf5]            # 默认 [csv.gz]；hdf5 为一等输出格式
+  shard: {scheme: healpix, nside: 64}   # 可选；缺省不分片（none）
+```
+
+| 增量 | 语义 |
+|:--|:--|
+| `select` 空间算子 `in_cone`/`in_box` | 作用于 `ra/dec`（deg；表须含这两列）；锥含 `radius`，矩形含 `ra/dec` 区间 |
+| `output.format` | `csv.gz`（canonical，字节可复现语义不变）与/或 `hdf5`（一等格式） |
+| `output.shard` | `healpix`（RING；`nside` 默认 64≈0.92°）或 `none`；分片输出 `tile_<ipix>.{csv.gz,h5}`，manifest 增 `tiles` 数组（ipix/行数/bytes/sha256/边界） |
+| HDF5 索引（F-10） | `/table` 复合数据集（既有 rendition 语义）＋ **区间索引**：每 chunk 的 `source_id` min/max 独立数据集，区间定位 O(log n)；行序与 CSV 一致；`track_times=False` 字节可复现 |
+
+**引擎复用**：单遍扫描 ＋ per-chunk 并行 ＋ 断点续跑（M3 既有）；瓦片指派在 map 阶段完成
+（每行由 `ra/dec` 直接算 ipix），装配阶段按瓦片有序拼接；QC 增补：**Σ瓦片行数=总行数**、
+抽样点几何回验（点→瓦片号一致性）。CLI：`slice run` 支持上述字段；`hdf5` 命令升级为
+带列选择/谓词/索引的导出路径（保留原转换语义）。
+
+**实现注记（M5 首验，2026-10-11）**：`oasis-datasets consolidate` 已落地——内置 profile
+（`gaia_tier` / `tess_tic` / `twomass_psc`；支持 YAML 自定义）；**表头源的类型注解**
+（TIC bracket、2MASS SQL DDL）用于钉住列类型（首验即抓到 `ndet` 零填充字符串被数据推断
+误判为 int——schema hint 修复，43/115 列被钉住）；产物 `<app>/consolidated/<name>.h5` +
+manifest（来源/参数/行数/sha256/QC/partial 标记）；QC 抽样回读逐列比对（前 3 行）。
+实测：Gaia T2 17.7 万行 5 s（含 CSI）；2MASS 单分片 30 万行 26 s；TIC 单片 20 万行 29 s；
+应用侧锥面查询：T2 0.01 s、TIC 0.36 s（含属性子集）。
+
+**默认建议（待审查确认）**：① 分片方案 **HEALPix-RING**（天文惯例；如需矩形网格可改）；
+② hdf5 索引先做 `source_id` 每 chunk min/max（大表空间索引留待需要）；
+③ 天区算子依赖表内 `ra/dec` 列——MPC 根数表无位置列，其对象的天区筛选需消费侧先做位置
+传播后另行提出导出，不在本期。
 
 ## 6. CLI 命令树
 
