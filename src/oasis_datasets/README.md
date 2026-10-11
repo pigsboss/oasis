@@ -23,6 +23,10 @@ tools/oasis-datasets tasks list | tasks show <id> | tasks watch <id>
 tools/oasis-datasets mpc parse [--raw PATH] [--dest DIR] [--apply]   # MPCORB.DAT.gz → 根数解析表 + manifest
 tools/oasis-datasets hdf5 <csv.gz...> [--dest DIR] [--apply]          # CSV.gz → HDF5 rendition（可选格式；canonical 仍为 CSV.gz）
 tools/refresh-delivery mpc|gaia|verify                                # UR-2026-1012 交付刷新（按需运行，自校）
+tools/oasis-datasets kernels list|verify|fetch|send --app DIR        # SPICE 底座资产（注册/校验/取件/投送）
+tools/oasis-datasets consolidate <catalogue|--from PATH> --app WORKSPACE [--profile P] \
+    [--region cone:RA,DEC,R_DEG] [--attributes A,B,C] [--limit N] [--apply]
+                                                          # 应用侧整合（PyTables 工作集；两档：整目录/天区×属性裁剪）
 tools/oasis-datasets probe [ids...] [--channel id] # 渠道连通性 + 版本确定（file/https/ssh）
 tools/oasis-datasets storages [--json]             # 本机文件系统视图（挂载/未挂载/未登记）
 tools/oasis-datasets web [--port 8787] [--no-open] # 本机 Web（127.0.0.1）：清单/存储/任务/审计 + 配置编辑器
@@ -84,5 +88,12 @@ tools/oasis-datasets migrate-config [--dry-run] [--force]   # 旧 config.dataset
   （逐行 epoch、frame=日心黄道 J2000、类别统计 v1）；全量 1,571,791 行/23 s；
 - v0.2（M4 后补，rendition）：`hdf5` 命令——CSV.gz → `/table` 复合数据集（chunked+gzip、
   定宽串、`track_times=False` 字节可复现；回读校验）；交付物落 `~/Datasets/catalogs/`；
+- v0.2（M5 首验，F-09/F-10 consolidate）：`consolidate`——profile 驱动任意格式 → PyTables
+  工作集（列名齐备、blosc、CSI、attrs 带 epoch/frame；manifest 记来源/参数/QC）；
+  已验格式：Gaia 档（CSV+表头）／2MASS（pipe+SQL schema）／TIC（无表头+bracket 头）；
+  锥面查询毫秒级；
+- v0.2（M5 后补，裁决七）：kernels 底座资产管理——`~/.config/oasis/kernels.yaml` ＋
+  store `/Volumes/ArecaStudio/Datasets/SPICE Kernels/`（生态数据区命名约定）＋ `kernels`
+  命令族（并行取件/校验/投送+manifest）；首件 de442／naif0012／pck00011 已官方校验登记（de441 未取）；
 - v0.2 计划（M5 候选）：Web 端 mirror/sync 动作与预览、Web 整文件下载与 fmt.columns_ref、
   多文件镜像（清单驱动）、ssh 目标的实测接线（saturn/enceladus 上线后）。

@@ -12,6 +12,8 @@
 #   tools/oasis-datasets tasks list | tasks show <id> | tasks watch <id>
 #   tools/oasis-datasets mpc parse [--raw PATH] [--dest DIR] [--apply]
 #   tools/oasis-datasets hdf5 <csv.gz...> [--dest DIR] [--apply]
+#   tools/oasis-datasets consolidate <catalogue|--from PATH> --app WORKSPACE [--profile P] [--region R] [--attributes A,B] [--apply]
+#   tools/oasis-datasets kernels list|verify|fetch|send --app DIR
 #   tools/oasis-datasets inventory validate
 #   tools/oasis-datasets propose <spec.yaml> | review list|approve|reject <id> [--note N]
 #   tools/oasis-datasets migrate-config [--dry-run] [--force]

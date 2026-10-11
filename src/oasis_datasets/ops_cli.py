@@ -8,6 +8,7 @@ All runtime output is English (CODING_STANDARDS §2.2).
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -180,6 +181,94 @@ def _print_slice_event(event: dict, printed: set) -> None:
             printed.add(key)
             extra = data.get("kept") or data.get("categories") or ""
             print(f"   progress: {data.get('done')}/{data.get('total', '?')} {extra}")
+
+
+def cmd_kernels(args) -> int:
+    from . import kernels as kn
+    reg_path = Path(resolve_config_path(args.config)).parent / kn.REGISTRY_NAME
+    reg = kn.load_registry(reg_path)
+    if getattr(args, "proxy", None):
+        os.environ["HTTP_PROXY"] = args.proxy
+        os.environ["HTTPS_PROXY"] = args.proxy
+    if args.kernels_command == "list":
+        return kn.cmd_list(reg, as_json=args.json)
+    if args.kernels_command == "verify":
+        return kn.cmd_verify(reg, args.dirs, as_json=args.json)
+    if args.kernels_command == "fetch":
+        return kn.cmd_fetch(reg, args.ids, parallel=args.parallel, apply=args.apply)
+    if args.kernels_command == "send":
+        return kn.cmd_send(reg, args.ids, app=args.app, apply=args.apply)
+    print("usage: kernels list|verify|fetch|send", file=sys.stderr)
+    return 2
+
+
+def cmd_consolidate(args) -> int:
+    from . import consolidate as cs
+    dataset_id = None
+    if args.from_path:
+        src = Path(args.from_path).expanduser()
+    else:
+        if not args.catalogue:
+            print("error: give an inventory dataset id or --from PATH", file=sys.stderr)
+            return 2
+        cfg_path, inv_path, log_path, cfg, inv = load_all(args)
+        ds = next((d for d in inv.datasets if d.get("id") == args.catalogue), None)
+        if ds is None:
+            print(f"error: dataset '{args.catalogue}' not in inventory", file=sys.stderr)
+            return 2
+        channels = [c for c in (ds.get("channels") or [])
+                    if c.get("protocol") == "file" and c.get("path")]
+        if not channels:
+            print(f"error: dataset '{args.catalogue}' has no file channel", file=sys.stderr)
+            return 2
+        src = Path(str(channels[0]["path"])).expanduser()
+        dataset_id = args.catalogue
+
+    plan, err = cs.build_plan(source=src, dataset_path=None, app=Path(args.app),
+                              profile_spec=args.profile, dataset_id=dataset_id,
+                              region_spec=args.region, attributes=args.attributes,
+                              limit=args.limit, name=args.name)
+    if plan is None:
+        print(f"error: {err}", file=sys.stderr)
+        return 2
+    total_bytes = sum(p.stat().st_size for p in plan.source_files)
+    if not args.apply:
+        print("consolidate [DRY-RUN]")
+        print(f"  name   : {plan.name}  mode: {plan.mode}")
+        print(f"  profile: {plan.profile.name} (delimiter={plan.profile.delimiter!r}, "
+              f"header={plan.profile.header})")
+        print(f"  source : {len(plan.source_files)} file(s), {total_bytes/1e6:.1f} MB")
+        for p_ in plan.source_files[:5]:
+            print(f"           {p_}")
+        if len(plan.source_files) > 5:
+            print(f"           ... (+{len(plan.source_files)-5} more)")
+        print(f"  columns: {len(plan.columns)} total"
+              + (f"; writing: {', '.join(plan.attributes)}" if plan.attributes else ""))
+        if plan.region:
+            print(f"  region : {plan.region}")
+        if plan.limit:
+            print(f"  limit  : {plan.limit} input rows (partial)")
+        print(f"  dest   : {plan.dest_h5}")
+        print("  (dry-run: plan only; add --apply to consolidate)")
+        return 0
+
+    from .tasks import TaskManager
+    mgr = TaskManager()
+    worker = (lambda task, emit: cs.run_consolidate(plan, emit))
+    task = mgr.start("consolidate", {"name": plan.name, "mode": plan.mode,
+                                     "app": str(plan.dest_dir.parent)}, worker)
+    print(f"  task   : {task.id} (dir {task.dir})")
+    last = 0
+    printed: set = set()
+    while task.state not in ("done", "failed", "cancelled"):
+        time.sleep(0.4)
+        for event in mgr.events(task.id, last):
+            last = event["seq"]
+            _print_slice_event(event, printed)
+    for event in mgr.events(task.id, last):
+        _print_slice_event(event, printed)
+    print(f"  result : {task.state} (exit {task.exit_code})")
+    return 0 if task.state == "done" else 1
 
 
 def _default_mpcorb() -> Path | None:
@@ -369,6 +458,39 @@ def register(sub, common) -> dict:
     p_parse.add_argument("--limit", type=int, default=None, help="first N rows (test/partial)")
     p_parse.add_argument("--apply", action="store_true", help="execute (default: dry-run plan)")
 
+    p_k = sub.add_parser("kernels", parents=[common],
+                         help="SPICE kernel registry & supply (foundation assets)")
+    k_sub = p_k.add_subparsers(dest="kernels_command", required=True)
+    k_list = k_sub.add_parser("list", parents=[common], help="registry + store status")
+    k_list.add_argument("--json", action="store_true")
+    k_ver = k_sub.add_parser("verify", parents=[common],
+                             help="checksum verification (store, or given dirs)")
+    k_ver.add_argument("dirs", nargs="*")
+    k_ver.add_argument("--json", action="store_true")
+    k_fetch = k_sub.add_parser("fetch", parents=[common],
+                               help="channel -> store (parallel ranges, resume, verify)")
+    k_fetch.add_argument("ids", nargs="+", help="kernel ids (or 'all')")
+    k_fetch.add_argument("--parallel", type=int, default=8)
+    k_fetch.add_argument("--proxy", default=None, help="HTTP(S) proxy, e.g. http://127.0.0.1:7897")
+    k_fetch.add_argument("--apply", action="store_true", help="execute (default: dry-run plan)")
+    k_send = k_sub.add_parser("send", parents=[common],
+                              help="store -> <app>/spice_kernels (verify + manifest)")
+    k_send.add_argument("ids", nargs="+", help="kernel ids (or 'all')")
+    k_send.add_argument("--app", required=True, help="application workspace directory")
+    k_send.add_argument("--apply", action="store_true", help="execute (default: dry-run plan)")
+
+    p_c = sub.add_parser("consolidate", parents=[common],
+                         help="bring a catalogue into an app workspace (PyTables working set)")
+    p_c.add_argument("catalogue", nargs="?", help="inventory dataset id (or use --from)")
+    p_c.add_argument("--from", dest="from_path", default=None, help="source file or directory")
+    p_c.add_argument("--app", required=True, help="application workspace directory")
+    p_c.add_argument("--profile", default=None, help="builtin profile name or YAML file")
+    p_c.add_argument("--region", default=None, help="cone:RA,DEC,RADIUS_DEG | box:RA1,RA2,DEC1,DEC2")
+    p_c.add_argument("--attributes", default=None, help="comma-separated attribute subset")
+    p_c.add_argument("--limit", type=int, default=None, help="max input rows (partial/test)")
+    p_c.add_argument("--name", default=None, help="output basename override")
+    p_c.add_argument("--apply", action="store_true", help="execute (default: dry-run plan)")
+
     p_hdf5 = sub.add_parser("hdf5", parents=[common],
                             help="CSV.gz -> HDF5 rendition (optional format; canonical stays CSV.gz)")
     p_hdf5.add_argument("files", nargs="+", help="CSV.gz file(s)")
@@ -376,4 +498,5 @@ def register(sub, common) -> dict:
     p_hdf5.add_argument("--apply", action="store_true", help="execute (default: dry-run plan)")
 
     return {"probe": cmd_probe, "storages": cmd_storages, "web": cmd_web,
-            "slice": cmd_slice, "tasks": cmd_tasks, "mpc": cmd_mpc, "hdf5": cmd_hdf5}
+            "slice": cmd_slice, "tasks": cmd_tasks, "mpc": cmd_mpc, "hdf5": cmd_hdf5,
+            "consolidate": cmd_consolidate, "kernels": cmd_kernels}
