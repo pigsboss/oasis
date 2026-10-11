@@ -1,0 +1,43 @@
+# OASIS datasets 注册表示例（可移植版；tools/oasis-catalog 的回退配置）
+#
+# 本机完整清单（含外接卷数据集）见：~/.config/oasis/config.yaml（优先级高于本文件）。
+# 配置解析顺序：--config > $OASIS_CONFIG > ~/.config/oasis/config.yaml > ./catalogues.yaml
+#
+# 结构说明见 src/oasis_catalog/README.md。
+
+oasis_config_version: "0.1"
+store_root: "~/oasis-catalog-store"
+
+datasets:
+  - id: mpc
+    title: "Minor Planet Center"
+    kind: remote
+    access:
+      protocol: https
+      base_url: "https://www.minorplanetcenter.net"
+      auth: none
+    provider: mpc
+    licence: "Minor Planet Center — see https://www.minorplanetcenter.net/iau/info/Copyright.html"
+    catalogues:
+      - id: mpcorb
+        title: "MPCORB 轨道根数（小行星等）"
+        url: "https://www.minorplanetcenter.net/iau/MPCORB/MPCORB.DAT.gz"
+        target_dir: "catalogs/mpc/elements"
+        format: "fixed-width text (gzip; K-format epochs)"
+      - id: cometels
+        title: "彗星轨道根数"
+        url: "https://www.minorplanetcenter.net/iau/MPCORB/CometEls.txt"
+        target_dir: "catalogs/mpc/elements"
+        format: "fixed-width text"
+
+  - id: oasis_store
+    title: "OASIS 本地源表仓库"
+    kind: local_store
+    access:
+      protocol: file
+      path: "~/oasis-catalog-store"
+    catalogues:
+      - id: mpc_elements
+        title: "MPC 根数（本地已交付）"
+        path: "catalogs/mpc/elements"
+        manifest: "manifest.json"

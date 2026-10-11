@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# OASIS catalogue CLI launcher — wraps: PYTHONPATH=src python3 -m oasis_catalog "$@"
+# Usage:
+#   tools/oasis-catalog list
+#   tools/oasis-catalog update [CATALOGUE_ID ...] [--force]
+#   tools/oasis-catalog verify [CATALOGUE_ID ...]
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+exec env PYTHONPATH="$ROOT/src${PYTHONPATH:+:$PYTHONPATH}" python3 -m oasis_catalog "$@"

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# On-demand delivery refresh for UR-2026-1012 (manual runs; no automation).
+# Usage:
+#   tools/refresh-delivery mpc                 # store update -> reparse -> HDF5 -> verify
+#   tools/refresh-delivery gaia [--skip-export]  # re-export tiers (or reuse) -> assemble -> verify
+#   tools/refresh-delivery verify              # just run the delivery verifier
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+exec env PYTHONPATH="$ROOT/src${PYTHONPATH:+:$PYTHONPATH}" python3 -m oasis_datasets.delivery "$@"

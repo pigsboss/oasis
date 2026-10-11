@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# OASIS datasets CLI launcher — wraps: PYTHONPATH=src python3 -m oasis_datasets "$@"
+# Usage:
+#   tools/oasis-datasets list [ids...]
+#   tools/oasis-datasets verify <ids...> [--sample N] [--full]
+#   tools/oasis-datasets sync <ids...> (--to <storage-id> | --to-path DIR) [--apply]
+#   tools/oasis-datasets probe [ids...] [--channel id] [--timeout S]
+#   tools/oasis-datasets storages [--json]
+#   tools/oasis-datasets web [--port 8787] [--no-open]
+#   tools/oasis-datasets slice list | slice run <ids...> [--chunks M-N] [--apply]
+#   tools/oasis-datasets mirror <ids...> --to <storage-id> [--parallel N] [--apply]
+#   tools/oasis-datasets tasks list | tasks show <id> | tasks watch <id>
+#   tools/oasis-datasets mpc parse [--raw PATH] [--dest DIR] [--apply]
+#   tools/oasis-datasets hdf5 <csv.gz...> [--dest DIR] [--apply]
+#   tools/oasis-datasets inventory validate
+#   tools/oasis-datasets propose <spec.yaml> | review list|approve|reject <id> [--note N]
+#   tools/oasis-datasets migrate-config [--dry-run] [--force]
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+exec env PYTHONPATH="$ROOT/src${PYTHONPATH:+:$PYTHONPATH}" python3 -m oasis_datasets "$@"
