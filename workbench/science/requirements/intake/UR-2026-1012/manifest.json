@@ -1,0 +1,29 @@
+{
+  "package": "oasis_UR_提交包",
+  "version": "v0.1",
+  "submitted": "2026-10-12",
+  "provider": "深空任务建模仿真可视化（用户侧）",
+  "role": "user",
+  "target": "oasis 源表管理（MEAYIN-OASIS）",
+  "files": [
+    {
+      "id": "00_提交函.md",
+      "path": "00_提交函.md",
+      "bytes": 3079,
+      "sha256": "43958f56b4539b6f20e10f924bb66e2b230a6ee1ea4b25a2095372487233fbdb"
+    },
+    {
+      "id": "UR-清单.md",
+      "path": "UR-清单.md",
+      "bytes": 2773,
+      "sha256": "99eff9ad9ae01505a8ac741c15d22a5ce28ab8102ede5be25f05906b5d7aa815"
+    },
+    {
+      "id": "附_接口与数据.md",
+      "path": "附_接口与数据.md",
+      "bytes": 2584,
+      "sha256": "79dce2d4f289465975c79fb7111815e543694f79ecbe5d7320fe7adea4b66248"
+    }
+  ],
+  "note": "消费端只认 manifest；UR 与验收判据见 UR-清单.md"
+}
