@@ -97,12 +97,20 @@
 | `coordinates` | `SkyCoord` (astropy) | 是 | 天体坐标，包含 RA、Dec 及可选的视向距离。 |
 | `proper_motion` | `tuple[Quantity, Quantity]` | 是 | 自行，格式为 `(pm_ra_cosdec, pm_dec)`，单位通常为 `mas/yr`。 |
 | `spectral_model` | `SpectralModel` | 是 | 描述光源光谱能量分布的模型。 |
+| `epoch` | `str` | 否 | 天体测量时标（如 `"J2016.0"`、`"J2000"`）。默认 `"J2000"`；星表来源应由 Ingest 工具显式写入（ADR 0009）。 |
+| `frame` | `str` | 否 | 参考架（默认 `"ICRS"`）。 |
+| `catalogue` | `Optional[CatalogueEntry]` | 否 | 星表溯源块：`catalog`（如 `"gaia_dr3"`）与 `source_id` 必填；`parallax`/`phot_g_mean_mag`/`bp_rp`/`teff` 可选（均为 Quantity，原始值保真）。映射口径见 ADR 0009。 |
 
 ### 3.4 约束与不变量
 
 - `coordinates` 必须包含 RA 和 Dec；距离（distance）可选。
 - `proper_motion` 的两个分量单位必须一致且允许空值（零自行）。
 - `spectral_model` 不能为 `None`。
+- `epoch`/`frame` 与 `catalogue` 为类型化字段，**禁止**放入 `metadata`（ADR 0007/0009）。
+- `distance` 与 `parallax` 的换算口径：`distance = 1000 / parallax`（mas → pc）；视差 ≤ 0 时 `distance` 缺省并保留原始视差。
+- `catalogue.catalog = "gaia_dr3"` 时 `epoch` 应显式写 `"J2016.0"`（Ingest 工具负责，模型层不做隐式推断）。
+- Gaia `pmra`（已含 cos δ 因子）与 `pm_ra_cosdec` **直接映射**（单位 mas/yr），不得重复乘除 cos δ。
+- 测光字段（`phot_g_mean_mag`/`bp_rp` 等）**不自动派生** `spectral_model`；保留原始测光值；可选派生映射（如 `bp_rp`→`teff`）须显式启用并标注 `derived`。
 
 ---
 
@@ -268,3 +276,41 @@
 ---
 
 > **注意**：`HierarchyDescriptor` 的定义已在 §1 中给出，此处不再重复。本章节涵盖了 target layer 所有核心数据类型，后续若需添加新辅助类型（如 `UncertaintyDescriptor`、`WCS` 详细描述等），可追加于本章之后。
+
+---
+
+## 10. DynamicalModel（太阳系天体）
+
+### 10.1 概述
+
+`DynamicalModel` 表示以轨道动力学定义位置的太阳系天体（小行星、彗星等），继承自 `TargetModel`，
+与 `SourceModel` 平级（见 ADR 0008）。位置由轨道传播计算，**属物理引擎实现阶段职责**；本模型仅承载定义与口径。
+
+### 10.2 字段定义
+
+| 字段名 | Python 类型 | 必需 | 说明 |
+|:---|:---|:---|:---|
+| `epoch` | `str` | 是 | 根数历元（MPC 口径，如 `"2023-02-25 TDB"`）。 |
+| `elements` | `OrbitalElements` | 是 | 轨道根数块（见 §10.3）。 |
+| `H` | `Quantity` | 是 | 绝对星等（mag）。 |
+| `frame` | `str` | 否 | 坐标系；默认 `"heliocentric ecliptic J2000"`；例外（如重心系 NEO）须显式声明。 |
+| `category` | `enum` | 否 | `MBA` / `NEO` / `centaur` / `TNO`。 |
+| `spectral_model` | `Optional[SpectralModel]` | 否 | 有 SED 时的补充谱信息。 |
+| `position_snapshots` | `Optional[list]` | 否 | 位置快照序列；元素形如 `{time, x, y, z}`（frame 坐标系，Quantity），观测变体 `{time, ra, dec, distance}`。 |
+
+### 10.3 辅助类型 `OrbitalElements`
+
+| 字段 | 类型 | 必需 | 说明 |
+|:---|:---|:---|:---|
+| `a` | `Quantity` | 是 | 半长轴。 |
+| `e` | `Quantity`（无量纲） | 是 | 偏心率。 |
+| `i` | `Quantity` | 是 | 轨道倾角。 |
+| `raan` | `Quantity` | 是 | 升交点经度 Ω（对应 MPCORB 的 Node/Ω）。 |
+| `argp` | `Quantity` | 是 | 近日点幅角 ω。 |
+| `M` 或 `Tp` | `Quantity` / `str` | 二选一 | 平近点角 `M`（建议 deg）或过近日点时刻 `Tp`（时间字符串或 Quantity）。 |
+
+### 10.4 约束与不变量
+
+- `M` 与 `Tp` 不得同时缺失；实现须声明同时提供时的取用口径。
+- 角度字段建议单位 `deg`（MPC 口径）；元素与历元原样保留，不做单位改写。
+- 位置计算不在此模型层实现；快照生成由物理引擎按需产出（ADR 0008）。

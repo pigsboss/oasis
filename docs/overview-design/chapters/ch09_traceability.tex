@@ -51,9 +51,11 @@ UC-2 & 系外行星场景 & 凌星光变 + 光谱组合模型 \\
 UC-3 & AGN / 吸积盘 & 多尺度图像 + 光谱 \\
 UC-4 & 消光与各向异性背景 & TransmissionModel + BackgroundModel 组合 \\
 UC-5 & 参数扫描与正反演闭环 & YAML 扫描输入 $\rightarrow$ 反演输入包 $\rightarrow$ 参数更新 \\
+UC-6 & 太阳系天体（MOTION-001 新增） & DynamicalModel 轨道根数 $\rightarrow$ 指定时刻位置；验收归 C 循环（TV-002） \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 用例的正式条目（输入样例、预期结果、通过判据）与实测记录见 \texttt{science/use-cases/} 与
-\texttt{science/test-reports/TV-001}（P4 阶段产出）。
+\texttt{science/test-reports/TV-001}（P4 阶段产出）。注：UR-2026-1012 增补需求（UR-OASIS-01…09）的追溯并入
+TRACE-001 更新；UC-6 的验收在 C 循环执行（TV-002）。

@@ -1,6 +1,6 @@
 @startuml
 ' 目标层核心类图
-' 基于 docs/design/targets.md 4.1 数据类型定义
+' 基于 docs/design/targets.md 4.1 数据类型定义（含 ADR 0008/0009 扩展）
 
 skinparam classAttributeIconSize 0
 skinparam classFontStyle normal
@@ -28,10 +28,42 @@ package "目标层数据类型" {
         + evaluate(coords : SkyCoord) : Quantity
     }
 
+    class CatalogueEntry {
+        + catalog : str
+        + source_id : str
+        + parallax : Quantity
+        + phot_g_mean_mag : Quantity
+        + bp_rp : Quantity
+        + teff : Quantity
+    }
+
+    class OrbitalElements {
+        + a : Quantity
+        + e : Quantity
+        + i : Quantity
+        + raan : Quantity
+        + argp : Quantity
+        + M : Quantity
+        + Tp : Optional<Quantity|str>
+    }
+
     class SourceModel extends TargetModel {
         + coordinates : SkyCoord
         + proper_motion : tuple<Quantity>
         + spectral_model : SpectralModel
+        + epoch : str
+        + frame : str
+        + catalogue : Optional<CatalogueEntry>
+    }
+
+    class DynamicalModel extends TargetModel {
+        + epoch : str
+        + elements : OrbitalElements
+        + H : Quantity
+        + frame : str
+        + category : DynamicalCategory
+        + spectral_model : SpectralModel
+        + position_snapshots : Optional<list>
     }
 
     class BackgroundModel extends TargetModel {
@@ -65,7 +97,18 @@ package "目标层数据类型" {
         cube
     }
 
+    enum DynamicalCategory {
+        MBA
+        NEO
+        centaur
+        TNO
+    }
+
     SourceModel "1" --> "1" SpectralModel : uses
+    SourceModel "1" --> "0..1" CatalogueEntry : traced by
+    DynamicalModel "1" --> "1" OrbitalElements : has
+    DynamicalModel "1" --> "0..1" SpectralModel : uses (optional)
+    DynamicalModel "1" --> "0..1" DynamicalCategory : categorized as
     BackgroundModel "1" --> "1" SpectralModel : uses
     TransmissionModel "1" --> "1" SpectralModel : uses
     BackgroundModel "1" --> "0..1" SpatialModel : uses (when anisotropic)
@@ -86,6 +129,16 @@ end note
 note right of SpatialModel
   空间分布描述符抽象基类
   具体类型如常数、多项式、HEALPix 查找表、黄道光模型等子类实现
+end note
+
+note right of CatalogueEntry
+  星表溯源块（ADR 0009）
+  原始值保真：ID/视差/测光
+end note
+
+note right of DynamicalModel
+  太阳系天体动力学模型（ADR 0008）
+  位置计算属物理引擎实现阶段
 end note
 
 note top of TargetHistogram

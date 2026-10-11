@@ -27,6 +27,17 @@ if python3 workbench/design/tools/check_docs.py; then pass "E2/E3 文档检查";
 echo '-- E4 YAML 示例与 Schema 校验 --'
 if python3 workbench/design/tools/validate_yaml.py; then pass "E4 YAML Schema"; else fail "E4 YAML Schema"; fi
 
+echo '-- 图示语法（PlantUML）--'
+PLANTUML_OK=1
+for f in docs/diagrams/targets/*.puml; do
+  plantuml -checkonly "$f" >/dev/null 2>&1 || PLANTUML_OK=0
+done
+if [ "$PLANTUML_OK" = 1 ]; then
+  pass "PlantUML 语法检查（3 图）"
+else
+  fail "PlantUML 语法检查"
+fi
+
 echo '-- E5 LaTeX 构建 --'
 if (cd docs/overview-design && latexmk -xelatex -interaction=nonstopmode main.tex >/tmp/oasis_latexmk.log 2>&1) && [ -f docs/overview-design/main.pdf ]; then
   pass "E5 latexmk 构建 + main.pdf"
@@ -45,11 +56,11 @@ else
   fail "E7 ICN 台账仍有 OPEN 条目"
 fi
 
-echo '-- E8 门禁记录 --'
+echo '-- E8 门禁与复核记录 --'
 E8_OK=1
-for f in RR-001 RR-002; do grep -q '通过' "workbench/review/review-reports/$f.md" 2>/dev/null || E8_OK=0; done
-for f in GR-001 GR-002; do grep -q '准予' "workbench/qm/gate-records/$f.md" 2>/dev/null || E8_OK=0; done
-if [ "$E8_OK" = 1 ]; then pass "E8 G1/G2 门禁记录（RR-001/002、GR-001/002）齐备且通过"; else fail "E8 门禁记录缺失或未通过"; fi
+for f in RR-001 RR-002 RR-003; do grep -q '通过' "workbench/review/review-reports/$f.md" 2>/dev/null || E8_OK=0; done
+for f in GR-001 GR-002 GR-003; do grep -qE '准予|闭环' "workbench/qm/gate-records/$f.md" 2>/dev/null || E8_OK=0; done
+if [ "$E8_OK" = 1 ]; then pass "E8 门禁/复核记录（RR-001/002/003、GR-001/002/003）齐备且通过"; else fail "E8 门禁/复核记录缺失或未通过"; fi
 
 echo '-- E9 测试报告（P4 产物）--'
 TV=workbench/science/test-reports/TV-001.md

@@ -13,6 +13,14 @@ source:
   proper_motion:
     pm_ra_cosdec: {value: 34.5, unit: "mas/yr"}
     pm_dec: {value: -12.3, unit: "mas/yr"}
+  epoch: "J2016.0"
+  frame: "ICRS"
+  catalogue:
+    catalog: "gaia_dr3"
+    source_id: "5853498713190525696"
+    parallax: {value: 15.2, unit: "mas"}
+    phot_g_mean_mag: {value: 5.71, unit: "mag"}
+    bp_rp: {value: 1.02, unit: "mag"}
   spectral_model:
     type: "blackbody"
     parameters:

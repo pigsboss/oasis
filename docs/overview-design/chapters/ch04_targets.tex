@@ -66,7 +66,11 @@ Result Repository & 数据段 & 持久化、缓存、版本快照与生命周期
   \item \texttt{TargetModel}：抽象基类，字段 \texttt{name} / \texttt{provider} / \texttt{version} /
         \texttt{metadata} / \texttt{hierarchy}；模型实例视为逻辑不可变，变更须递增版本。
   \item \texttt{SourceModel}：\texttt{coordinates}（SkyCoord 兼容）、\texttt{proper\_motion}、
-        \texttt{spectral\_model}。
+        \texttt{spectral\_model}；\texttt{epoch}/\texttt{frame}（默认 J2000/ICRS）与可选星表块
+        \texttt{catalogue}（ID/视差/测光，ADR 0009）。
+  \item \texttt{DynamicalModel}（ADR 0008）：定位太阳系天体（小行星等）——\texttt{epoch}、
+        \texttt{elements}（\texttt{a}/\texttt{e}/\texttt{i}/\texttt{raan}/\texttt{argp} 与 \texttt{M} 或 \texttt{Tp}）、
+        \texttt{H}、可选 \texttt{category} 与位置快照序列；位置计算属物理引擎实现阶段。
   \item \texttt{BackgroundModel}：\texttt{region}、\texttt{spectral\_model}、\texttt{is\_isotropic}（默认 true）、
         \texttt{spatial\_model}（各向异性时必填，见 ADR 0006）。
   \item \texttt{TransmissionModel}：\texttt{optical\_depth}、\texttt{transmission\_curve}（可选，优先于参数化模型）、

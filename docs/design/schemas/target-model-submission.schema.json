@@ -2,13 +2,18 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://oasis.local/schemas/target-model-submission.schema.json",
   "title": "OASIS YAML 参数化模型提交（用户输入）",
-  "description": "对应 docs/design/targets.md §4.4.1 与 docs/design/targets_interfaces.md §2.1.1；source 必选。",
+  "description": "对应 docs/design/targets.md §4.4.1 与 docs/design/targets_interfaces.md §2.1.1；source 与 dynamical 至少其一（ADR 0008/0009）。",
   "type": "object",
-  "required": ["oasis_version", "theme", "source"],
+  "required": ["oasis_version", "theme"],
+  "anyOf": [
+    { "required": ["source"] },
+    { "required": ["dynamical"] }
+  ],
   "properties": {
     "oasis_version": { "type": "string" },
     "theme": { "type": "string" },
     "source": { "$ref": "#/$defs/source_model" },
+    "dynamical": { "$ref": "#/$defs/dynamical_model" },
     "background": { "$ref": "#/$defs/background_model" },
     "transmission": { "$ref": "#/$defs/transmission_model" }
   },
@@ -80,6 +85,19 @@
       },
       "additionalProperties": true
     },
+    "catalogue_entry": {
+      "type": "object",
+      "required": ["catalog", "source_id"],
+      "properties": {
+        "catalog": { "type": "string", "minLength": 1 },
+        "source_id": { "type": "string", "minLength": 1 },
+        "parallax": { "$ref": "#/$defs/value_unit" },
+        "phot_g_mean_mag": { "$ref": "#/$defs/value_unit" },
+        "bp_rp": { "$ref": "#/$defs/value_unit" },
+        "teff": { "$ref": "#/$defs/value_unit" }
+      },
+      "additionalProperties": false
+    },
     "source_model": {
       "type": "object",
       "required": ["name", "coordinates", "proper_motion", "spectral_model"],
@@ -89,6 +107,9 @@
         "provider": { "type": "string", "minLength": 1 },
         "version": { "type": "string" },
         "metadata": { "type": "object" },
+        "epoch": { "type": "string" },
+        "frame": { "type": "string" },
+        "catalogue": { "$ref": "#/$defs/catalogue_entry" },
         "coordinates": {
           "type": "object",
           "required": ["ra", "dec"],
@@ -109,6 +130,55 @@
           "additionalProperties": false
         },
         "spectral_model": { "$ref": "#/$defs/spectral_model" }
+      },
+      "additionalProperties": true
+    },
+    "orbital_elements": {
+      "type": "object",
+      "required": ["a", "e", "i", "raan", "argp"],
+      "properties": {
+        "a": { "$ref": "#/$defs/value_unit" },
+        "e": { "$ref": "#/$defs/value_unit" },
+        "i": { "$ref": "#/$defs/value_unit" },
+        "raan": { "$ref": "#/$defs/value_unit" },
+        "argp": { "$ref": "#/$defs/value_unit" },
+        "M": { "$ref": "#/$defs/value_unit" },
+        "Tp": {
+          "oneOf": [
+            { "$ref": "#/$defs/value_unit" },
+            { "type": "string" }
+          ]
+        }
+      },
+      "anyOf": [
+        { "required": ["M"] },
+        { "required": ["Tp"] }
+      ],
+      "additionalProperties": false
+    },
+    "dynamical_model": {
+      "type": "object",
+      "required": ["name", "epoch", "elements", "H"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "extends": { "type": "string" },
+        "provider": { "type": "string", "minLength": 1 },
+        "version": { "type": "string" },
+        "metadata": { "type": "object" },
+        "epoch": { "type": "string", "minLength": 1 },
+        "frame": { "type": "string" },
+        "category": { "enum": ["MBA", "NEO", "centaur", "TNO"] },
+        "elements": { "$ref": "#/$defs/orbital_elements" },
+        "H": { "$ref": "#/$defs/value_unit" },
+        "spectral_model": { "$ref": "#/$defs/spectral_model" },
+        "position_snapshots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["time"],
+            "additionalProperties": true
+          }
+        }
       },
       "additionalProperties": true
     },

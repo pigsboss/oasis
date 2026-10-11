@@ -8,7 +8,7 @@ cd "$(dirname "$0")/../../.." || exit 2
 
 PASS=0; FAIL=0
 
-echo '== 正例：文档示例 + UC 样例（7 对象）经 JSON Schema =='
+echo '== 正例：文档示例 + UC 样例（9 对象：文档 3 + 样例 6）=='
 if python3 workbench/design/tools/validate_yaml.py; then
   echo 'POSITIVE: PASS'
   PASS=$((PASS + 1))
@@ -35,7 +35,7 @@ cases = {}
 c = copy.deepcopy(base4); del c['background']['spatial_model']
 cases['N1 异向背景缺 spatial_model'] = c
 c = copy.deepcopy(base1); del c['source']
-cases['N2 缺 source（顶层必填）'] = c
+cases['N2 缺 source 且无 dynamical（顶层至少其一）'] = c
 c = copy.deepcopy(base1); c['source']['spectral_model']['parameters']['temperature'] = {'value': 'warm', 'unit': 'K'}
 cases['N3 value 非数值'] = c
 

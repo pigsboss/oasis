@@ -5,8 +5,8 @@
 
 顶层字段与约束：
 \begin{itemize}
-  \item 必填：\texttt{oasis\_version}、\texttt{theme}，以及至少一个模型定义块（\texttt{source} 必选；
-        \texttt{background}、\texttt{transmission} 可选）；编码 UTF-8；
+  \item 必填：\texttt{oasis\_version}、\texttt{theme}，以及至少一个模型定义块
+        （\texttt{source} 与 \texttt{dynamical} 至少其一，见 ADR 0008/0009；\texttt{background}、\texttt{transmission} 可选）；编码 UTF-8；
   \item 物理量统一以 \texttt{\{value, unit\}} 表达，单位兼容天文标准单位制；
   \item \texttt{extends} 支持引用基础模型或上级主题；参数扫描支持 \texttt{linspace} / \texttt{logspace} / \texttt{list}；
   \item 物理语义校验（量纲一致性、非物理取值）由模型段执行，不前置在文件解析层。

@@ -24,7 +24,7 @@
 ```yaml
 oasis_version: "1.0"
 theme: "stellar"                 # 科学主题标识
-source:                          # 必选，SourceModel 定义
+source:                          # 必选其一（source/dynamical），SourceModel 定义
   name: "sun_like_1"
   coordinates:
     ra: {value: 83.633, unit: "deg"}
@@ -32,6 +32,12 @@ source:                          # 必选，SourceModel 定义
   proper_motion:
     pm_ra_cosdec: {value: 0.0, unit: "mas/yr"}
     pm_dec: {value: 0.0, unit: "mas/yr"}
+  epoch: "J2016.0"
+  frame: "ICRS"
+  catalogue:
+    catalog: "gaia_dr3"
+    source_id: "5853498713190525696"
+    parallax: {value: 15.2, unit: "mas"}
   spectral_model:
     type: "blackbody"
     parameters:
@@ -54,7 +60,10 @@ transmission:                    # 可选，TransmissionModel 定义
 ```
 
 **字段约束**（由 Input Validator 执行）：
-- `source`：必选；`background`、`transmission` 可选。
+- `source` 与 `dynamical` **至少其一**（恒星/星系类用 `source`；太阳系天体用 `dynamical`，见 ADR 0008）；`background`、`transmission` 可选。
+- `epoch`/`frame`：可选，默认 `"J2000"`/`"ICRS"`；`catalogue.catalog = "gaia_dr3"` 时 `epoch` 应显式写 `"J2016.0"`（ADR 0009）。
+- `catalogue`：可选子块；`catalog` 与 `source_id` 必填；`parallax`/`phot_g_mean_mag`/`bp_rp`/`teff` 为 `{value, unit}`，原始值保真。
+- `dynamical`：必填 `name`/`epoch`/`elements`/`H`；`elements` 含 `a`/`e`/`i`/`raan`/`argp` 与 `M` 或 `Tp` 二选一；`frame` 默认日心黄道 J2000；`category` 可选（MBA/NEO/centaur/TNO）。
 - `name`：非空字符串，在同一个 YAML 文件内唯一（层级命名空间后期由 Hierarchy Manager 补充）。
 - `provider`：可选，默认 `"user"`；若提供，不可为空。
 - `version`：可选，默认 `"0.1.0"`，需符合语义版本格式。

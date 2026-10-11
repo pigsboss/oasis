@@ -214,7 +214,7 @@
 **接口文件要求（YAML 参数化模型）**
 
 - **编码**：采用 UTF-8 编码
-- **顶层必填字段**：须包含 `oasis_version`、`theme`，以及至少一个模型定义块（`source` 必选；`background`、`transmission` 可选）
+- **顶层必填字段**：须包含 `oasis_version`、`theme`，以及至少一个模型定义块（`source` 与 `dynamical` 至少其一；`background`、`transmission` 可选）
 - **层级继承**：支持 `extends` 关键字引用基础模型或上级主题
 - **物理量表达**：所有带量纲数值须以 `value` + `unit` 键值对表示，单位字符串须兼容天文标准单位制
 - **参数扫描**：支持 `linspace`、`logspace`、`list` 三种参数网格定义
@@ -425,7 +425,8 @@ A–H 接口严格遵循段间内存对象契约。开发、测试及故障诊�
 | 数据类型 | 说明 | 关键字段 |
 |:---|:---|:---|
 | `TargetModel` | 参数化模型的抽象基类，携带通用标识、层级属性与溯源信息 | `name` (str), `provider` (str), `version` (str), `metadata` (dict), `hierarchy` (Optional[HierarchyDescriptor]) |
-| `SourceModel` | 目标区域信号源的参数化模型，继承自 `TargetModel` | `coordinates` (SkyCoord 兼容), `proper_motion` (Quantity 对), `spectral_model` (描述光谱类型与参数，涵盖辐射光谱与透过率曲线的抽象) |
+| `SourceModel` | 目标区域信号源的参数化模型，继承自 `TargetModel` | `coordinates` (SkyCoord 兼容), `proper_motion` (Quantity 对), `spectral_model` (描述光谱类型与参数，涵盖辐射光谱与透过率曲线的抽象), `epoch`/`frame` (时标与参考架，默认 J2000/ICRS), `catalogue` (可选星表块：ID/视差/测光，见 ADR 0009) |
+| `DynamicalModel` | 太阳系天体的动力学模型，继承自 `TargetModel`（见 ADR 0008） | `epoch` (根数历元), `elements` (`a`/`e`/`i`/`raan`/`argp` + `M`/`Tp`), `H` (绝对星等), `frame`, `category` (可选), `spectral_model` (可选), `position_snapshots` (可选) |
 | `BackgroundModel` | 目标区域背景辐射的参数化模型，继承自 `TargetModel` | `region` (全天或区域参数), `spectral_model` (同 `SourceModel` 共用抽象), `is_isotropic` (bool，默认 true), `spatial_model` (各向异性时必填，见 ADR 0006) |
 | `TransmissionModel` | 目标区域介质对信号传输的透过率模型，继承自 `TargetModel` | `optical_depth` (Quantity), `transmission_curve` (描述透过率曲线), `spectral_model` (涵盖辐射光谱与透过率曲线的抽象) |
 | `TargetHistogram` | 目标区域亮度在空间/时间/波长维度上的离散分布（直方图），继承自 `TargetModel` | `data` (ndarray), `axes` (List[AxisDescriptor]), `units` (Quantity/Unit), `uncertainty` (噪声描述), `histogram_type` (枚举：image/spectrum/light_curve/cube), `source_model_ref` (追溯信源), `background_model_ref` (追溯背景), `transmission_model_ref` (追溯介质) |
@@ -469,7 +470,7 @@ A–H 接口严格遵循段间内存对象契约。开发、测试及故障诊�
 以活动图/状态图的视角描述核心流程，标注泳道（段）和关键节点。
 
 #### 4.3.1 正演流程
-1. **接口段**：用户通过 CLI/API/YAML 提交一组参数化模型，包括 `SourceModel`（必选）、`BackgroundModel`（可选）及 `TransmissionModel`（可选）；Input Validator 进行语法和字段完整性检查。
+1. **接口段**：用户通过 CLI/API/YAML 提交一组参数化模型，包括 `SourceModel` 或 `DynamicalModel`（至少其一，见 ADR 0008）、`BackgroundModel`（可选）及 `TransmissionModel`（可选）；Input Validator 进行语法和字段完整性检查。
 2. **模型段**：Hierarchy Manager 解析继承链和版本；Conflict Detector 检查物理不自洽；Completeness Checker 验证计算链无断点。
 3. **模型段**：Physics Engine 获取计算资源（Compute Runtime），综合 `SourceModel`、`BackgroundModel` 和 `TransmissionModel` 执行数值仿真，生成 `TargetHistogram`（信号+背景经消光效应调制后的亮度分布）内存对象。
 4. **数据段**：Observables Interface 接收 `TargetHistogram`，委派 FITS/HDF5 I/O Manager 序列化为标准 FITS 文件包，写入层间交换目录，放置 `.forward_ready` 哨兵文件。
@@ -493,13 +494,13 @@ A–H 接口严格遵循段间内存对象契约。开发、测试及故障诊�
 
 #### 4.4.1 YAML 参数化模型（用户输入）
 
-用户通过 YAML 文件提交一组参数化模型，可包含一个或多个 `SourceModel`、`BackgroundModel`、`TransmissionModel` 的定义。顶层结构按科学主题组织，遵循层级继承规则。
+用户通过 YAML 文件提交一组参数化模型，可包含一个或多个 `SourceModel`、`DynamicalModel`、`BackgroundModel`、`TransmissionModel` 的定义。顶层结构按科学主题组织，遵循层级继承规则。
 
 - **编码**：UTF-8
 - **顶层字段**：
   - `oasis_version`（字符串）
   - `theme`（字符串，如 `stellar`, `exoplanet`, `galaxy`）
-  - 模型定义块，可包含 `source`、`background`、`transmission` 等键，每个键下为对应模型的参数描述
+  - 模型定义块：`source` 与 `dynamical` **至少其一**（太阳系天体用 `dynamical`，见 ADR 0008），可另含 `background`、`transmission` 等键，每个键下为对应模型的参数描述
 - **层级继承**：可选 `extends` 字段引用基础模型
 - **物理量表达**：`{value: <float>, unit: "<string>"}` 键值对
 - **参数扫描**：`linspace`（start, stop, num）、`logspace`（start, stop, num）、`list`（数组）

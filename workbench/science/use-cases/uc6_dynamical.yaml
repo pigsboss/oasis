@@ -1,0 +1,18 @@
+# UC-6 太阳系天体（DynamicalModel，UR-OASIS-05 / ADR 0008；数值为示意，非精确历表）
+# 关联：UR-OASIS-02/05/06；预期：Schema 校验通过；P4 验收归 C 循环（TV-002）
+oasis_version: "1.0"
+theme: "solar_system"
+dynamical:
+  name: "mpc_00433_eros"
+  provider: "mpc"
+  epoch: "2023-02-25 TDB"
+  frame: "heliocentric ecliptic J2000"
+  category: "NEO"
+  elements:
+    a: {value: 1.458, unit: "AU"}
+    e: {value: 0.223, unit: ""}
+    i: {value: 10.83, unit: "deg"}
+    raan: {value: 304.3, unit: "deg"}
+    argp: {value: 178.9, unit: "deg"}
+    M: {value: 320.2, unit: "deg"}
+  H: {value: 10.31, unit: "mag"}

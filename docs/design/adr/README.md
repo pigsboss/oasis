@@ -15,6 +15,8 @@ docs/design/adr/
 ├── 0005-provider-field-in-targetmodel.md
 ├── 0006-spatial-model-background.md
 ├── 0007-targetmodel-base-fields.md
+├── 0008-dynamical-model.md
+├── 0009-source-catalogue-fields.md
 └── ...
 ```
 

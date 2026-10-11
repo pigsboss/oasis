@@ -26,9 +26,11 @@ ABSENT = [
 
 PRESENT = [
     ("E3-08 provider/version 可选口径（data_model）", "docs/design/targets_data_model.md", "| `provider` | `str` | 否"),
-    ("E3-09 source 必选约束（interfaces）", "docs/design/targets_interfaces.md", "`source`：必选"),
+    ("E3-09 source/dynamical 至少其一（interfaces）", "docs/design/targets_interfaces.md", "`source` 与 `dynamical` **至少其一**"),
     ("E3-10 §3.2.7 FITS 口径（targets）", "docs/design/targets.md", "FITS 主数据 + JSON/YAML 辅助文件"),
     ("E3-11 反演输入版本键（interfaces）", "docs/design/targets_interfaces.md", "`OASIS_OBS_INTF_VER` ：接口规范版本"),
+    ("E3-12 catalogue 块（data_model）", "docs/design/targets_data_model.md", "CatalogueEntry"),
+    ("E3-13 DynamicalModel 章节（data_model）", "docs/design/targets_data_model.md", "## 10. DynamicalModel"),
 ]
 
 
