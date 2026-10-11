@@ -1,6 +1,6 @@
 # 科学需求集（UR Catalogue）
 
-- 编号：UR-CAT-001　版本：v0.1（2026-10-10）　编制：科学用户　监督：质量管理
+- 编号：UR-CAT-001　版本：v0.2（2026-10-11，并入 UR-OASIS 批次）　编制：科学用户　监督：质量管理
 - 依据：用户任务指令；PLAN-001 §6 用例方向；共享文献库（`quanz2022life`、`monnier2003optical`、`eisenhauer2023advances`、`duvert2017oifits`、`fits_standard40`、`greisen2002wcs`、`astropy2022`）
 - 范围：面向 OASIS 目标层当前设计阶段的科学需求；观测量层/载荷层需求待其设计立项后补充。
 - 用途：P1/P2 设计输入与追溯基线（UR → 设计 → UC/TV）；G1 评审时核查设计对全部 UR 的覆盖。
@@ -28,3 +28,27 @@
 
 - UR-010/UR-012 的可见度/良率计算实际发生在观测量层；当前设计阶段以「模型侧输入可表达、层间接口对齐」为覆盖判据，观测量层详细需求待立项后补充。
 - 需求变更须版本更新并附变更说明；G1 评审前需形成 UR→设计→UC/TV 追溯矩阵（`design/traceability/`）。
+
+---
+
+## 第二批：UR-OASIS（自 UR-2026-1012 提交包并入）
+
+- 来源：深空任务建模仿真可视化（用户侧）提交包 `UR-2026-1012`；**并入经项目负责人审定（流程门禁，2026-10-11）**；
+- 提交包原文保留于 `science/requirements/intake/UR-2026-1012/`（未改动）；
+- 交付回执：`~/Datasets/catalogs/回执_UR-2026-1012.md`（副本入库于 `science/deliveries/`）。
+
+| ID | 需求 | 优先级 | 设计落点 / 交付形态 | 状态（2026-10-11） |
+|:---|:---|:---|:---|:---|
+| UR-OASIS-01 | 源表覆盖·恒星：Gaia DR3 分档子集（T1 G≤6／T2 G≤9／T3 G≤12） | M | 交付批次 1：`gaia/t{1,2,3}/gaia_t*.csv.gz` + manifest | **已交付**（三档齐；行数与官方 TAP 逐行一致；字节可复现） |
+| UR-OASIS-02 | 源表覆盖·小天体：MPC 根数（a,e,i,Ω,ω,M＋epoch＋H；类别可筛） | M | 交付批次 2：`mpc/elements/mpc_elements.csv.gz`（20 列）+ 原始件 | **已交付**（1,571,791 行；类别规则 v1：NEO/TNO/Centaur/MBA/other） |
+| UR-OASIS-03 | 字段补充（恒星）：parallax/pm/g/bp_rp/source_id | M | `SourceModel.catalogue` 类型化块（MOTION-001 → ADR 0009） | 设计已承载（BASELINE-002） |
+| UR-OASIS-04 | epoch/frame 显式 | M | 模型字段（ADR 0009）+ 交付 manifest 逐件标注 | 设计已承载；交付已标注（J2016.0 / ICRS；MPC 为日心黄道 J2000 逐行 epoch） |
+| UR-OASIS-05 | DynamicalModel（太阳系天体） | M | ADR 0008（模型承载；位置传播属实现阶段） | 设计已承载（BASELINE-002） |
+| UR-OASIS-06 | 派生量口径 | M | 交付说明 §二（`distance=1000/parallax`；测光不自动派生） | 已随交付成文 |
+| UR-OASIS-07 | 批量导出＋manifest＋版本 | M | CSV.gz + 逐件 manifest；HDF5 可选 rendition（`renditions` 数组） | 已交付 |
+| UR-OASIS-08 | 溯源与许可 | M | manifest `provider/licence` + CREDITS；MPC 条款随件 | 已交付 |
+| UR-OASIS-09 | 导出消费约定（目录/命名/版本；一条命令校验） | M | `catalogs/gaia|mpc/…` 约定 + `verify.py`（10/10 ALL OK） | 已交付 |
+
+**用户验收判据对照（收到即验）**：① manifest 行数/门限/字段一致 → `verify.py` + 官方 TAP 计数；② 抽样可回溯官方源 → QC 回源（8/8×3 与 7/7）；③ epoch/frame 无缺 → manifest 逐件标注；④ 许可出处可查 → CREDITS/manifest；⑤ 同版本重复交付可复现 → 区块级与续跑路径 sha256 一致（全产物二次核对按用户决定不执行）。
+
+**变更记录**：v0.2（2026-10-11）——并入 UR-OASIS 批次 9 条与 5 判据；状态列按交付实况登记。
