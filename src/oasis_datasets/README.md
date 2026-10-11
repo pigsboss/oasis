@@ -94,6 +94,6 @@ tools/oasis-datasets migrate-config [--dry-run] [--force]   # 旧 config.dataset
   锥面查询毫秒级；
 - v0.2（M5 后补，裁决七）：kernels 底座资产管理——`~/.config/oasis/kernels.yaml` ＋
   store `/Volumes/ArecaStudio/Datasets/SPICE Kernels/`（生态数据区命名约定）＋ `kernels`
-  命令族（并行取件/校验/投送+manifest）；首件 de442／naif0012／pck00011 已官方校验登记（de441 未取）；
+  命令族（并行取件/校验/投送+manifest）；首件 de442／de440／naif0012／pck00011 已官方校验登记（de441 已取件，3.3 GB）；
 - v0.2 计划（M5 候选）：Web 端 mirror/sync 动作与预览、Web 整文件下载与 fmt.columns_ref、
   多文件镜像（清单驱动）、ssh 目标的实测接线（saturn/enceladus 上线后）。

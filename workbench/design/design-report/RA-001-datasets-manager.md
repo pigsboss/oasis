@@ -146,6 +146,8 @@ N-03 CLI=stdlib+PyYAML，Web 方案 A 维持**零新依赖**；N-04 英文日志
   kernels 为**发布型底座资产**（LSK/PCK/SPK/FK 等）——**不进 datasets 清单**，以平行注册
   `~/.config/oasis/kernels.yaml` 管理；OASIS 提供 `kernels list|verify|fetch|send`（探渠道、
   并行取件/续传、校验、按应用工作区投送＋manifest）；**消费规范（加载顺序/ET）归各应用**
-  （multistagecophasing ADR-001 首例）；首件登记：de442、naif0012、pck00011（均经官方校验），
-  de441 标"未取"；
-- 状态：**需求已立档；待审查通过后开工**（细则见 DSM-003 §5.1 与 DSM-004 §6 裁决六）。
+  （multistagecophasing ADR-001 首例）；首件登记：de442、de440、naif0012、pck00011（均经官方校验），
+  de441 已取件（3.3 GB，sha256 登记）；
+- 状态（2026-10-11 同步）：**F-11 已交付**——注册表＋store＋`kernels` 命令族就位；首件 5 件完成核验登记；
+  供应回执已出具（`回执_底座资产_kernels.md`，副本 `science/deliveries/SPICE-kernels/`）。
+  细则见 DSM-004 §6 裁决七；F-09/F-10 见 DSM-003 §5.1 与 DSM-004 §6 裁决一～六。

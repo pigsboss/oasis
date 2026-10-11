@@ -146,7 +146,7 @@ manifest 记录来源（catalogue/快照）与用途；重生成按需，生命�
 - 实现（已交付）：`~/.config/oasis/kernels.yaml`（平行注册）＋ store
   `/Volumes/ArecaStudio/Datasets/SPICE Kernels/<category>/` ＋ CLI `kernels list|verify|fetch|send --app`
   （并行 Range＋续传复用 mirror；`--proxy` 支持）；`send` 产出 `<app>/spice_kernels/oasis-manifest.json`；
-- 首件登记与验证：**de442**（对 JPL `aa_checksums.txt` 官方 md5 逐位一致）、**naif0012**、
-  **pck00011**（对 NAIF 现行文件重下载比对一致）；**de441**（3.3 GB）标"未取"（fetch 即补）；
+- 首件登记与验证：**de442**、**de440**（对 JPL `aa_checksums.txt` 官方 md5 逐位一致）、**naif0012**、
+  **pck00011**（对 NAIF 现行文件重下载比对一致）；**de441**（3.3 GB）已取件并登记 sha256；
 - 网络注记：JPL/NAIF 文件下载在本网络需 `HTTPS_PROXY=http://127.0.0.1:7897`
   （实测：主站 200、Horizons API、DE/SPICE 目录与取件均通；`ssd-api` 直连可达）。
