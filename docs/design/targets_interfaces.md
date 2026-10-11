@@ -2,10 +2,10 @@
 
 ## 1. 概述
 
-目标层接口遵循“段间内存对象契约”和“外部显式文件契约”的双重原则，确保内部组件松耦合、高性能，对外标准化、可审计。接口分为外部（面向用户、观测层、硬件）和内部（段间通信与支撑）两大类。
+目标层接口遵循“段间内存对象契约”和“外部显式文件契约”的双重原则，确保内部组件松耦合、高性能，对外标准化、可审计。接口分为外部（面向用户、观测量层、硬件）和内部（段间通信与支撑）两大类。
 
 **设计原则**：
-- **分段边界**：接口段只对用户/外部系统暴露，数据段只对观测层暴露，模型段不暴露对外接口。
+- **分段边界**：接口段只对用户/外部系统暴露，数据段只对观测量层暴露，模型段不暴露对外接口。
 - **类型安全**：所有跨段消息采用 Pydantic 模型，内置校验与序列化；物理量统一为 `{value, unit}` 结构。
 - **零拷贝/低拷贝**：大数组通过共享内存视图句柄传递，避免冗余序列化。
 - **异步解耦**：计算任务通过消息队列提交，资源状态通过发布-订阅事件流推送。
@@ -24,21 +24,37 @@
 ```yaml
 oasis_version: "1.0"
 theme: "stellar"                 # 科学主题标识
-source:                          # 可选，SourceModel 定义
-  name: "..."
-  ...
-background:                      # 可选，BackgroundModel 定义
-  name: "..."
-  is_isotropic: true/false
-  spatial_model:                 # 当 is_isotropic=false 时必填
-    type: "polynomial"
+source:                          # 必选，SourceModel 定义
+  name: "sun_like_1"
+  coordinates:
+    ra: {value: 83.633, unit: "deg"}
+    dec: {value: 22.014, unit: "deg"}
+  proper_motion:
+    pm_ra_cosdec: {value: 0.0, unit: "mas/yr"}
+    pm_dec: {value: 0.0, unit: "mas/yr"}
+  spectral_model:
+    type: "blackbody"
     parameters:
-      ...
+      temperature: {value: 5778, unit: "K"}
+background:                      # 可选，BackgroundModel 定义
+  name: "sky_bkg"
+  region: "full_sky"
+  is_isotropic: true             # 默认 true；为 false 时必须提供 spatial_model
+  spectral_model:
+    type: "power_law"
+    parameters:
+      alpha: {value: 0.0, unit: ""}
 transmission:                    # 可选，TransmissionModel 定义
-  ...
+  name: "ism_extinction"
+  optical_depth: {value: 0.3, unit: ""}
+  spectral_model:
+    type: "power_law"
+    parameters:
+      alpha: {value: -1.5, unit: ""}
 ```
 
 **字段约束**（由 Input Validator 执行）：
+- `source`：必选；`background`、`transmission` 可选。
 - `name`：非空字符串，在同一个 YAML 文件内唯一（层级命名空间后期由 Hierarchy Manager 补充）。
 - `provider`：可选，默认 `"user"`；若提供，不可为空。
 - `version`：可选，默认 `"0.1.0"`，需符合语义版本格式。
@@ -105,7 +121,7 @@ oasis download <task_id> [--output <dir>]
 ```json
 {
   "task_id": "uuid",
-  "status": "success",
+  "status": "completed",
   "mode": "forward",
   "output_products": {
     "target_histogram": { "id": "...", "fits_url": "..." },
@@ -154,6 +170,7 @@ oasis download <task_id> [--output <dir>]
 - `params.json` ：包含本次计算所用所有参数化模型的参数侧写（JSON 格式，纯数字+单位）。
 - `config.yaml` ：观测配置摘要（如网格大小、积分时间等）。
 - `processing_log.txt` ：计算过程元数据（英文日志摘要）。
+- CSV/TSV 处理指令：可选，随任务需要提供（如参数扫描批量说明）。
 
 **就绪通知**：所有文件写入完成后，在交换目录生成 `.forward_ready` 空哨兵文件。
 
@@ -168,6 +185,7 @@ oasis download <task_id> [--output <dir>]
   - `INSTRUMENT` ：仪器标识
   - `CALIB_VER` ：校准版本
   - `DATA_QUAL` ：数据质量标记（枚举：good, warning, bad）
+  - `OASIS_OBS_INTF_VER` ：接口规范版本（层间数据包版本兼容性校验依据）
 - 辅助文件：
   - `noise_model.json` ：噪声模型参数
   - `instrument_response.json` ：仪器响应函数（可选）
@@ -176,7 +194,7 @@ oasis download <task_id> [--output <dir>]
 **异常路径**：若 observables 层处理失败，放置 `.error` 文件，内容为 JSON：
 ```json
 {
-  "error_code": "OBS_001",
+  "error_code": "E_OBS_001",
   "english_message": "Calibration failed due to missing dark frame",
   "timestamp": "2026-04-11T10:20:00Z"
 }
@@ -190,6 +208,14 @@ oasis download <task_id> [--output <dir>]
 | `.forward_ready` | 目标层 | 正演产物就绪，observables 层可消费 |
 | `.inverse_ready` | observables 层 | 反演输入数据就绪 |
 | `.error` | 任意方 | 处理失败，阻止后续自动流转 |
+
+#### 2.2.4 与 OIFITS 2 的关系
+
+目标层与 observables 层之间交换的是目标区域的亮度分布产品（图像/光谱/光变，见 §2.2.1/§2.2.2），
+以 FITS 主数据 + JSON/YAML 辅助文件表达，不使用 OIFITS 表结构。
+OIFITS 2 是**干涉观测量**（可见度、闭合相位等）的交换标准，适用于观测量层与载荷层之间
+及对外发布环节（见 README「观测量层」）；当观测流程需要将目标模型转换为干涉观测量时，
+由观测量层负责 OIFITS 封装，目标层不直接产出 OIFITS。
 
 ### 2.3 本地硬件接口
 
@@ -301,7 +327,7 @@ class ArrayHandle(BaseModel):
 #### 3.2.3 反演管道（数据段 → 模型段）
 
 - **接口**：数据段解析完成后调用模型段的 `model_segment.on_inverse_data(bundle: ObservableModelBundle)`。
-- 异步模式，数据段从观测层获取数据后主动推送。
+- 异步模式，数据段从观测量层获取数据后主动推送。
 
 #### 3.2.4 结果管道（模型段 → 接口段）
 
@@ -359,6 +385,7 @@ class TaskState(str, Enum):
 | `E_COMPUTE_003` | Simulation diverged |
 | `E_DATA_001` | FITS header incompatible |
 | `E_DATA_002` | .error sentinel received from observables |
+| `E_OBS_001` | Observables layer processing failed (calibration, fringe extraction, etc.) |
 | `E_COMM_001` | Observatory node unreachable |
 
 模型段或数据段抛出异常时，必须包含错误码和英文消息，由 Result Presenter 封装进 `ResultBundle` 并呈现。
@@ -383,7 +410,7 @@ class TaskState(str, Enum):
 
 ## 6. 与现有设计的一致性
 
-- 所有涉及 `SpatialModel` 的 YAML 输入和 API 参数均需兼容 ADR 006 的字段定义。
+- 所有涉及 `SpatialModel` 的 YAML 输入和 API 参数均需兼容 ADR 0006 的字段定义。
 - `TargetHistogram` 的引用字段 `source_model_ref` 等，在正演输出时由模型段填充到 FITS 头部。
 - `HierarchyDescriptor` 在用户输入时可省略，由层级管理器在模型段内部补全；API 返回的模型中会携带完整层级信息。
 

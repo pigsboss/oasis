@@ -1,6 +1,6 @@
 @startuml
 ' 目标层核心类图
-' 基于 docs/guides/targets.md 4.1 数据类型定义
+' 基于 docs/design/targets.md 4.1 数据类型定义
 
 skinparam classAttributeIconSize 0
 skinparam classFontStyle normal
@@ -16,6 +16,9 @@ package "目标层数据类型" {
     }
 
     abstract class SpectralModel <<abstract>> {
+        + type : str
+        + parameters : dict
+        + metadata : dict
     }
 
     abstract class SpatialModel <<abstract>> {
@@ -65,7 +68,7 @@ package "目标层数据类型" {
     SourceModel "1" --> "1" SpectralModel : uses
     BackgroundModel "1" --> "1" SpectralModel : uses
     TransmissionModel "1" --> "1" SpectralModel : uses
-    BackgroundModel "0..1" --> "1" SpatialModel : uses (when anisotropic)
+    BackgroundModel "1" --> "0..1" SpatialModel : uses (when anisotropic)
     TargetHistogram --> HistogramType : has
 
 }

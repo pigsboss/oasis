@@ -1,0 +1,62 @@
+\section{总体设计}
+
+\subsection{设计原则}
+
+\begin{enumerate}
+  \item \textbf{格式统一}：尽可能使用 FITS 家族格式（图像 FITS + OIFITS），复用 \texttt{astropy.io.fits} 工具链；
+        目标层层间交换以 FITS 为确定格式，HDF5 仅用于开发诊断与大数组缓存；
+  \item \textbf{人机友好}：配置类数据采用文本格式；当前版本以 YAML 为确定输入接口；
+  \item \textbf{元数据完整}：所有文件携带充分元数据（WCS、时间、仪器状态、版本），保证可追溯；
+  \item \textbf{国际兼容}：干涉观测量交换以 OIFITS 2 为核心格式（观测量层 $\leftrightarrow$ 载荷层及对外发布）；
+  \item \textbf{异步解耦}：层间通过哨兵文件（\texttt{.forward\_ready} / \texttt{.inverse\_ready}）实现异步就绪通知，
+        异常通过 \texttt{.error} 哨兵传递英文错误码与摘要；
+  \item \textbf{可插拔、开放式}：观测目标模型按模块独立开发，通过注册机制集成；
+  \item \textbf{统一输出接口}：无论何种目标类型，均产出图像、光谱、光变三类标准可观测模型（偏振预留）；
+  \item \textbf{段间内存对象契约}：目标层各段之间以与文件格式无关的类型化内存对象交互，
+        禁止跨段直接操作字节流或文件句柄；大数组经共享内存视图实现零拷贝传递。
+\end{enumerate}
+
+\subsection{数据流}
+
+\begin{itemize}
+  \item \textbf{正演链路（T $\rightarrow$ O）}：用户 YAML/API 输入 $\rightarrow$ 接口段校验与提交 $\rightarrow$
+        模型段层级解析、冲突检测、完整性验证 $\rightarrow$ 物理引擎生成 \texttt{TargetHistogram}
+        $\rightarrow$ 数据段序列化 FITS 输出包 $\rightarrow$ 哨兵 \texttt{.forward\_ready}；
+  \item \textbf{反演链路（O $\rightarrow$ T）}：观测层数据产品 + \texttt{.inverse\_ready} $\rightarrow$
+        数据段解析为内存对象 $\rightarrow$ 模型段参数估计与统计评估 $\rightarrow$ 接口段呈现科学结论；
+  \item \textbf{异步任务生命周期}：排队 $\rightarrow$ 资源准入 $\rightarrow$ 执行 $\rightarrow$ 完成/异常，
+        支持资源不足时降级通知（详见第~\ref{sec:targets} 章）。
+\end{itemize}
+
+\subsection{外部接口清单}
+
+\begin{center}
+\begin{tabular}{p{3.2cm}p{2.2cm}p{2.8cm}p{6.4cm}}
+\toprule
+接口 & 承载方 & 对端 & 形式与说明 \\
+\midrule
+用户交互接口 & 接口段 & 科学用户 & YAML 参数化模型 / Python API / CLI；结果报告 JSON/YAML/Markdown/图表 \\
+观测量层交换接口 & 数据段 & 观测量层 & FITS 主数据 + JSON/YAML 辅助 + 哨兵文件（异步） \\
+本地硬件接口 & Compute Runtime & 本机/集群 & 资源状态采集与发布-订阅推送（计算/存储/网络） \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{约束与假设}
+\label{sec:constraints}
+
+\begin{itemize}
+  \item 当前版本以 \textbf{YAML} 为确定用户输入接口；若未来需要，再增加其它输入途径；
+  \item 层间交换以 \textbf{FITS} 为确定格式；HDF5 仅用于诊断与缓存，不参与层间交换；
+  \item 观测量层与载荷层尚未立项详细设计，本说明书对其给出接口级大纲；
+  \item 本设计阶段的交付不包含 OASIS 软件系统实现；验证以 JSON Schema、YAML 用例样例与检查脚本为载体；
+  \item 假设运行环境为 macOS/Linux 工作站（Python $\geq$ 3.12），可扩展至集群（MPI/GPU 为预留能力）；
+  \item 观测目标模型的物理语义校验（量纲、非物理取值）由模型段冲突检测承担，不前置到文件解析层。
+\end{itemize}
+
+\subsection{需求概述}
+
+科学需求集 UR-CAT-001 共 15 条（必须 9 条 / 应该 6 条），覆盖：模型输入与参数扫描、前向可观测输出、
+单位与坐标语义、数据互操作（FITS/OIFITS）、反演估计与一致性评估、背景各向异性、消光建模、
+双星与系外行星场景、任务级科学评估、溯源、异步与大文件、错误与可用性。
+需求到设计的完整追溯矩阵见第~\ref{sec:traceability} 章。

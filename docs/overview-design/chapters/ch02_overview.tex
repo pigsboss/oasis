@@ -1,0 +1,71 @@
+\section{系统概述}
+
+\subsection{科学背景与目标}
+
+OASIS 是一套面向科学用户的空间干涉仪软件工具，目标是帮助科学用户筹划观测任务、分析观测数据；
+在工程方案设计与研制阶段，还可用于评估方案科学目标的可实现性，为方案设计及试验验证提供参考。
+
+典型科学场景包括：
+\begin{itemize}
+  \item \textbf{双星干涉观测}：恒星模型到可见度、闭合相位性质的链路表达；
+  \item \textbf{系外行星探测}：LIFE 类空间干涉任务的探测良率评估 \cite{quanz2022life}；
+  \item \textbf{AGN / 吸积盘}：多尺度图像与光谱建模；
+  \item \textbf{背景与消光}：各向异性背景（黄道光等）与星际消光透过率建模。
+\end{itemize}
+
+\subsection{系统功能}
+
+系统包含三大核心功能：
+
+\begin{enumerate}
+  \item \textbf{模型全生命周期管理}：统一接收、组织观测目标参数化模型，支持语义解析、冲突检测、
+        完整性验证、版本控制与溯源；
+  \item \textbf{正向建模与仿真}：由参数化模型生成图像、光谱、光变（偏振预留）可观测模型，
+        输出标准 FITS 数据产品；
+  \item \textbf{参数反演与模型检验}：从高级科学数据产品中估计模型参数（MCMC / 嵌套采样 / 最大似然），
+        开展模型--数据一致性评估。
+\end{enumerate}
+
+观测目标模型按五级层级组织：基础模型 $\rightarrow$ 科学主题 $\rightarrow$ 研究方向（可选）
+$\rightarrow$ 观测任务 $\rightarrow$ 具体目标，确保基础模型单一来源、通过继承与组合复用。
+
+\subsection{总体架构（TOP 三层）}
+
+\begin{center}
+\begin{tabular}{clp{7.2cm}l}
+\toprule
+层 & 缩写 & 核心职责 & 数据流向 \\
+\midrule
+\textbf{T} & 目标层 \texttt{targets} & 观测目标建模（图像、光谱、参数）；内部为接口段/模型段/数据段三段式架构 &
+目标 $\rightarrow$ 观测量（正演） \\
+\textbf{O} & 观测量层 \texttt{observables} & 干涉观测量（可见度、闭合相位）模拟与重建 &
+观测量 $\leftrightarrow$ 载荷数据 \\
+\textbf{P} & 载荷层 \texttt{payloads} & 仪器数据生成与处理（探测器、条纹、噪声） &
+载荷数据 $\rightarrow$ 观测量（反演） \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{数据流}：正演（模拟）T $\rightarrow$ O $\rightarrow$ P（目标 $\rightarrow$ 观测量 $\rightarrow$ 载荷数据）；
+反演（分析）P $\rightarrow$ O $\rightarrow$ T。
+
+层间数据交换通过文件进行（FITS 家族 + 辅助 JSON/YAML），并以哨兵文件实现异步就绪通知。
+目标层内部采用三段式 V 型纵向架构：接口段（面向用户）、模型段（物理计算与统计推断）、
+数据段（文件与观测层边界）。
+
+\subsection{用户与角色}
+
+\begin{itemize}
+  \item \textbf{科学用户}：提出科学需求（UR），以天文用例开展测试与验证，出局测试报告（TV）；
+  \item \textbf{设计开发}：以系统工程方法完成设计与实现工件，出局方案设计报告（DR）；
+  \item \textbf{评审专家}：独立评审方案设计报告与测试报告，把控 G1/G2 门禁；
+  \item \textbf{质量管理}：过程监督、门禁管理与改进闭环，具叫停权。
+\end{itemize}
+
+外部系统：观测量层软件（未来联合部署）、外部天文数据库与文献检索服务。
+
+\subsection{运行环境}
+
+Python $\geq$ 3.12 科学计算栈（numpy、astropy \cite{astropy2022}）；数据交换格式 FITS / OIFITS 2；
+文档工程链：XeLaTeX + ctex（本说明书）、PlantUML（设计图）；知识基础设施：OpenAlex（文献检索）与
+MinerU（文献全文解析）。计算资源要求详见第~\ref{sec:nonfunctional} 章。

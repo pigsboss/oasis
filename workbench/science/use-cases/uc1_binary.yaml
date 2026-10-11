@@ -1,0 +1,27 @@
+# UC-1 双星干涉观测（主星单源表达；双源扩展见 TV-001 能力缺口记录）
+# 关联：UR-001/003/004/010；预期：Schema 校验通过；P4 走查可见度/闭合相位链路声明
+oasis_version: "1.0"
+theme: "stellar"
+source:
+  name: "binary_primary"
+  provider: "user"
+  version: "0.1.0"
+  coordinates:
+    ra: {value: 83.633, unit: "deg"}
+    dec: {value: 22.014, unit: "deg"}
+    distance: {value: 10.0, unit: "pc"}
+  proper_motion:
+    pm_ra_cosdec: {value: 34.5, unit: "mas/yr"}
+    pm_dec: {value: -12.3, unit: "mas/yr"}
+  spectral_model:
+    type: "blackbody"
+    parameters:
+      temperature: {value: 5778, unit: "K"}
+background:
+  name: "sky_bkg"
+  region: "annulus_10_20_arcsec"
+  is_isotropic: true
+  spectral_model:
+    type: "power_law"
+    parameters:
+      alpha: {value: 0.0, unit: ""}

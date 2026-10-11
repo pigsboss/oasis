@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oasis.local/schemas/target-model-submission.schema.json",
+  "title": "OASIS YAML 参数化模型提交（用户输入）",
+  "description": "对应 docs/design/targets.md §4.4.1 与 docs/design/targets_interfaces.md §2.1.1；source 必选。",
+  "type": "object",
+  "required": ["oasis_version", "theme", "source"],
+  "properties": {
+    "oasis_version": { "type": "string" },
+    "theme": { "type": "string" },
+    "source": { "$ref": "#/$defs/source_model" },
+    "background": { "$ref": "#/$defs/background_model" },
+    "transmission": { "$ref": "#/$defs/transmission_model" }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "value_unit": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {
+        "value": { "type": "number" },
+        "unit": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "grid": {
+      "type": "object",
+      "required": ["start", "stop", "num"],
+      "properties": {
+        "start": { "type": "number" },
+        "stop": { "type": "number" },
+        "num": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "scan": {
+      "type": "object",
+      "properties": {
+        "linspace": { "$ref": "#/$defs/grid" },
+        "logspace": { "$ref": "#/$defs/grid" },
+        "list": { "type": "array" },
+        "unit": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        { "required": ["linspace"] },
+        { "required": ["logspace"] },
+        { "required": ["list"] }
+      ]
+    },
+    "scannable": {
+      "oneOf": [
+        { "$ref": "#/$defs/value_unit" },
+        { "$ref": "#/$defs/scan" }
+      ]
+    },
+    "spectral_model": {
+      "type": "object",
+      "required": ["type", "parameters"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/scannable" }
+        },
+        "metadata": { "type": "object" }
+      },
+      "additionalProperties": true
+    },
+    "spatial_model": {
+      "type": "object",
+      "required": ["type", "parameters"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/scannable" }
+        },
+        "metadata": { "type": "object" }
+      },
+      "additionalProperties": true
+    },
+    "source_model": {
+      "type": "object",
+      "required": ["name", "coordinates", "proper_motion", "spectral_model"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "extends": { "type": "string" },
+        "provider": { "type": "string", "minLength": 1 },
+        "version": { "type": "string" },
+        "metadata": { "type": "object" },
+        "coordinates": {
+          "type": "object",
+          "required": ["ra", "dec"],
+          "properties": {
+            "ra": { "$ref": "#/$defs/value_unit" },
+            "dec": { "$ref": "#/$defs/value_unit" },
+            "distance": { "$ref": "#/$defs/value_unit" }
+          },
+          "additionalProperties": true
+        },
+        "proper_motion": {
+          "type": "object",
+          "required": ["pm_ra_cosdec", "pm_dec"],
+          "properties": {
+            "pm_ra_cosdec": { "$ref": "#/$defs/value_unit" },
+            "pm_dec": { "$ref": "#/$defs/value_unit" }
+          },
+          "additionalProperties": false
+        },
+        "spectral_model": { "$ref": "#/$defs/spectral_model" }
+      },
+      "additionalProperties": true
+    },
+    "background_model": {
+      "type": "object",
+      "required": ["name", "region", "spectral_model"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "extends": { "type": "string" },
+        "provider": { "type": "string" },
+        "version": { "type": "string" },
+        "metadata": { "type": "object" },
+        "region": { "type": "string", "minLength": 1 },
+        "is_isotropic": { "type": "boolean" },
+        "spatial_model": { "$ref": "#/$defs/spatial_model" },
+        "spectral_model": { "$ref": "#/$defs/spectral_model" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "is_isotropic": { "const": false } },
+            "required": ["is_isotropic"]
+          },
+          "then": { "required": ["spatial_model"] }
+        }
+      ],
+      "additionalProperties": true
+    },
+    "transmission_model": {
+      "type": "object",
+      "required": ["name", "optical_depth", "spectral_model"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "extends": { "type": "string" },
+        "provider": { "type": "string" },
+        "version": { "type": "string" },
+        "metadata": { "type": "object" },
+        "optical_depth": { "$ref": "#/$defs/scannable" },
+        "transmission_curve": { "type": "array" },
+        "spectral_model": { "$ref": "#/$defs/spectral_model" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

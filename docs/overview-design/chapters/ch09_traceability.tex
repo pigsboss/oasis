@@ -1,0 +1,59 @@
+\section{需求追溯与验证}
+\label{sec:traceability}
+
+\subsection{需求—设计追溯矩阵}
+
+科学需求集 UR-CAT-001（15 条：必须 9 / 应该 6）到本说明书设计的追溯如下
+（“覆盖”指设计层面已给出承载点；用例级验证见第~\ref{sec:traceability} 章后续小节与 TV 报告）。
+
+\begin{longtable}{p{1.5cm}p{4.6cm}p{6.0cm}p{2.6cm}}
+\toprule
+UR & 需求摘要 & 设计落点（本说明书） & 状态 \\
+\midrule
+\endhead
+UR-001 & 目标建模 YAML 输入（源必选，背景/透过率可选） & 第~6.1 节；第~4.3 节数据模型 & 覆盖 \\
+UR-002 & 参数扫描（linspace/logspace/list） & 第~6.1 节 & 覆盖 \\
+UR-003 & 前向可观测输出（图像/光谱/光变，偏振预留） & 第~4.3、4.5 节 & 覆盖 \\
+UR-004 & 单位与坐标语义（\{value,unit\}；SkyCoord/ICRS） & 第~4.3 节；第~6.1 节 & 覆盖 \\
+UR-005 & 数据互操作（FITS/WCS；OIFITS 对齐） & 第~6.2--6.5 节 & 覆盖 \\
+UR-006 & 反演参数估计（MCMC/嵌套采样/MLE） & 第~4.2、4.5 节 & 覆盖 \\
+UR-007 & 一致性评估（$\chi^2$/残差/AIC/BIC/贝叶斯因子） & 第~4.2、4.5 节 & 覆盖 \\
+UR-008 & 背景各向异性（空间模型，黄道光等） & 第~4.3 节；ADR 0006 & 覆盖 \\
+UR-009 & 消光/透过率（幂律/透过率曲线） & 第~4.3 节 & 覆盖 \\
+UR-010 & 双星场景（可见度/闭合相位链路） & 第~4.3 节 + 第~5.1 节接口 & 覆盖（接口级） \\
+UR-011 & 系外行星（凌星光变 + 光谱） & 第~4.3 节 & 覆盖 \\
+UR-012 & 任务级科学评估输入（LIFE 类） & 第~2.1--2.2 节 & 覆盖（接口级） \\
+UR-013 & 溯源（模型引用字段/版本） & 第~4.3 节；第~6.2 节 & 覆盖 \\
+UR-014 & 异步与大文件（哨兵/GB 级） & 第~4.5、7.1--7.2 节 & 覆盖 \\
+UR-015 & 错误与可用性（英文错误码/状态查询） & 第~8.1--8.3 节 & 覆盖 \\
+\bottomrule
+\end{longtable}
+
+\subsection{验证计划（摘要）}
+
+\begin{itemize}
+  \item \textbf{文档一致性}（E1--E4）：死链 0、术语/字段一致、YAML 示例经 JSON Schema 校验，
+        由验证脚本 \texttt{workbench/design/verify.sh} 统一执行；
+  \item \textbf{交付构建}（E5--E6）：本说明书经 \texttt{latexmk -xelatex} 编译通过；引用文献库 key；
+  \item \textbf{过程闭环}（E7--E9）：ICN 台账 0 OPEN（A 级经独立复核关闭）；
+        G1/G2 评审记录（RR/GR）与测试报告（TV）齐备且结论为通过。
+\end{itemize}
+
+\subsection{天文用例概览（P4 测试覆盖）}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+用例 & 场景 & 观测要点 \\
+\midrule
+UC-1 & 双星干涉观测 & 几何参数到可见度/闭合相位的预期 \\
+UC-2 & 系外行星场景 & 凌星光变 + 光谱组合模型 \\
+UC-3 & AGN / 吸积盘 & 多尺度图像 + 光谱 \\
+UC-4 & 消光与各向异性背景 & TransmissionModel + BackgroundModel 组合 \\
+UC-5 & 参数扫描与正反演闭环 & YAML 扫描输入 $\rightarrow$ 反演输入包 $\rightarrow$ 参数更新 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+用例的正式条目（输入样例、预期结果、通过判据）与实测记录见 \texttt{science/use-cases/} 与
+\texttt{science/test-reports/TV-001}（P4 阶段产出）。

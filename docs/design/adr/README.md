@@ -9,8 +9,12 @@ docs/design/adr/
 ├── README.md          # 本文件
 ├── template.md        # 新决策记录的模板
 ├── 0001-record-architecture-decisions.md
-├── 0002-use-target-histogram-for-distributions.md
-├── 0003-introduce-transmission-model.md
+├── 0002-v-shaped-three-tier-architecture.md
+├── 0003-core-parametric-model-hierarchy.md
+├── 0004-unified-distribution-as-target-histogram.md
+├── 0005-provider-field-in-targetmodel.md
+├── 0006-spatial-model-background.md
+├── 0007-targetmodel-base-fields.md
 └── ...
 ```
 
@@ -26,7 +30,7 @@ docs/design/adr/
 - **状态**：[提议中 | 已接受 | 已弃用 | 已替代]
 - **日期**：YYYY-MM-DD
 - **决策者**：[姓名或角色]
-- **涉及文档**：[相关设计文档的相对路径，如 docs/guides/targets.md]
+- **涉及文档**：[相关设计文档的相对路径，如 docs/design/targets.md]
 
 ## 背景
 [什么需求或问题促成了此决策？提供必要的上下文和约束。]
@@ -74,9 +78,9 @@ docs/design/adr/
 
 ## 与设计文档的关系
 
-- **`docs/guides/targets.md`** 等设计规范文件描述系统“是什么”和“怎么做”。
+- **`docs/design/targets.md`** 等设计规范文件描述系统“是什么”和“怎么做”。
 - **ADR** 记录“为什么这样设计”，为设计规范提供历史上下文和决策依据。
-- 设计文档中若出现重大决策点，可添加 ADR 引用（例如“关于为何采用三段式架构，见 ADR-0001”）。
+- 设计文档中若出现重大决策点，可添加 ADR 引用（例如“关于为何采用三段式架构，见 ADR 0002”）。
 - ADR 不会被用来替代规范，也不会因设计细微迭代而频繁更新；它是相对稳定的记录。
 
 ## 使用流程

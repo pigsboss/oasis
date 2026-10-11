@@ -30,9 +30,9 @@ else (yes)
             :Physics Engine\n综合 SourceModel, BackgroundModel,\nTransmissionModel 执行仿真;
             :Generate TargetHistogram\n(内存对象);
             |Data Layer|
+            :Observables Interface\n接收并组织输出包;
             :FITS/HDF5 I/O Manager\n序列化为标准 FITS 文件包;
-            :Observables Interface\n写入层间交换目录;
-            :Create .forward_ready sentinel;
+            :Observables Interface\n写入交换目录\n并创建 .forward_ready 哨兵;
             |Observables Layer|
             :Receive forward products;
             |Interface Layer|

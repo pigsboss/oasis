@@ -1,0 +1,18 @@
+# UC-3 AGN / 吸积盘（多尺度图像+光谱的模型侧输入）
+# 关联：UR-003/004/007；预期：Schema 校验通过；P4 走查多尺度输出的模型表达
+oasis_version: "1.0"
+theme: "galaxy"
+source:
+  name: "agn_core"
+  coordinates:
+    ra: {value: 150.0, unit: "deg"}
+    dec: {value: 2.2, unit: "deg"}
+    distance: {value: 50.0, unit: "Mpc"}
+  proper_motion:
+    pm_ra_cosdec: {value: 0.0, unit: "mas/yr"}
+    pm_dec: {value: 0.0, unit: "mas/yr"}
+  spectral_model:
+    type: "power_law"
+    parameters:
+      alpha: {value: -1.0, unit: ""}
+      reference_wavelength: {value: 5000, unit: "angstrom"}

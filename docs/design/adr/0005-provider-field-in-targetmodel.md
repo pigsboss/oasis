@@ -1,7 +1,7 @@
 # ADR 0005: 将 TargetModel 溯源字段命名为 provider
 
-- **状态**：已接纳
-- **日期**：2026-04-04
+- **状态**：已接受
+- **日期**：2026-05-01
 - **决策者**：OASIS 架构团队
 - **涉及文档**：docs/design/targets_data_model.md, docs/design/targets.md, docs/diagrams/targets/classes.puml
 
@@ -21,7 +21,7 @@
 
 - `TargetModel` 字段列表中的 `source` 全部替换为 `provider`。
 - 概要设计文档、类图及其他引用了该字段的地方一并更新。
-- 现有 ADR 001（TargetModel 基类字段设计）中若已涉及 `source` 需同步修正（当前 ADR 001 中已使用 `provider`，无需额外改动）。
+- 现有 ADR 0007（TargetModel 基类字段设计）中若已涉及 `source` 需同步修正（当前 ADR 0007 中已使用 `provider`，无需额外改动）。
 
 ## 理由
 

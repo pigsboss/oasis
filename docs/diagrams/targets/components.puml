@@ -17,11 +17,12 @@ package "Model Layer" {
   component "Compute Runtime" as CR
 }
 
-package "Observables Layer" {
-  component "Observables Interface" as OI
+package "Observables Layer (external)" {
+  component "Observables Layer\n(sentinel file exchange)" as OBSL
 }
 
 package "Data Layer" {
+  component "Observables Interface" as OI
   component "FITS/HDF5 I/O Manager" as FITSIO
   component "Result Repository" as RR
 }
@@ -50,10 +51,11 @@ StatEval --> RP : Result Pipeline
 
 ' Data Layer internal
 OI --> FITSIO : Delegate Serialization/Deserialization
+OI <--> OBSL : FITS Packages + Sentinels
 FITSIO --> RR : Persistence/Cache
 
 ' Horizontal services
-RP ..> FITSIO : Data Service Interface (User Download)
+RP ..> RR : Data Service Interface (User Download)
 
 ' Resource status
 CR ..> UI : Resource Status (Pub-Sub)

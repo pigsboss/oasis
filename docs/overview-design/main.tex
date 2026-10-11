@@ -1,0 +1,66 @@
+% =====================================================================
+%  OASIS 概要设计说明书（Overview Design Document）
+%  构建：latexmk -xelatex main.tex    （XeLaTeX + ctex）
+% =====================================================================
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+
+\graphicspath{{figures/}}
+\setlist{nosep,leftmargin=2em}
+
+\title{\textbf{OASIS 概要设计说明书}\\[0.4em]
+  \large 空间干涉仪观测数据分析与模拟系统\\
+  \large Observable Analysis and Simulation for Interferometer-in-Space}
+\author{OASIS 设计开发团队}
+\date{版本 v0.1（G1 评审稿）\quad 2026-10-10}
+
+\begin{document}
+\maketitle
+
+\section*{文档信息}
+\addcontentsline{toc}{section}{文档信息}
+\begin{center}
+\begin{tabular}{>{\bfseries}ll}
+\toprule
+文档编号 & OASIS-ODD-001 \\
+版本 & v0.1（G1 方案设计评审稿） \\
+状态 & 提交 G1 评审 \\
+编制 & 设计开发（workbench/design） \\
+评审 & 评审专家（G1 门禁） \\
+依据 & 完成契约 G-001、总计划 PLAN-001 v1.2、科学需求 UR-CAT-001 \\
+分发范围 & 四角色工作台面（设计开发 / 科学用户 / 评审专家 / 质量管理） \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\tableofcontents
+\clearpage
+
+\input{chapters/ch01_intro}
+\input{chapters/ch02_overview}
+\input{chapters/ch03_design}
+\input{chapters/ch04_targets}
+\input{chapters/ch05_layers}
+\input{chapters/ch06_formats}
+\input{chapters/ch07_nonfunctional}
+\input{chapters/ch08_icd}
+\input{chapters/ch09_traceability}
+\input{chapters/ch10_appendix}
+
+% 参考文献（文献库 key，见 workbench/library/registry.md）
+\nocite{duvert2017oifits,fits_standard40,greisen2002wcs,astropy2022,quanz2022life,monnier2003optical,eisenhauer2023advances}
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\end{document}

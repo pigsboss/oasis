@@ -1,0 +1,5864 @@
+{
+  "id": "https://openalex.org/W3125077253",
+  "doi": "https://doi.org/10.1051/0004-6361/202140366",
+  "title": "Large Interferometer For Exoplanets (LIFE)",
+  "display_name": "Large Interferometer For Exoplanets (LIFE)",
+  "publication_year": 2022,
+  "publication_date": "2022-04-12",
+  "ids": {
+    "openalex": "https://openalex.org/W3125077253",
+    "doi": "https://doi.org/10.1051/0004-6361/202140366",
+    "mag": "3125077253"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1051/0004-6361/202140366",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1051/0004-6361/202140366",
+    "pdf_url": "https://www.aanda.org/articles/aa/pdf/2022/08/aa40366-21.pdf",
+    "source": {
+      "id": "https://openalex.org/S205231332",
+      "display_name": "Astronomy and Astrophysics",
+      "issn_l": "0004-6361",
+      "issn": [
+        "0004-6361",
+        "1432-0746"
+      ],
+      "is_oa": true,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+        "cwts-core",
+        "doaj",
+        "jufo-3",
+        "ki-jl-2",
+        "norway-2"
+      ],
+      "host_organization": "https://openalex.org/P4310319748",
+      "host_organization_name": "EDP Sciences",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319748",
+        "https://openalex.org/P4310319982"
+      ],
+      "host_organization_lineage_names": [
+        "EDP Sciences",
+        "Science Press"
+      ],
+      "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Astronomy &amp; Astrophysics",
+    "raw_type": "journal-article"
+  },
+  "type": "article",
+  "indexed_in": [
+    "arxiv",
+    "crossref",
+    "datacite",
+    "doaj"
+  ],
+  "open_access": {
+    "is_oa": true,
+    "oa_status": "gold",
+    "oa_url": "https://www.aanda.org/articles/aa/pdf/2022/08/aa40366-21.pdf",
+    "any_repository_has_fulltext": true
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5068920295",
+        "display_name": "Sascha P. Quanz",
+        "orcid": "https://orcid.org/0000-0003-3829-7412",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-3829-7412"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "S. P. Quanz",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+        "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0003-3829-7412",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        },
+        {
+          "raw_affiliation_string": "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland",
+          "institution_ids": []
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5083513253",
+        "display_name": "Maurice Ottiger",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "M. Ottiger",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5029388639",
+        "display_name": "E. Fontanet",
+        "orcid": "https://orcid.org/0000-0002-0215-4551",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-0215-4551"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "E. Fontanet",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5002722180",
+        "display_name": "Jens Kammerer",
+        "orcid": "https://orcid.org/0000-0003-2769-0438",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-2769-0438"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I118347636",
+          "display_name": "Australian National University",
+          "ror": "https://ror.org/019wvm592",
+          "country_code": "AU",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I118347636"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I1297127228",
+          "display_name": "Space Telescope Science Institute",
+          "ror": "https://ror.org/036f5mx38",
+          "country_code": "US",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1297127228",
+            "https://openalex.org/I1313867356"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I1321434546",
+          "display_name": "European Southern Observatory",
+          "ror": "https://ror.org/01qtasp15",
+          "country_code": "DE",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1321434546"
+          ]
+        }
+      ],
+      "countries": [
+        "AU",
+        "DE",
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. Kammerer",
+      "raw_affiliation_strings": [
+        "European Southern Observatory, Karl-Schwarzschild-Str. 2, 85748 Garching, Germany",
+        "Research School of Astronomy & Astrophysics, Australian National University, ACT 2611, Australia",
+        "Space Telescope Science Institute, 3700 San Martin Drive, Baltimore, MD 21218 USA"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0003-2769-0438",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "European Southern Observatory, Karl-Schwarzschild-Str. 2, 85748 Garching, Germany",
+          "institution_ids": [
+            "https://openalex.org/I1321434546"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Research School of Astronomy & Astrophysics, Australian National University, ACT 2611, Australia",
+          "institution_ids": [
+            "https://openalex.org/I118347636"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Space Telescope Science Institute, 3700 San Martin Drive, Baltimore, MD 21218 USA",
+          "institution_ids": [
+            "https://openalex.org/I1297127228"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5007677032",
+        "display_name": "Franziska Menti",
+        "orcid": "https://orcid.org/0009-0006-0336-6827",
+        "observed_orcids": [
+          "https://orcid.org/0009-0006-0336-6827"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "F. Menti",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5083930331",
+        "display_name": "Felix Dannert",
+        "orcid": "https://orcid.org/0000-0002-5476-2663",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-5476-2663"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "F. Dannert",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0002-5476-2663",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": null,
+        "display_name": "A. Gheorghe",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "A. Gheorghe",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5060123759",
+        "display_name": "Olivier Absil",
+        "orcid": "https://orcid.org/0000-0002-4006-6237",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-4006-6237"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I157674565",
+          "display_name": "University of Liège",
+          "ror": "https://ror.org/00afp2z80",
+          "country_code": "BE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I157674565"
+          ]
+        }
+      ],
+      "countries": [
+        "BE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "O. Absil",
+      "raw_affiliation_strings": [
+        "STAR Institute, University of Liège, 19C allée du Six Aout, 4000 Liège, Belgium"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0002-4006-6237",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "STAR Institute, University of Liège, 19C allée du Six Aout, 4000 Liège, Belgium",
+          "institution_ids": [
+            "https://openalex.org/I157674565"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5032304976",
+        "display_name": "Vladimir Airapetian",
+        "orcid": "https://orcid.org/0000-0003-4452-0588",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-4452-0588"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I1306266525",
+          "display_name": "Goddard Space Flight Center",
+          "ror": "https://ror.org/0171mag52",
+          "country_code": "US",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1306266525",
+            "https://openalex.org/I4210124779"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "V. S. Airapetian",
+      "raw_affiliation_strings": [
+        "NASA Goddard Space Flight Center, 8800 Greenbelt Rd, Greenbelt, MD, 20771 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "NASA Goddard Space Flight Center, 8800 Greenbelt Rd, Greenbelt, MD, 20771 USA",
+          "institution_ids": [
+            "https://openalex.org/I1306266525"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5038909177",
+        "display_name": "Eleonora Alei",
+        "orcid": "https://orcid.org/0000-0002-0006-1175",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-0006-1175"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "E. Alei",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+        "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0002-0006-1175",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        },
+        {
+          "raw_affiliation_string": "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland",
+          "institution_ids": []
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5035619346",
+        "display_name": "Romain Allart",
+        "orcid": "https://orcid.org/0000-0002-1199-9759",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-1199-9759"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I70931966",
+          "display_name": "Université de Montréal",
+          "ror": "https://ror.org/0161xgx34",
+          "country_code": "CA",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I70931966"
+          ]
+        }
+      ],
+      "countries": [
+        "CA"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "R. Allart",
+      "raw_affiliation_strings": [
+        "Department of Physics, and Institute for Research on Exoplanets, Université de Montréal, Montréal H3T 1J4, Canada"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0002-1199-9759",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Physics, and Institute for Research on Exoplanets, Université de Montréal, Montréal H3T 1J4, Canada",
+          "institution_ids": [
+            "https://openalex.org/I70931966"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5042849887",
+        "display_name": "Daniel Angerhausen",
+        "orcid": "https://orcid.org/0000-0001-6138-8633",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-6138-8633"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "D. Angerhausen",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+        "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        },
+        {
+          "raw_affiliation_string": "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland",
+          "institution_ids": []
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5037537599",
+        "display_name": "Sarah D. Blumenthal",
+        "orcid": "https://orcid.org/0000-0002-3173-1637",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-3173-1637",
+          "https://orcid.org/0009-0002-1363-091X"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I40120149",
+          "display_name": "University of Oxford",
+          "ror": "https://ror.org/052gg0110",
+          "country_code": "GB",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I40120149"
+          ]
+        }
+      ],
+      "countries": [
+        "GB"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "S. Blumenthal",
+      "raw_affiliation_strings": [
+        "University of Oxford, Department of Atmospheric, Oceanic and Planetary Physics, Clarendon Laboratory, Sherrington Road, Oxford OX1 3PU, UK"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "University of Oxford, Department of Atmospheric, Oceanic and Planetary Physics, Clarendon Laboratory, Sherrington Road, Oxford OX1 3PU, UK",
+          "institution_ids": [
+            "https://openalex.org/I40120149"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5045664975",
+        "display_name": "Lars A. Buchhave",
+        "orcid": "https://orcid.org/0000-0003-1605-5666",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-1605-5666"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4396570579",
+          "display_name": "DTU Space",
+          "ror": "https://ror.org/01cyz3n15",
+          "country_code": null,
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I4396570579",
+            "https://openalex.org/I96673099"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I96673099",
+          "display_name": "Technical University of Denmark",
+          "ror": "https://ror.org/04qtj9h94",
+          "country_code": "DK",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I96673099"
+          ]
+        }
+      ],
+      "countries": [
+        "DK"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "L. A. Buchhave",
+      "raw_affiliation_strings": [
+        "DTU Space, National Space Institute, Technical University of Denmark, Elektrovej 328, DK-2800 Kgs. Lyngby, Denmark"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "DTU Space, National Space Institute, Technical University of Denmark, Elektrovej 328, DK-2800 Kgs. Lyngby, Denmark",
+          "institution_ids": [
+            "https://openalex.org/I4396570579",
+            "https://openalex.org/I96673099"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5024780751",
+        "display_name": "J. Cabrera",
+        "orcid": "https://orcid.org/0000-0001-6653-5487",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-6653-5487"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2898391981",
+          "display_name": "Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)",
+          "ror": "https://ror.org/04bwf3e34",
+          "country_code": "DE",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1305996414",
+            "https://openalex.org/I2898391981"
+          ]
+        }
+      ],
+      "countries": [
+        "DE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. Cabrera",
+      "raw_affiliation_strings": [
+        "Department of Extrasolar Planets and Atmospheres, Institute for Planetary Research, German Aerospace Centre, Rutherfordstr. 2, 12489 Berlin, Germany"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Extrasolar Planets and Atmospheres, Institute for Planetary Research, German Aerospace Centre, Rutherfordstr. 2, 12489 Berlin, Germany",
+          "institution_ids": [
+            "https://openalex.org/I2898391981"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5090606624",
+        "display_name": "Óscar Carrión-González",
+        "orcid": "https://orcid.org/0000-0001-8466-9622",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-8466-9622"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4577782",
+          "display_name": "Technische Universität Berlin",
+          "ror": "https://ror.org/03v4gjf40",
+          "country_code": "DE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I4577782"
+          ]
+        }
+      ],
+      "countries": [
+        "DE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Ó. Carrión-González",
+      "raw_affiliation_strings": [
+        "Zentrum für Astronomie und Astrophysik, Technische Universität Berlin, Hardenbergstrasse 36, 10623 Berlin, Germany"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0001-8466-9622",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Zentrum für Astronomie und Astrophysik, Technische Universität Berlin, Hardenbergstrasse 36, 10623 Berlin, Germany",
+          "institution_ids": [
+            "https://openalex.org/I4577782"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5070230245",
+        "display_name": "G. Chauvin",
+        "orcid": "https://orcid.org/0000-0003-4022-8598",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-4022-8598"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I1294671590",
+          "display_name": "Centre National de la Recherche Scientifique",
+          "ror": "https://ror.org/02feahw73",
+          "country_code": "FR",
+          "type": "government",
+          "lineage": [
+            "https://openalex.org/I1294671590"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210109224",
+          "display_name": "Institut de Planétologie et d'Astrophysique de Grenoble",
+          "ror": "https://ror.org/01kcrnc96",
+          "country_code": "FR",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I2802818602",
+            "https://openalex.org/I4210088668",
+            "https://openalex.org/I4210090127",
+            "https://openalex.org/I4210109224",
+            "https://openalex.org/I4210113730",
+            "https://openalex.org/I4210131494",
+            "https://openalex.org/I4210148025",
+            "https://openalex.org/I4210166444",
+            "https://openalex.org/I4387154391",
+            "https://openalex.org/I899635006"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I899635006",
+          "display_name": "Université Grenoble Alpes",
+          "ror": "https://ror.org/02rx3b187",
+          "country_code": "FR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I899635006"
+          ]
+        }
+      ],
+      "countries": [
+        "FR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "G. Chauvin",
+      "raw_affiliation_strings": [
+        "Univ. Grenoble Alpes, CNRS, IPAG, 38000 Grenoble, France"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0003-4022-8598",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Univ. Grenoble Alpes, CNRS, IPAG, 38000 Grenoble, France",
+          "institution_ids": [
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I4210109224",
+            "https://openalex.org/I899635006"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5086867458",
+        "display_name": "W.C. Danchi",
+        "orcid": "https://orcid.org/0000-0002-9209-5830",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-9209-5830"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I1306266525",
+          "display_name": "Goddard Space Flight Center",
+          "ror": "https://ror.org/0171mag52",
+          "country_code": "US",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1306266525",
+            "https://openalex.org/I4210124779"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "W. C. Danchi",
+      "raw_affiliation_strings": [
+        "NASA Goddard Space Flight Center, 8800 Greenbelt Rd, Greenbelt, MD, 20771 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "NASA Goddard Space Flight Center, 8800 Greenbelt Rd, Greenbelt, MD, 20771 USA",
+          "institution_ids": [
+            "https://openalex.org/I1306266525"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5060428691",
+        "display_name": "Colin Dandumont",
+        "orcid": "https://orcid.org/0000-0002-5223-1906",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-5223-1906"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I157674565",
+          "display_name": "University of Liège",
+          "ror": "https://ror.org/00afp2z80",
+          "country_code": "BE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I157674565"
+          ]
+        }
+      ],
+      "countries": [
+        "BE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "C. Dandumont",
+      "raw_affiliation_strings": [
+        "Centre Spatial de Liège, Université de Liège, Avenue Pré-Aily, 4031 Angleur, Belgium"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Centre Spatial de Liège, Université de Liège, Avenue Pré-Aily, 4031 Angleur, Belgium",
+          "institution_ids": [
+            "https://openalex.org/I157674565"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5041770370",
+        "display_name": "Denis Defrère",
+        "orcid": "https://orcid.org/0000-0003-3499-2506",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-3499-2506"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I99464096",
+          "display_name": "KU Leuven",
+          "ror": "https://ror.org/05f950310",
+          "country_code": "BE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I99464096"
+          ]
+        }
+      ],
+      "countries": [
+        "BE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "D. Defrére",
+      "raw_affiliation_strings": [
+        "Institute of Astronomy, KU Leuven, Celestijnenlaan 200D, 3001 Leuven, Belgium"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institute of Astronomy, KU Leuven, Celestijnenlaan 200D, 3001 Leuven, Belgium",
+          "institution_ids": [
+            "https://openalex.org/I99464096"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5028525649",
+        "display_name": "Caroline Dorn",
+        "orcid": "https://orcid.org/0000-0001-6110-4610",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-6110-4610"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I202697423",
+          "display_name": "University of Zurich",
+          "ror": "https://ror.org/02crff812",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I202697423"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "C. Dorn",
+      "raw_affiliation_strings": [
+        "University of Zurich, Institute of Computational Sciences, Winterthurerstrasse 190, 8057 Zurich, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "University of Zurich, Institute of Computational Sciences, Winterthurerstrasse 190, 8057 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I202697423"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5085237456",
+        "display_name": "David Ehrenreich",
+        "orcid": "https://orcid.org/0000-0001-9704-5405",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-9704-5405"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I114457229",
+          "display_name": "University of Geneva",
+          "ror": "https://ror.org/01swzsf04",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I114457229"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "D. Ehrenreich",
+      "raw_affiliation_strings": [
+        "Observatoire astronomique de l’Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland",
+        "Observatoire astronomique de l'Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Observatoire astronomique de l’Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I114457229"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Observatoire astronomique de l'Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I114457229"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5074813346",
+        "display_name": "Steve Ertel",
+        "orcid": "https://orcid.org/0000-0002-2314-7289",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-2314-7289"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I138006243",
+          "display_name": "University of Arizona",
+          "ror": "https://ror.org/03m2x1q45",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I138006243"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "S. Ertel",
+      "raw_affiliation_strings": [
+        "Large Binocular Telescope Observatory, 933 North Cherry Avenue, Tucson, AZ 85721 USA",
+        "Steward Observatory, Department of Astronomy, University of Arizona, 993 N. Cherry Ave, Tucson, AZ, 85721 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Large Binocular Telescope Observatory, 933 North Cherry Avenue, Tucson, AZ 85721 USA",
+          "institution_ids": []
+        },
+        {
+          "raw_affiliation_string": "Steward Observatory, Department of Astronomy, University of Arizona, 993 N. Cherry Ave, Tucson, AZ, 85721 USA",
+          "institution_ids": [
+            "https://openalex.org/I138006243"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5081271835",
+        "display_name": "Malcolm C. Fridlund",
+        "orcid": "https://orcid.org/0000-0002-0855-8426",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-0855-8426"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I121797337",
+          "display_name": "Leiden University",
+          "ror": "https://ror.org/027bh9e22",
+          "country_code": "NL",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I121797337"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4387156226",
+          "display_name": "Leiden Observatory",
+          "ror": "https://ror.org/03es66g06",
+          "country_code": null,
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I121797337",
+            "https://openalex.org/I4387156226"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I66862912",
+          "display_name": "Chalmers University of Technology",
+          "ror": "https://ror.org/040wg7k59",
+          "country_code": "SE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I66862912"
+          ]
+        }
+      ],
+      "countries": [
+        "NL",
+        "SE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "M. Fridlund",
+      "raw_affiliation_strings": [
+        "Department of Space, Earth & Environment, Chalmers University of Technology, Onsala Space Observatory, 439 92 Onsala, Sweden",
+        "Leiden Observatory, Leiden University, 2333CA Leiden, The Netherlands"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Space, Earth & Environment, Chalmers University of Technology, Onsala Space Observatory, 439 92 Onsala, Sweden",
+          "institution_ids": [
+            "https://openalex.org/I66862912"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Leiden Observatory, Leiden University, 2333CA Leiden, The Netherlands",
+          "institution_ids": [
+            "https://openalex.org/I121797337",
+            "https://openalex.org/I4387156226"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5019378995",
+        "display_name": "A. García Muñoz",
+        "orcid": "https://orcid.org/0000-0003-1756-4825",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-1756-4825"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4577782",
+          "display_name": "Technische Universität Berlin",
+          "ror": "https://ror.org/03v4gjf40",
+          "country_code": "DE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I4577782"
+          ]
+        }
+      ],
+      "countries": [
+        "DE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "A. García Muñoz",
+      "raw_affiliation_strings": [
+        "Zentrum für Astronomie und Astrophysik, Technische Universität Berlin, Hardenbergstrasse 36, 10623 Berlin, Germany"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Zentrum für Astronomie und Astrophysik, Technische Universität Berlin, Hardenbergstrasse 36, 10623 Berlin, Germany",
+          "institution_ids": [
+            "https://openalex.org/I4577782"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5003764317",
+        "display_name": "Carlos Gascón",
+        "orcid": "https://orcid.org/0000-0001-5097-9251",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-5097-9251"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I132487946",
+          "display_name": "Institute of Space Sciences",
+          "ror": "https://ror.org/01vbgty78",
+          "country_code": "ES",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I132487946",
+            "https://openalex.org/I134820265"
+          ]
+        }
+      ],
+      "countries": [
+        "ES"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "C. Gascón",
+      "raw_affiliation_strings": [
+        "Institut de Ciències de l’Espai (ICE, CSIC), Campus UAB, C/Can Magrans s/n, 08193 Bellaterra, Spain",
+        "Institut de Ciències de l'Espai (ICE, CSIC), Campus UAB, C/Can Magrans s/n, 08193 Bellaterra, Spain"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institut de Ciències de l’Espai (ICE, CSIC), Campus UAB, C/Can Magrans s/n, 08193 Bellaterra, Spain",
+          "institution_ids": [
+            "https://openalex.org/I132487946"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Institut de Ciències de l'Espai (ICE, CSIC), Campus UAB, C/Can Magrans s/n, 08193 Bellaterra, Spain",
+          "institution_ids": [
+            "https://openalex.org/I132487946"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5050076579",
+        "display_name": "Julien H. Girard",
+        "orcid": "https://orcid.org/0000-0001-8627-0404",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-8627-0404"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I1297127228",
+          "display_name": "Space Telescope Science Institute",
+          "ror": "https://ror.org/036f5mx38",
+          "country_code": "US",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1297127228",
+            "https://openalex.org/I1313867356"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. H. Girard",
+      "raw_affiliation_strings": [
+        "Space Telescope Science Institute, 3700 San Martin Drive, Baltimore, MD 21218 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Space Telescope Science Institute, 3700 San Martin Drive, Baltimore, MD 21218 USA",
+          "institution_ids": [
+            "https://openalex.org/I1297127228"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5018585394",
+        "display_name": "Adrian Michael Glauser",
+        "orcid": "https://orcid.org/0000-0001-9250-1547",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-9250-1547"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "A. Glauser",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5005785359",
+        "display_name": "John Lee Grenfell",
+        "orcid": "https://orcid.org/0000-0003-3646-5339",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-3646-5339"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2898391981",
+          "display_name": "Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)",
+          "ror": "https://ror.org/04bwf3e34",
+          "country_code": "DE",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1305996414",
+            "https://openalex.org/I2898391981"
+          ]
+        }
+      ],
+      "countries": [
+        "DE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. L. Grenfell",
+      "raw_affiliation_strings": [
+        "Department of Extrasolar Planets and Atmospheres, Institute for Planetary Research, German Aerospace Centre, Rutherfordstr. 2, 12489 Berlin, Germany"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Extrasolar Planets and Atmospheres, Institute for Planetary Research, German Aerospace Centre, Rutherfordstr. 2, 12489 Berlin, Germany",
+          "institution_ids": [
+            "https://openalex.org/I2898391981"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5075037815",
+        "display_name": "Greta Guidi",
+        "orcid": "https://orcid.org/0000-0002-7002-8928",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-7002-8928"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "G. Guidi",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+        "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        },
+        {
+          "raw_affiliation_string": "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland",
+          "institution_ids": []
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5017171662",
+        "display_name": "J. Hagelberg",
+        "orcid": "https://orcid.org/0000-0002-1096-1433",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-1096-1433"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I114457229",
+          "display_name": "University of Geneva",
+          "ror": "https://ror.org/01swzsf04",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I114457229"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. Hagelberg",
+      "raw_affiliation_strings": [
+        "Observatoire astronomique de l’Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland",
+        "Observatoire astronomique de l'Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Observatoire astronomique de l’Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I114457229"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Observatoire astronomique de l'Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I114457229"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5009864558",
+        "display_name": "Ravit Helled",
+        "orcid": "https://orcid.org/0000-0001-5555-2652",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-5555-2652"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I202697423",
+          "display_name": "University of Zurich",
+          "ror": "https://ror.org/02crff812",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I202697423"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "R. Helled",
+      "raw_affiliation_strings": [
+        "University of Zurich, Institute of Computational Sciences, Winterthurerstrasse 190, 8057 Zurich, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "University of Zurich, Institute of Computational Sciences, Winterthurerstrasse 190, 8057 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I202697423"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5044187868",
+        "display_name": "Michael Ireland",
+        "orcid": "https://orcid.org/0000-0002-6194-043X",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-6194-043X"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I118347636",
+          "display_name": "Australian National University",
+          "ror": "https://ror.org/019wvm592",
+          "country_code": "AU",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I118347636"
+          ]
+        }
+      ],
+      "countries": [
+        "AU"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "M. J. Ireland",
+      "raw_affiliation_strings": [
+        "Research School of Astronomy & Astrophysics, Australian National University, ACT 2611, Australia"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Research School of Astronomy & Astrophysics, Australian National University, ACT 2611, Australia",
+          "institution_ids": [
+            "https://openalex.org/I118347636"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5005967077",
+        "display_name": "M. Janson",
+        "orcid": "https://orcid.org/0000-0001-8345-593X",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-8345-593X"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I161593684",
+          "display_name": "Stockholm University",
+          "ror": "https://ror.org/05f0yaq80",
+          "country_code": "SE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I161593684"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210135511",
+          "display_name": "AlbaNova",
+          "ror": "https://ror.org/044kkfr75",
+          "country_code": "SE",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I4210135511"
+          ]
+        }
+      ],
+      "countries": [
+        "SE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "M. Janson",
+      "raw_affiliation_strings": [
+        "Department of Astronomy, Stockholm University, Alba Nova University Center, 10691 Stockholm, Sweden"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Astronomy, Stockholm University, Alba Nova University Center, 10691 Stockholm, Sweden",
+          "institution_ids": [
+            "https://openalex.org/I161593684",
+            "https://openalex.org/I4210135511"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5048423230",
+        "display_name": "Ravi Kopparapu",
+        "orcid": "https://orcid.org/0000-0002-5893-2471",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-5893-2471"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I1306266525",
+          "display_name": "Goddard Space Flight Center",
+          "ror": "https://ror.org/0171mag52",
+          "country_code": "US",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1306266525",
+            "https://openalex.org/I4210124779"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "R. K. Kopparapu",
+      "raw_affiliation_strings": [
+        "NASA Goddard Space Flight Center, 8800 Greenbelt Rd, Greenbelt, MD, 20771 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "NASA Goddard Space Flight Center, 8800 Greenbelt Rd, Greenbelt, MD, 20771 USA",
+          "institution_ids": [
+            "https://openalex.org/I1306266525"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5040394835",
+        "display_name": "J. Korth",
+        "orcid": "https://orcid.org/0000-0002-0076-6239",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-0076-6239"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I66862912",
+          "display_name": "Chalmers University of Technology",
+          "ror": "https://ror.org/040wg7k59",
+          "country_code": "SE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I66862912"
+          ]
+        }
+      ],
+      "countries": [
+        "SE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. Korth",
+      "raw_affiliation_strings": [
+        "Department of Space, Earth and Environment, Astronomy and Plasma Physics, Chalmers University of Technology, 412 96 Gothenburg, Sweden"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Space, Earth and Environment, Astronomy and Plasma Physics, Chalmers University of Technology, 412 96 Gothenburg, Sweden",
+          "institution_ids": [
+            "https://openalex.org/I66862912"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5021482439",
+        "display_name": "Thea Kozakis",
+        "orcid": "https://orcid.org/0000-0002-3868-2129",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-3868-2129"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4396570579",
+          "display_name": "DTU Space",
+          "ror": "https://ror.org/01cyz3n15",
+          "country_code": null,
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I4396570579",
+            "https://openalex.org/I96673099"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I96673099",
+          "display_name": "Technical University of Denmark",
+          "ror": "https://ror.org/04qtj9h94",
+          "country_code": "DK",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I96673099"
+          ]
+        }
+      ],
+      "countries": [
+        "DK"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "T. Kozakis",
+      "raw_affiliation_strings": [
+        "DTU Space, National Space Institute, Technical University of Denmark, Elektrovej 328, DK-2800 Kgs. Lyngby, Denmark"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "DTU Space, National Space Institute, Technical University of Denmark, Elektrovej 328, DK-2800 Kgs. Lyngby, Denmark",
+          "institution_ids": [
+            "https://openalex.org/I4396570579",
+            "https://openalex.org/I96673099"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5040615789",
+        "display_name": "Stefan Kraus",
+        "orcid": "https://orcid.org/0000-0001-6017-8773",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-6017-8773"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I23923803",
+          "display_name": "University of Exeter",
+          "ror": "https://ror.org/03yghzc09",
+          "country_code": "GB",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I23923803"
+          ]
+        }
+      ],
+      "countries": [
+        "GB"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "S. Kraus",
+      "raw_affiliation_strings": [
+        "University of Exeter, School of Physics and Astronomy, Stocker Road, Exeter EX4 4QL, UK"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "University of Exeter, School of Physics and Astronomy, Stocker Road, Exeter EX4 4QL, UK",
+          "institution_ids": [
+            "https://openalex.org/I23923803"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5074128668",
+        "display_name": "Alain M. Leger",
+        "orcid": "https://orcid.org/0000-0003-2072-915X",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-2072-915X",
+          "https://orcid.org/0000-0002-6549-5767"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I102197404",
+          "display_name": "Université Paris-Sud",
+          "ror": "https://ror.org/028rypz17",
+          "country_code": "FR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I102197404",
+            "https://openalex.org/I277688954"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I1294671590",
+          "display_name": "Centre National de la Recherche Scientifique",
+          "ror": "https://ror.org/02feahw73",
+          "country_code": "FR",
+          "type": "government",
+          "lineage": [
+            "https://openalex.org/I1294671590"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210103272",
+          "display_name": "Institut d'Astrophysique Spatiale",
+          "ror": "https://ror.org/014p8mr66",
+          "country_code": "FR",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I277688954",
+            "https://openalex.org/I4210103272"
+          ]
+        }
+      ],
+      "countries": [
+        "FR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "A. Léger",
+      "raw_affiliation_strings": [
+        "IAS, CNRS (UMR 8617), bât 121, Univ. Paris-Sud, 91405 Orsay, France"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "IAS, CNRS (UMR 8617), bât 121, Univ. Paris-Sud, 91405 Orsay, France",
+          "institution_ids": [
+            "https://openalex.org/I102197404",
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I4210103272"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5008652856",
+        "display_name": "L. Leedjärv",
+        "orcid": "https://orcid.org/0000-0002-0476-6025",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-0476-6025"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2802841028",
+          "display_name": "Tartu Observatory",
+          "ror": "https://ror.org/04mc23283",
+          "country_code": "EE",
+          "type": "archive",
+          "lineage": [
+            "https://openalex.org/I172656520",
+            "https://openalex.org/I2802841028",
+            "https://openalex.org/I56085075"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I56085075",
+          "display_name": "University of Tartu",
+          "ror": "https://ror.org/03z77qz90",
+          "country_code": "EE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I56085075"
+          ]
+        }
+      ],
+      "countries": [
+        "EE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "L. Leedjärv",
+      "raw_affiliation_strings": [
+        "University of Tartu, Tartu Observatory, 1 Observatooriumi Str., 61602 Tõravere, Tartumaa, Estonia"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "University of Tartu, Tartu Observatory, 1 Observatooriumi Str., 61602 Tõravere, Tartumaa, Estonia",
+          "institution_ids": [
+            "https://openalex.org/I2802841028",
+            "https://openalex.org/I56085075"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5076046335",
+        "display_name": "Tim Lichtenberg",
+        "orcid": "https://orcid.org/0000-0002-3286-7683",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-3286-7683"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I40120149",
+          "display_name": "University of Oxford",
+          "ror": "https://ror.org/052gg0110",
+          "country_code": "GB",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I40120149"
+          ]
+        }
+      ],
+      "countries": [
+        "GB"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "T. Lichtenberg",
+      "raw_affiliation_strings": [
+        "University of Oxford, Department of Atmospheric, Oceanic and Planetary Physics, Clarendon Laboratory, Sherrington Road, Oxford OX1 3PU, UK"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "University of Oxford, Department of Atmospheric, Oceanic and Planetary Physics, Clarendon Laboratory, Sherrington Road, Oxford OX1 3PU, UK",
+          "institution_ids": [
+            "https://openalex.org/I40120149"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5001802428",
+        "display_name": "J. Lillo-Box",
+        "orcid": "https://orcid.org/0000-0003-3742-1987",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-3742-1987"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4210129022",
+          "display_name": "Centro de Astrobiología",
+          "ror": "https://ror.org/038szmr31",
+          "country_code": "ES",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I134820265",
+            "https://openalex.org/I4210117279",
+            "https://openalex.org/I4210129022"
+          ]
+        }
+      ],
+      "countries": [
+        "ES"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. Lillo-Box",
+      "raw_affiliation_strings": [
+        "Centro de Astrobiología (CAB, CSIC-INTA), Depto. de Astrofísica, ESAC campus 28692 Villanueva de la Cañada (Madrid), Spain"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Centro de Astrobiología (CAB, CSIC-INTA), Depto. de Astrofísica, ESAC campus 28692 Villanueva de la Cañada (Madrid), Spain",
+          "institution_ids": [
+            "https://openalex.org/I4210129022"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5030471986",
+        "display_name": "Hendrik Linz",
+        "orcid": "https://orcid.org/0000-0002-8115-8437",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-8115-8437"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4210109156",
+          "display_name": "Max Planck Institute for Astronomy",
+          "ror": "https://ror.org/01vhnrs90",
+          "country_code": "DE",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I149899117",
+            "https://openalex.org/I4210109156"
+          ]
+        }
+      ],
+      "countries": [
+        "DE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "H. Linz",
+      "raw_affiliation_strings": [
+        "Max-Planck-Institut für Astronomie, Königstuhl 17, 69117 Heidelberg, Germany"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Max-Planck-Institut für Astronomie, Königstuhl 17, 69117 Heidelberg, Germany",
+          "institution_ids": [
+            "https://openalex.org/I4210109156"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5104385501",
+        "display_name": "R. Liseau",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I66862912",
+          "display_name": "Chalmers University of Technology",
+          "ror": "https://ror.org/040wg7k59",
+          "country_code": "SE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I66862912"
+          ]
+        }
+      ],
+      "countries": [
+        "SE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "R. Liseau",
+      "raw_affiliation_strings": [
+        "Department of Space, Earth & Environment, Chalmers University of Technology, Onsala Space Observatory, 439 92 Onsala, Sweden"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Space, Earth & Environment, Chalmers University of Technology, Onsala Space Observatory, 439 92 Onsala, Sweden",
+          "institution_ids": [
+            "https://openalex.org/I66862912"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5052245824",
+        "display_name": "Jérôme Loïcq",
+        "orcid": "https://orcid.org/0000-0003-1863-6085",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-1863-6085"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I157674565",
+          "display_name": "University of Liège",
+          "ror": "https://ror.org/00afp2z80",
+          "country_code": "BE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I157674565"
+          ]
+        }
+      ],
+      "countries": [
+        "BE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. Loicq",
+      "raw_affiliation_strings": [
+        "Centre Spatial de Liège, Université de Liège, Avenue Pré-Aily, 4031 Angleur, Belgium"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Centre Spatial de Liège, Université de Liège, Avenue Pré-Aily, 4031 Angleur, Belgium",
+          "institution_ids": [
+            "https://openalex.org/I157674565"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": null,
+        "display_name": "V. Mahendra",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I145286018",
+          "display_name": "SRM Institute of Science and Technology",
+          "ror": "https://ror.org/050113w36",
+          "country_code": "IN",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I145286018"
+          ]
+        }
+      ],
+      "countries": [
+        "IN"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "V. Mahendra",
+      "raw_affiliation_strings": [
+        "SRM Institute of Science and Technology, Chennai, India"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "SRM Institute of Science and Technology, Chennai, India",
+          "institution_ids": [
+            "https://openalex.org/I145286018"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5003972178",
+        "display_name": "F. Malbet",
+        "orcid": "https://orcid.org/0000-0002-8029-4226",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-8029-4226"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I1294671590",
+          "display_name": "Centre National de la Recherche Scientifique",
+          "ror": "https://ror.org/02feahw73",
+          "country_code": "FR",
+          "type": "government",
+          "lineage": [
+            "https://openalex.org/I1294671590"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210109224",
+          "display_name": "Institut de Planétologie et d'Astrophysique de Grenoble",
+          "ror": "https://ror.org/01kcrnc96",
+          "country_code": "FR",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I2802818602",
+            "https://openalex.org/I4210088668",
+            "https://openalex.org/I4210090127",
+            "https://openalex.org/I4210109224",
+            "https://openalex.org/I4210113730",
+            "https://openalex.org/I4210131494",
+            "https://openalex.org/I4210148025",
+            "https://openalex.org/I4210166444",
+            "https://openalex.org/I4387154391",
+            "https://openalex.org/I899635006"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I899635006",
+          "display_name": "Université Grenoble Alpes",
+          "ror": "https://ror.org/02rx3b187",
+          "country_code": "FR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I899635006"
+          ]
+        }
+      ],
+      "countries": [
+        "FR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "F. Malbet",
+      "raw_affiliation_strings": [
+        "Univ. Grenoble Alpes, CNRS, IPAG, 38000 Grenoble, France"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Univ. Grenoble Alpes, CNRS, IPAG, 38000 Grenoble, France",
+          "institution_ids": [
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I4210109224",
+            "https://openalex.org/I899635006"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5029425795",
+        "display_name": "Joice Mathew",
+        "orcid": "https://orcid.org/0000-0003-0459-5964",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-0459-5964"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I118347636",
+          "display_name": "Australian National University",
+          "ror": "https://ror.org/019wvm592",
+          "country_code": "AU",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I118347636"
+          ]
+        }
+      ],
+      "countries": [
+        "AU"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. Mathew",
+      "raw_affiliation_strings": [
+        "Research School of Astronomy & Astrophysics, Australian National University, ACT 2611, Australia"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Research School of Astronomy & Astrophysics, Australian National University, ACT 2611, Australia",
+          "institution_ids": [
+            "https://openalex.org/I118347636"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5048847208",
+        "display_name": "Bertrand P. Mennesson",
+        "orcid": "https://orcid.org/0000-0003-4205-4800",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-4205-4800"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I122411786",
+          "display_name": "California Institute of Technology",
+          "ror": "https://ror.org/05dxps055",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I122411786"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I1334627681",
+          "display_name": "Jet Propulsion Laboratory",
+          "ror": "https://ror.org/027k65916",
+          "country_code": "US",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I122411786",
+            "https://openalex.org/I1334627681",
+            "https://openalex.org/I4210124779"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "B. Mennesson",
+      "raw_affiliation_strings": [
+        "Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Dr., Pasadena, CA 91109 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Dr., Pasadena, CA 91109 USA",
+          "institution_ids": [
+            "https://openalex.org/I122411786",
+            "https://openalex.org/I1334627681"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5110675918",
+        "display_name": "M. R. Meyer",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I27837315",
+          "display_name": "University of Michigan",
+          "ror": "https://ror.org/00jmfr291",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I27837315"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "M. R. Meyer",
+      "raw_affiliation_strings": [
+        "Department of Astronomy, University of Michigan, Ann Arbor, MI 48109 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Astronomy, University of Michigan, Ann Arbor, MI 48109 USA",
+          "institution_ids": [
+            "https://openalex.org/I27837315"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5031402623",
+        "display_name": "Lokesh Mishra",
+        "orcid": "https://orcid.org/0000-0002-1256-7261",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-1256-7261"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I114457229",
+          "display_name": "University of Geneva",
+          "ror": "https://ror.org/01swzsf04",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I114457229"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I118564535",
+          "display_name": "University of Bern",
+          "ror": "https://ror.org/02k7v4d05",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I118564535"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "L. Mishra",
+      "raw_affiliation_strings": [
+        "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland",
+        "Observatoire astronomique de l’Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland",
+        "Physikalisches Institut, Universität Bern, Gesellschaftsstrasse 6, 3012 Bern, Switzerland",
+        "Observatoire astronomique de l'Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland",
+          "institution_ids": []
+        },
+        {
+          "raw_affiliation_string": "Observatoire astronomique de l’Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I114457229"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Physikalisches Institut, Universität Bern, Gesellschaftsstrasse 6, 3012 Bern, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I118564535"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Observatoire astronomique de l'Université de Genève, chemin Pegasi 51b, 1290 Versoix, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I114457229"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5063128566",
+        "display_name": "Karan Molaverdikhani",
+        "orcid": "https://orcid.org/0000-0002-0502-0428",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-0502-0428"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I223822909",
+          "display_name": "Heidelberg University",
+          "ror": "https://ror.org/038t36y30",
+          "country_code": "DE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I223822909"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210109156",
+          "display_name": "Max Planck Institute for Astronomy",
+          "ror": "https://ror.org/01vhnrs90",
+          "country_code": "DE",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I149899117",
+            "https://openalex.org/I4210109156"
+          ]
+        }
+      ],
+      "countries": [
+        "DE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "K. Molaverdikhani",
+      "raw_affiliation_strings": [
+        "Landessternwarte, Zentrum für Astronomie der Universität Heidelberg, Königstuhl 12, 69117 Heidelberg, Germany",
+        "Max-Planck-Institut für Astronomie, Königstuhl 17, 69117 Heidelberg, Germany"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Landessternwarte, Zentrum für Astronomie der Universität Heidelberg, Königstuhl 12, 69117 Heidelberg, Germany",
+          "institution_ids": [
+            "https://openalex.org/I223822909"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Max-Planck-Institut für Astronomie, Königstuhl 17, 69117 Heidelberg, Germany",
+          "institution_ids": [
+            "https://openalex.org/I4210109156"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5050798999",
+        "display_name": "Lena Noack",
+        "orcid": "https://orcid.org/0000-0001-8817-1653",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-8817-1653"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I75951250",
+          "display_name": "Freie Universität Berlin",
+          "ror": "https://ror.org/046ak2485",
+          "country_code": "DE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I75951250"
+          ]
+        }
+      ],
+      "countries": [
+        "DE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "L. Noack",
+      "raw_affiliation_strings": [
+        "Freie Universitat Berlin, Department of Earth Sciences, Malteserstr. 74–100, 12249 Berlin, Germany"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Freie Universitat Berlin, Department of Earth Sciences, Malteserstr. 74–100, 12249 Berlin, Germany",
+          "institution_ids": [
+            "https://openalex.org/I75951250"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5029991320",
+        "display_name": "A. Oza",
+        "orcid": "https://orcid.org/0000-0002-1655-0715",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-1655-0715"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I118564535",
+          "display_name": "University of Bern",
+          "ror": "https://ror.org/02k7v4d05",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I118564535"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I122411786",
+          "display_name": "California Institute of Technology",
+          "ror": "https://ror.org/05dxps055",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I122411786"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I1334627681",
+          "display_name": "Jet Propulsion Laboratory",
+          "ror": "https://ror.org/027k65916",
+          "country_code": "US",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I122411786",
+            "https://openalex.org/I1334627681",
+            "https://openalex.org/I4210124779"
+          ]
+        }
+      ],
+      "countries": [
+        "CH",
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "A. V. Oza",
+      "raw_affiliation_strings": [
+        "Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Dr., Pasadena, CA 91109 USA",
+        "Physikalisches Institut, Universität Bern, Gesellschaftsstrasse 6, 3012 Bern, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Dr., Pasadena, CA 91109 USA",
+          "institution_ids": [
+            "https://openalex.org/I122411786",
+            "https://openalex.org/I1334627681"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Physikalisches Institut, Universität Bern, Gesellschaftsstrasse 6, 3012 Bern, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I118564535"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5020918152",
+        "display_name": "Ε. Πάλλη",
+        "orcid": "https://orcid.org/0000-0003-0987-1593",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-0987-1593",
+          "https://orcid.org/0000-0002-9718-3266"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I158438070",
+          "display_name": "Universidad de La Laguna",
+          "ror": "https://ror.org/01r9z8p25",
+          "country_code": "ES",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I158438070"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210130807",
+          "display_name": "Instituto de Astrofísica de Canarias",
+          "ror": "https://ror.org/03cmntr54",
+          "country_code": "ES",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I158438070",
+            "https://openalex.org/I4210130807"
+          ]
+        }
+      ],
+      "countries": [
+        "ES"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "E. Pallé",
+      "raw_affiliation_strings": [
+        "Dept. Astrofísica, Universidad de La Laguna (ULL), 38206 La Laguna, Tenerife, Spain",
+        "Instituto de Astrofísica de Canarias (IAC), 38200 La Laguna, Tenerife, Spain"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Dept. Astrofísica, Universidad de La Laguna (ULL), 38206 La Laguna, Tenerife, Spain",
+          "institution_ids": [
+            "https://openalex.org/I158438070"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Instituto de Astrofísica de Canarias (IAC), 38200 La Laguna, Tenerife, Spain",
+          "institution_ids": [
+            "https://openalex.org/I4210130807"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5034458983",
+        "display_name": "H. Parviainen",
+        "orcid": "https://orcid.org/0000-0001-5519-1391",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-5519-1391"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I158438070",
+          "display_name": "Universidad de La Laguna",
+          "ror": "https://ror.org/01r9z8p25",
+          "country_code": "ES",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I158438070"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210130807",
+          "display_name": "Instituto de Astrofísica de Canarias",
+          "ror": "https://ror.org/03cmntr54",
+          "country_code": "ES",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I158438070",
+            "https://openalex.org/I4210130807"
+          ]
+        }
+      ],
+      "countries": [
+        "ES"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "H. Parviainen",
+      "raw_affiliation_strings": [
+        "Dept. Astrofísica, Universidad de La Laguna (ULL), 38206 La Laguna, Tenerife, Spain",
+        "Instituto de Astrofísica de Canarias (IAC), 38200 La Laguna, Tenerife, Spain"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Dept. Astrofísica, Universidad de La Laguna (ULL), 38206 La Laguna, Tenerife, Spain",
+          "institution_ids": [
+            "https://openalex.org/I158438070"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Instituto de Astrofísica de Canarias (IAC), 38200 La Laguna, Tenerife, Spain",
+          "institution_ids": [
+            "https://openalex.org/I4210130807"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5088454192",
+        "display_name": "Andreas Quirrenbach",
+        "orcid": "https://orcid.org/0000-0002-3302-1962",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-3302-1962"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I223822909",
+          "display_name": "Heidelberg University",
+          "ror": "https://ror.org/038t36y30",
+          "country_code": "DE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I223822909"
+          ]
+        }
+      ],
+      "countries": [
+        "DE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "A. Quirrenbach",
+      "raw_affiliation_strings": [
+        "Landessternwarte, Zentrum für Astronomie der Universität Heidelberg, Königstuhl 12, 69117 Heidelberg, Germany"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Landessternwarte, Zentrum für Astronomie der Universität Heidelberg, Königstuhl 12, 69117 Heidelberg, Germany",
+          "institution_ids": [
+            "https://openalex.org/I223822909"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5005331964",
+        "display_name": "Heike Rauer",
+        "orcid": "https://orcid.org/0000-0002-6510-1828",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-6510-1828"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2898391981",
+          "display_name": "Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)",
+          "ror": "https://ror.org/04bwf3e34",
+          "country_code": "DE",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1305996414",
+            "https://openalex.org/I2898391981"
+          ]
+        }
+      ],
+      "countries": [
+        "DE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "H. Rauer",
+      "raw_affiliation_strings": [
+        "Department of Extrasolar Planets and Atmospheres, Institute for Planetary Research, German Aerospace Centre, Rutherfordstr. 2, 12489 Berlin, Germany"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Extrasolar Planets and Atmospheres, Institute for Planetary Research, German Aerospace Centre, Rutherfordstr. 2, 12489 Berlin, Germany",
+          "institution_ids": [
+            "https://openalex.org/I2898391981"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5047871874",
+        "display_name": "I. Ribas",
+        "orcid": "https://orcid.org/0000-0002-6689-0312",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-6689-0312"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I132487946",
+          "display_name": "Institute of Space Sciences",
+          "ror": "https://ror.org/01vbgty78",
+          "country_code": "ES",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I132487946",
+            "https://openalex.org/I134820265"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210092024",
+          "display_name": "Institut d'Estudis Espacials de Catalunya",
+          "ror": "https://ror.org/00k6njn28",
+          "country_code": "ES",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I4210092024",
+            "https://openalex.org/I4387153040"
+          ]
+        }
+      ],
+      "countries": [
+        "ES"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "I. Ribas",
+      "raw_affiliation_strings": [
+        "Institut de Ciències de l’Espai (ICE, CSIC), Campus UAB, C/Can Magrans s/n, 08193 Bellaterra, Spain",
+        "Institut d’Estudis Espacials de Catalunya (IEEC), C/Gran Capitá 2–4, 08034 Barcelona, Spain",
+        "Institut d'Estudis Espacials de Catalunya (IEEC), C/Gran Capitá 2–4, 08034 Barcelona, Spain",
+        "Institut de Ciències de l'Espai (ICE, CSIC), Campus UAB, C/Can Magrans s/n, 08193 Bellaterra, Spain"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institut de Ciències de l’Espai (ICE, CSIC), Campus UAB, C/Can Magrans s/n, 08193 Bellaterra, Spain",
+          "institution_ids": [
+            "https://openalex.org/I132487946"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Institut d’Estudis Espacials de Catalunya (IEEC), C/Gran Capitá 2–4, 08034 Barcelona, Spain",
+          "institution_ids": [
+            "https://openalex.org/I4210092024"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Institut d'Estudis Espacials de Catalunya (IEEC), C/Gran Capitá 2–4, 08034 Barcelona, Spain",
+          "institution_ids": [
+            "https://openalex.org/I4210092024"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Institut de Ciències de l'Espai (ICE, CSIC), Campus UAB, C/Can Magrans s/n, 08193 Bellaterra, Spain",
+          "institution_ids": [
+            "https://openalex.org/I132487946"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5031529890",
+        "display_name": "Malena Rice",
+        "orcid": "https://orcid.org/0000-0002-7670-670X",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-7670-670X"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I32971472",
+          "display_name": "Yale University",
+          "ror": "https://ror.org/03v76x132",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I32971472"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "M. Rice",
+      "raw_affiliation_strings": [
+        "Department of Astronomy, Yale University, New Haven, CT 06511 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Astronomy, Yale University, New Haven, CT 06511 USA",
+          "institution_ids": [
+            "https://openalex.org/I32971472"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5029129647",
+        "display_name": "A Romagnolo",
+        "orcid": "https://orcid.org/0000-0001-9583-4339",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-9583-4339"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4210138771",
+          "display_name": "Nicolaus Copernicus Astronomical Center",
+          "ror": "https://ror.org/040r57n67",
+          "country_code": "PL",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I4210138771",
+            "https://openalex.org/I99542240"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I99542240",
+          "display_name": "Polish Academy of Sciences",
+          "ror": "https://ror.org/01dr6c206",
+          "country_code": "PL",
+          "type": "government",
+          "lineage": [
+            "https://openalex.org/I99542240"
+          ]
+        }
+      ],
+      "countries": [
+        "PL"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "A. Romagnolo",
+      "raw_affiliation_strings": [
+        "Nicolaus Copernicus Astronomical Center, Polish Academy of Sciences, ul. Bartycka 18, 00–716 Warsaw, Poland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Nicolaus Copernicus Astronomical Center, Polish Academy of Sciences, ul. Bartycka 18, 00–716 Warsaw, Poland",
+          "institution_ids": [
+            "https://openalex.org/I4210138771",
+            "https://openalex.org/I99542240"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5049162541",
+        "display_name": "Sarah Rugheimer",
+        "orcid": "https://orcid.org/0000-0003-1620-7658",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-1620-7658"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I40120149",
+          "display_name": "University of Oxford",
+          "ror": "https://ror.org/052gg0110",
+          "country_code": "GB",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I40120149"
+          ]
+        }
+      ],
+      "countries": [
+        "GB"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "S. Rugheimer",
+      "raw_affiliation_strings": [
+        "University of Oxford, Department of Atmospheric, Oceanic and Planetary Physics, Clarendon Laboratory, Sherrington Road, Oxford OX1 3PU, UK"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "University of Oxford, Department of Atmospheric, Oceanic and Planetary Physics, Clarendon Laboratory, Sherrington Road, Oxford OX1 3PU, UK",
+          "institution_ids": [
+            "https://openalex.org/I40120149"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5049794641",
+        "display_name": "Edward W. Schwieterman",
+        "orcid": "https://orcid.org/0000-0002-2949-2163",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-2949-2163"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I103635307",
+          "display_name": "University of California, Riverside",
+          "ror": "https://ror.org/03nawhv43",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I103635307"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "E. W. Schwieterman",
+      "raw_affiliation_strings": [
+        "Department of Earth and Planetary Sciences, University of California, Riverside, 900 University Ave. Riverside, CA 92521 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Earth and Planetary Sciences, University of California, Riverside, 900 University Ave. Riverside, CA 92521 USA",
+          "institution_ids": [
+            "https://openalex.org/I103635307"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5113286474",
+        "display_name": "Eugene Serabyn",
+        "orcid": "https://orcid.org/0009-0009-2491-0694",
+        "observed_orcids": [
+          "https://orcid.org/0009-0009-2491-0694"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I122411786",
+          "display_name": "California Institute of Technology",
+          "ror": "https://ror.org/05dxps055",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I122411786"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I1334627681",
+          "display_name": "Jet Propulsion Laboratory",
+          "ror": "https://ror.org/027k65916",
+          "country_code": "US",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I122411786",
+            "https://openalex.org/I1334627681",
+            "https://openalex.org/I4210124779"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "E. Serabyn",
+      "raw_affiliation_strings": [
+        "Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Dr., Pasadena, CA 91109 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Dr., Pasadena, CA 91109 USA",
+          "institution_ids": [
+            "https://openalex.org/I122411786",
+            "https://openalex.org/I1334627681"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": null,
+        "display_name": "S. Sharma",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I110166357",
+          "display_name": "University of Delhi",
+          "ror": "https://ror.org/04gzb2213",
+          "country_code": "IN",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I110166357"
+          ]
+        }
+      ],
+      "countries": [
+        "IN"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "S. Sharma",
+      "raw_affiliation_strings": [
+        "Deshbandhu College, University of Delhi 110019 Delhi, India"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Deshbandhu College, University of Delhi 110019 Delhi, India",
+          "institution_ids": [
+            "https://openalex.org/I110166357"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5088359901",
+        "display_name": "Keivan Guadalupe Stassun",
+        "orcid": "https://orcid.org/0000-0002-3481-9052",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-3481-9052"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I200719446",
+          "display_name": "Vanderbilt University",
+          "ror": "https://ror.org/02vm5rt34",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I200719446"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "K. G. Stassun",
+      "raw_affiliation_strings": [
+        "Vanderbilt University, Department of Physics & Astronomy, 6301 Stevenson Center Ln., Nashville, TN 37235 USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Vanderbilt University, Department of Physics & Astronomy, 6301 Stevenson Center Ln., Nashville, TN 37235 USA",
+          "institution_ids": [
+            "https://openalex.org/I200719446"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5035140549",
+        "display_name": "J. Szulágyi",
+        "orcid": "https://orcid.org/0000-0001-8442-4043",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-8442-4043"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. Szulágyi",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5100438275",
+        "display_name": "Haiyang S. Wang",
+        "orcid": "https://orcid.org/0000-0001-8618-3343",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-8618-3343",
+          "https://orcid.org/0000-0002-4284-1460"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I35440088",
+          "display_name": "ETH Zurich",
+          "ror": "https://ror.org/05a28rw58",
+          "country_code": "CH",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4405254069",
+          "display_name": "Institute for Particle Physics and Astrophysics",
+          "ror": "https://ror.org/01cgmpb23",
+          "country_code": "CH",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2799323385",
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        }
+      ],
+      "countries": [
+        "CH"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "H. S. Wang",
+      "raw_affiliation_strings": [
+        "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+        "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "ETH Zurich, Institute for Particle Physics & Astrophysics, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland",
+          "institution_ids": [
+            "https://openalex.org/I35440088",
+            "https://openalex.org/I4405254069"
+          ]
+        },
+        {
+          "raw_affiliation_string": "National Center of Competence in Research PlanetS, Gesellschaftsstrasse 6, 3012 Bern, Switzerland",
+          "institution_ids": []
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5101742202",
+        "display_name": "Fabian Wunderlich",
+        "orcid": "https://orcid.org/0000-0002-2238-5269",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-2238-5269",
+          "https://orcid.org/0000-0002-7445-6858"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2898391981",
+          "display_name": "Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)",
+          "ror": "https://ror.org/04bwf3e34",
+          "country_code": "DE",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1305996414",
+            "https://openalex.org/I2898391981"
+          ]
+        }
+      ],
+      "countries": [
+        "DE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "F. Wunderlich",
+      "raw_affiliation_strings": [
+        "Department of Extrasolar Planets and Atmospheres, Institute for Planetary Research, German Aerospace Centre, Rutherfordstr. 2, 12489 Berlin, Germany"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Extrasolar Planets and Atmospheres, Institute for Planetary Research, German Aerospace Centre, Rutherfordstr. 2, 12489 Berlin, Germany",
+          "institution_ids": [
+            "https://openalex.org/I2898391981"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5070106612",
+        "display_name": "Mark C. Wyatt",
+        "orcid": "https://orcid.org/0000-0001-9064-5598",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-9064-5598"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I241749",
+          "display_name": "University of Cambridge",
+          "ror": "https://ror.org/013meh722",
+          "country_code": "GB",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I241749"
+          ]
+        }
+      ],
+      "countries": [
+        "GB"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "M. C. Wyatt",
+      "raw_affiliation_strings": [
+        "Institute of Astronomy, University of Cambridge, Madingley Road, Cambridge CB3 0HA, UK"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institute of Astronomy, University of Cambridge, Madingley Road, Cambridge CB3 0HA, UK",
+          "institution_ids": [
+            "https://openalex.org/I241749"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 15,
+  "institutions_distinct_count": 50,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [],
+  "apc_list": {
+    "value": 1500,
+    "currency": "EUR",
+    "value_usd": 1580
+  },
+  "apc_paid": {
+    "value": 1500,
+    "currency": "EUR",
+    "value_usd": 1580
+  },
+  "fwci": 15.9141,
+  "has_fulltext": true,
+  "cited_by_count": 203,
+  "citation_normalized_percentile": {
+    "value": 0.99710841,
+    "is_in_top_1_percent": true,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 95,
+    "max": 100
+  },
+  "biblio": {
+    "volume": "664",
+    "issue": null,
+    "first_page": "A21",
+    "last_page": "A21"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T10039",
+    "display_name": "Stellar, planetary, and galactic studies",
+    "score": 0.8485999703407288,
+    "subfield": {
+      "id": "https://openalex.org/subfields/3103",
+      "display_name": "Astronomy and Astrophysics"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/31",
+      "display_name": "Physics and Astronomy"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T10039",
+      "display_name": "Stellar, planetary, and galactic studies",
+      "score": 0.8485999703407288,
+      "subfield": {
+        "id": "https://openalex.org/subfields/3103",
+        "display_name": "Astronomy and Astrophysics"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/31",
+        "display_name": "Physics and Astronomy"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T12917",
+      "display_name": "Astronomy and Astrophysical Research",
+      "score": 0.08370000123977661,
+      "subfield": {
+        "id": "https://openalex.org/subfields/3105",
+        "display_name": "Instrumentation"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/31",
+        "display_name": "Physics and Astronomy"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T11484",
+      "display_name": "Adaptive optics and wavefront sensing",
+      "score": 0.06030000001192093,
+      "subfield": {
+        "id": "https://openalex.org/subfields/3107",
+        "display_name": "Atomic and Molecular Physics, and Optics"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/31",
+        "display_name": "Physics and Astronomy"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/large-interferometer-for-exoplanets",
+      "display_name": "Large Interferometer For Exoplanets",
+      "score": 0.8650000095367432
+    },
+    {
+      "id": "https://openalex.org/keywords/nulling-interferometer",
+      "display_name": "nulling interferometer",
+      "score": 0.7670000195503235
+    },
+    {
+      "id": "https://openalex.org/keywords/exoplanet-detection",
+      "display_name": "exoplanet detection",
+      "score": 0.8059999942779541
+    },
+    {
+      "id": "https://openalex.org/keywords/exoplanet-atmospheres",
+      "display_name": "exoplanet atmospheres",
+      "score": 0.7160000205039978
+    },
+    {
+      "id": "https://openalex.org/keywords/mid-infrared-thermal-emission",
+      "display_name": "mid-infrared thermal emission",
+      "score": 0.7580000162124634
+    },
+    {
+      "id": "https://openalex.org/keywords/space-mission-concept",
+      "display_name": "space mission concept",
+      "score": 0.5789999961853027
+    },
+    {
+      "id": "https://openalex.org/keywords/rocky-exoplanets",
+      "display_name": "rocky exoplanets",
+      "score": 0.8209999799728394
+    },
+    {
+      "id": "https://openalex.org/keywords/habitable-zone",
+      "display_name": "habitable zone",
+      "score": 0.8989999890327454
+    },
+    {
+      "id": "https://openalex.org/keywords/m-dwarfs",
+      "display_name": "M dwarfs",
+      "score": 0.8740000128746033
+    },
+    {
+      "id": "https://openalex.org/keywords/instrument-simulator",
+      "display_name": "instrument simulator",
+      "score": 0.6010000109672546
+    },
+    {
+      "id": "https://openalex.org/keywords/biosignatures",
+      "display_name": "biosignatures",
+      "score": 0.7039999961853027
+    },
+    {
+      "id": "https://openalex.org/keywords/exoplanet-characterization",
+      "display_name": "exoplanet characterization",
+      "score": 0.4959999918937683
+    },
+    {
+      "id": "https://openalex.org/keywords/main-sequence-stars",
+      "display_name": "main-sequence stars",
+      "score": 0.5239999890327454
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C163479331",
+      "wikidata": "https://www.wikidata.org/wiki/Q44559",
+      "display_name": "Exoplanet",
+      "level": 3,
+      "score": 0.9920406341552734
+    },
+    {
+      "id": "https://openalex.org/C121332964",
+      "wikidata": "https://www.wikidata.org/wiki/Q413",
+      "display_name": "Physics",
+      "level": 0,
+      "score": 0.814010500907898
+    },
+    {
+      "id": "https://openalex.org/C1276947",
+      "wikidata": "https://www.wikidata.org/wiki/Q333",
+      "display_name": "Astronomy",
+      "level": 1,
+      "score": 0.5540383458137512
+    },
+    {
+      "id": "https://openalex.org/C2779343474",
+      "wikidata": "https://www.wikidata.org/wiki/Q3109175",
+      "display_name": "Context (archaeology)",
+      "level": 2,
+      "score": 0.5364307761192322
+    },
+    {
+      "id": "https://openalex.org/C150846664",
+      "wikidata": "https://www.wikidata.org/wiki/Q7602306",
+      "display_name": "Stars",
+      "level": 2,
+      "score": 0.5195565223693848
+    },
+    {
+      "id": "https://openalex.org/C2908647359",
+      "wikidata": "https://www.wikidata.org/wiki/Q2625603",
+      "display_name": "Population",
+      "level": 2,
+      "score": 0.48555848002433777
+    },
+    {
+      "id": "https://openalex.org/C133286888",
+      "wikidata": "https://www.wikidata.org/wiki/Q835032",
+      "display_name": "Coronagraph",
+      "level": 4,
+      "score": 0.4753058850765228
+    },
+    {
+      "id": "https://openalex.org/C166689943",
+      "wikidata": "https://www.wikidata.org/wiki/Q850283",
+      "display_name": "Interferometry",
+      "level": 2,
+      "score": 0.4442650079727173
+    },
+    {
+      "id": "https://openalex.org/C522977591",
+      "wikidata": "https://www.wikidata.org/wiki/Q201953",
+      "display_name": "Spitzer Space Telescope",
+      "level": 3,
+      "score": 0.4273778200149536
+    },
+    {
+      "id": "https://openalex.org/C44870925",
+      "wikidata": "https://www.wikidata.org/wiki/Q37547",
+      "display_name": "Astrophysics",
+      "level": 1,
+      "score": 0.37800854444503784
+    },
+    {
+      "id": "https://openalex.org/C127313418",
+      "wikidata": "https://www.wikidata.org/wiki/Q1069",
+      "display_name": "Geology",
+      "level": 0,
+      "score": 0.06297311186790466
+    },
+    {
+      "id": "https://openalex.org/C149923435",
+      "wikidata": "https://www.wikidata.org/wiki/Q37732",
+      "display_name": "Demography",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C151730666",
+      "wikidata": "https://www.wikidata.org/wiki/Q7205",
+      "display_name": "Paleontology",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C144024400",
+      "wikidata": "https://www.wikidata.org/wiki/Q21201",
+      "display_name": "Sociology",
+      "level": 0,
+      "score": 0.0
+    }
+  ],
+  "mesh": [],
+  "locations_count": 23,
+  "locations": [
+    {
+      "id": "doi:10.1051/0004-6361/202140366",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.1051/0004-6361/202140366",
+      "pdf_url": "https://www.aanda.org/articles/aa/pdf/2022/08/aa40366-21.pdf",
+      "source": {
+        "id": "https://openalex.org/S205231332",
+        "display_name": "Astronomy and Astrophysics",
+        "issn_l": "0004-6361",
+        "issn": [
+          "0004-6361",
+          "1432-0746"
+        ],
+        "is_oa": true,
+        "is_in_doaj": true,
+        "is_core": true,
+        "listed_in": [
+          "cwts-core",
+          "doaj",
+          "jufo-3",
+          "ki-jl-2",
+          "norway-2"
+        ],
+        "host_organization": "https://openalex.org/P4310319748",
+        "host_organization_name": "EDP Sciences",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310319748",
+          "https://openalex.org/P4310319982"
+        ],
+        "host_organization_lineage_names": [
+          "EDP Sciences",
+          "Science Press"
+        ],
+        "type": "journal"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Astronomy &amp; Astrophysics",
+      "raw_type": "journal-article"
+    },
+    {
+      "id": "pmh:oai:elib.dlr.de:190411",
+      "is_oa": false,
+      "landing_page_url": "https://doi.org/10.1051/0004-6361/202140366>.",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4377196266",
+        "display_name": "elib (German Aerospace Center)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I2898391981",
+        "host_organization_name": "Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)",
+        "host_organization_lineage": [
+          "https://openalex.org/I2898391981"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "acceptedVersion",
+      "is_accepted": true,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "Zeitschriftenbeitrag"
+    },
+    {
+      "id": "pmh:oai:ore.exeter.ac.uk:10871/129267",
+      "is_oa": true,
+      "landing_page_url": "http://hdl.handle.net/10871/129267",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306401998",
+        "display_name": "Open Research Exeter (University of Exeter)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I23923803",
+        "host_organization_name": "University of Exeter",
+        "host_organization_lineage": [
+          "https://openalex.org/I23923803"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "acceptedVersion",
+      "is_accepted": true,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "Article"
+    },
+    {
+      "id": "pmh:oai:repository.arizona.edu:10150/666314",
+      "is_oa": false,
+      "landing_page_url": "http://hdl.handle.net/10150/666314",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400271",
+        "display_name": "UA Campus Repository (The University of Arizona)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I138006243",
+        "host_organization_name": "University of Arizona",
+        "host_organization_lineage": [
+          "https://openalex.org/I138006243"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "acceptedVersion",
+      "is_accepted": true,
+      "is_published": false,
+      "raw_source_name": "Astronomy and Astrophysics",
+      "raw_type": "Article"
+    },
+    {
+      "id": "pmh:oai:arXiv.org:2101.07500",
+      "is_oa": true,
+      "landing_page_url": "http://arxiv.org/abs/2101.07500",
+      "pdf_url": "https://arxiv.org/pdf/2101.07500",
+      "source": {
+        "id": "https://openalex.org/S4306400194",
+        "display_name": "arXiv (Cornell University)",
+        "issn_l": "2331-8422",
+        "issn": [
+          "2331-8422"
+        ],
+        "is_oa": true,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I205783295",
+        "host_organization_name": "Cornell University",
+        "host_organization_lineage": [
+          "https://openalex.org/I205783295"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "text"
+    },
+    {
+      "id": "pmh:oai:HAL:hal-03876316v1",
+      "is_oa": true,
+      "landing_page_url": "https://hal.science/hal-03876316",
+      "pdf_url": "https://hal.science/hal-03876316v1/file/aa40366-21.pdf",
+      "source": {
+        "id": "https://openalex.org/S4306402512",
+        "display_name": "HAL (Le Centre pour la Communication Scientifique Directe)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I1294671590",
+        "host_organization_name": "Centre National de la Recherche Scientifique",
+        "host_organization_lineage": [
+          "https://openalex.org/I1294671590"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Astronomy & Astrophysics - A&A, 2022, 664, pp.A21. &#x27E8;10.1051/0004-6361/202140366&#x27E9;",
+      "raw_type": "info:eu-repo/semantics/article"
+    },
+    {
+      "id": "pmh:oai:edpsciences.org:dkey/10.1051/0004-6361/202140366",
+      "is_oa": true,
+      "landing_page_url": "https://www.aanda.org/10.1051/0004-6361/202140366/pdf",
+      "pdf_url": "https://www.aanda.org/10.1051/0004-6361/202140366/pdf",
+      "source": {
+        "id": "https://openalex.org/S4306400744",
+        "display_name": "Springer Link (Chiba Institute of Technology)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I8488066",
+        "host_organization_name": "Chiba Institute of Technology",
+        "host_organization_lineage": [
+          "https://openalex.org/I8488066"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "https://doi.org/10.1051/0004-6361/202140366",
+      "raw_type": "Text"
+    },
+    {
+      "id": "pmh:oai:edpsciences.org:dkey/10.1051/0004-6361/202141958",
+      "is_oa": false,
+      "landing_page_url": "https://www.aanda.org/10.1051/0004-6361/202141958/pdf",
+      "pdf_url": "https://www.aanda.org/10.1051/0004-6361/202141958/pdf",
+      "source": {
+        "id": "https://openalex.org/S4306400744",
+        "display_name": "Springer Link (Chiba Institute of Technology)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I8488066",
+        "host_organization_name": "Chiba Institute of Technology",
+        "host_organization_lineage": [
+          "https://openalex.org/I8488066"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "https://doi.org/10.1051/0004-6361/202141958",
+      "raw_type": "Text"
+    },
+    {
+      "id": "pmh:oai:edpsciences.org:dkey/10.1051/0004-6361/202141964",
+      "is_oa": true,
+      "landing_page_url": "https://www.aanda.org/10.1051/0004-6361/202141964/pdf",
+      "pdf_url": "https://www.aanda.org/10.1051/0004-6361/202141964/pdf",
+      "source": {
+        "id": "https://openalex.org/S4306400744",
+        "display_name": "Springer Link (Chiba Institute of Technology)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I8488066",
+        "host_organization_name": "Chiba Institute of Technology",
+        "host_organization_lineage": [
+          "https://openalex.org/I8488066"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "https://doi.org/10.1051/0004-6361/202141964",
+      "raw_type": "Text"
+    },
+    {
+      "id": "pmh:oai:edpsciences.org:dkey/10.1051/0004-6361/202243760",
+      "is_oa": true,
+      "landing_page_url": "https://www.aanda.org/10.1051/0004-6361/202243760/pdf",
+      "pdf_url": "https://www.aanda.org/10.1051/0004-6361/202243760/pdf",
+      "source": {
+        "id": "https://openalex.org/S4306400744",
+        "display_name": "Springer Link (Chiba Institute of Technology)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I8488066",
+        "host_organization_name": "Chiba Institute of Technology",
+        "host_organization_lineage": [
+          "https://openalex.org/I8488066"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "https://doi.org/10.1051/0004-6361/202243760",
+      "raw_type": "Text"
+    },
+    {
+      "id": "pmh:oai:orbi.ulg.ac.be:2268/293687",
+      "is_oa": true,
+      "landing_page_url": "https://orbi.uliege.be/handle/2268/293687",
+      "pdf_url": "https://orbi.uliege.be/bitstream/2268/293687/1/aa40366-21.pdf",
+      "source": {
+        "id": "https://openalex.org/S4306400651",
+        "display_name": "Open Repository and Bibliography (University of Liège)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I157674565",
+        "host_organization_name": "University of Liège",
+        "host_organization_lineage": [
+          "https://openalex.org/I157674565"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "other-oa",
+      "license_id": "https://openalex.org/licenses/other-oa",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Astronomy and Astrophysics, 664, A21 (2022-08-09)",
+      "raw_type": "http://purl.org/coar/resource_type/c_6501"
+    },
+    {
+      "id": "pmh:oai:scholarlypublications.universiteitleiden.nl:item_3562526",
+      "is_oa": false,
+      "landing_page_url": "https://ui.adsabs.harvard.edu/abs/2022A&A...664A..21Q",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400850",
+        "display_name": "Leiden Repository (Leiden University)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I121797337",
+        "host_organization_name": "Leiden University",
+        "host_organization_lineage": [
+          "https://openalex.org/I121797337"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Astronomy &amp; Astrophysics",
+      "raw_type": "Article / Letter to editor"
+    },
+    {
+      "id": "pmh:oai:digital.csic.es:10261/296875",
+      "is_oa": false,
+      "landing_page_url": "http://hdl.handle.net/10261/296875",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400616",
+        "display_name": "DIGITAL.CSIC (Spanish National Research Council (CSIC))",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I134820265",
+        "host_organization_name": "Consejo Superior de Investigaciones Científicas",
+        "host_organization_lineage": [
+          "https://openalex.org/I134820265"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "",
+      "raw_type": "artículo"
+    },
+    {
+      "id": "pmh:oai:escholarship.org:ark:/13030/qt5zn6z4t9",
+      "is_oa": true,
+      "landing_page_url": "https://escholarship.org/uc/item/5zn6z4t9",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400115",
+        "display_name": "eScholarship (California Digital Library)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I2801248553",
+        "host_organization_name": "California Digital Library",
+        "host_organization_lineage": [
+          "https://openalex.org/I2801248553"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "",
+      "raw_type": "article"
+    },
+    {
+      "id": "pmh:oai:figshare.com:article/29784281",
+      "is_oa": true,
+      "landing_page_url": "https://figshare.com/articles/journal_contribution/Large_Interferometer_For_Exoplanets_LIFE_I_Improved_exoplanet_detection_yield_estimates_for_a_large_mid-infrared_space-interferometer_mission/29784281",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4377196282",
+        "display_name": "Figshare",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I4210132348",
+        "host_organization_name": "Figshare (United Kingdom)",
+        "host_organization_lineage": [
+          "https://openalex.org/I4210132348"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "Text"
+    },
+    {
+      "id": "pmh:oai:lirias2repo.kuleuven.be:20.500.12942/717618",
+      "is_oa": false,
+      "landing_page_url": "https://lirias.kuleuven.be/handle/20.500.12942/717618",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S7407055369",
+        "display_name": "Lirias",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": null,
+        "host_organization_name": null,
+        "host_organization_lineage": [],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Astronomy & Astrophysics, vol. 664, Art.No. ARTN A21",
+      "raw_type": "info:eu-repo/semantics/article"
+    },
+    {
+      "id": "pmh:oai:pure.atira.dk:publications/99e7cc47-6f91-4ad4-b2b2-df8e8229210e",
+      "is_oa": true,
+      "landing_page_url": "https://orbit.dtu.dk/en/publications/99e7cc47-6f91-4ad4-b2b2-df8e8229210e",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400705",
+        "display_name": "Technical University of Denmark, DTU Orbit (Technical University of Denmark, DTU)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I96673099",
+        "host_organization_name": "Technical University of Denmark",
+        "host_organization_lineage": [
+          "https://openalex.org/I96673099"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "other-oa",
+      "license_id": "https://openalex.org/licenses/other-oa",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "article"
+    },
+    {
+      "id": "pmh:oai:pure.rug.nl:openaire/7445d8cf-18b4-4558-9f67-0446e2990a05",
+      "is_oa": true,
+      "landing_page_url": "https://research.rug.nl/files/249968157/aa40366_21.pdf",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400420",
+        "display_name": "University of Groningen research database (University of Groningen / Centre for Information Technology)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I169381384",
+        "host_organization_name": "University of Groningen",
+        "host_organization_lineage": [
+          "https://openalex.org/I169381384"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "other-oa",
+      "license_id": "https://openalex.org/licenses/other-oa",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "LIFE Collaboration 2022, 'Large Interferometer For Exoplanets (LIFE) I. Improved exoplanet detection yield estimates for a large mid-infrared space-interferometer mission', Astronomy & Astrophysics, vol. 664, 21. https://doi.org/10.1051/0004-6361/202140366",
+      "raw_type": "info:eu-repo/semantics/article"
+    },
+    {
+      "id": "pmh:oai:research.chalmers.se:532010",
+      "is_oa": false,
+      "landing_page_url": "https://research.chalmers.se/en/publication/532010",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306402469",
+        "display_name": "Chalmers Research (Chalmers University of Technology)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I66862912",
+        "host_organization_name": "Chalmers University of Technology",
+        "host_organization_lineage": [
+          "https://openalex.org/I66862912"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": null
+    },
+    {
+      "id": "pmh:oai:www.research.unipd.it:11577/3542491",
+      "is_oa": true,
+      "landing_page_url": "https://hdl.handle.net/11577/3542491",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306402547",
+        "display_name": "Padua Research Archive (University of Padova)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I138689650",
+        "host_organization_name": "University of Padua",
+        "host_organization_lineage": [
+          "https://openalex.org/I138689650"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "info:eu-repo/semantics/article"
+    },
+    {
+      "id": "pmh:rug:oai:pure.rug.nl:publications/7445d8cf-18b4-4558-9f67-0446e2990a05",
+      "is_oa": true,
+      "landing_page_url": "https://research.rug.nl/en/publications/7445d8cf-18b4-4558-9f67-0446e2990a05",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400420",
+        "display_name": "University of Groningen research database (University of Groningen / Centre for Information Technology)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I169381384",
+        "host_organization_name": "University of Groningen",
+        "host_organization_lineage": [
+          "https://openalex.org/I169381384"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "other-oa",
+      "license_id": "https://openalex.org/licenses/other-oa",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Astronomy &amp; astrophysics, 664:21. EDP Sciences",
+      "raw_type": "info:eu-repo/semantics/article"
+    },
+    {
+      "id": "pmh:ul:oai:scholarlypublications.universiteitleiden.nl:item_3562526",
+      "is_oa": true,
+      "landing_page_url": "http://hdl.handle.net/1887/3562526",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306401843",
+        "display_name": "Data Archiving and Networked Services (DANS)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I1322597698",
+        "host_organization_name": "Royal Netherlands Academy of Arts and Sciences",
+        "host_organization_lineage": [
+          "https://openalex.org/I1322597698"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "other-oa",
+      "license_id": "https://openalex.org/licenses/other-oa",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Astronomy &amp; Astrophysics, 664:A21",
+      "raw_type": "info:eu-repo/semantics/article"
+    },
+    {
+      "id": "doi:10.48550/arxiv.2101.07500",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.48550/arxiv.2101.07500",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400194",
+        "display_name": "arXiv (Cornell University)",
+        "issn_l": "2331-8422",
+        "issn": [
+          "2331-8422"
+        ],
+        "is_oa": true,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I205783295",
+        "host_organization_name": "Cornell University",
+        "host_organization_lineage": [
+          "https://openalex.org/I205783295"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": null,
+      "is_accepted": false,
+      "is_published": null,
+      "raw_source_name": null,
+      "raw_type": "article-journal"
+    }
+  ],
+  "best_oa_location": {
+    "id": "doi:10.1051/0004-6361/202140366",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1051/0004-6361/202140366",
+    "pdf_url": "https://www.aanda.org/articles/aa/pdf/2022/08/aa40366-21.pdf",
+    "source": {
+      "id": "https://openalex.org/S205231332",
+      "display_name": "Astronomy and Astrophysics",
+      "issn_l": "0004-6361",
+      "issn": [
+        "0004-6361",
+        "1432-0746"
+      ],
+      "is_oa": true,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+        "cwts-core",
+        "doaj",
+        "jufo-3",
+        "ki-jl-2",
+        "norway-2"
+      ],
+      "host_organization": "https://openalex.org/P4310319748",
+      "host_organization_name": "EDP Sciences",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319748",
+        "https://openalex.org/P4310319982"
+      ],
+      "host_organization_lineage_names": [
+        "EDP Sciences",
+        "Science Press"
+      ],
+      "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Astronomy &amp; Astrophysics",
+    "raw_type": "journal-article"
+  },
+  "sustainable_development_goals": [],
+  "sustainable_development_goals_aurora": [],
+  "study_designs": [],
+  "awards": [
+    {
+      "id": "https://openalex.org/G1255325603",
+      "display_name": null,
+      "funder_award_id": "100010434",
+      "funder_id": "https://openalex.org/F4320320300",
+      "funder_display_name": "European Commission"
+    },
+    {
+      "id": "https://openalex.org/G1835212953",
+      "display_name": "Junior Leader la Caixa Postdoctoral Fellowship Programme: Shaping the new generation of leaders in research",
+      "funder_award_id": "847648",
+      "funder_id": "https://openalex.org/F4320320300",
+      "funder_display_name": "European Commission"
+    },
+    {
+      "id": "https://openalex.org/G3202446145",
+      "display_name": null,
+      "funder_award_id": "611576)",
+      "funder_id": "https://openalex.org/F4320306164",
+      "funder_display_name": "Simons Foundation"
+    },
+    {
+      "id": "https://openalex.org/G3803561910",
+      "display_name": null,
+      "funder_award_id": "100010434",
+      "funder_id": "https://openalex.org/F4320306076",
+      "funder_display_name": "National Science Foundation"
+    },
+    {
+      "id": "https://openalex.org/G4276578120",
+      "display_name": null,
+      "funder_award_id": "51NF40_182901",
+      "funder_id": "https://openalex.org/F4320306076",
+      "funder_display_name": "National Science Foundation"
+    },
+    {
+      "id": "https://openalex.org/G434337789",
+      "display_name": null,
+      "funder_award_id": "HORIZON2020",
+      "funder_id": "https://openalex.org/F4320320300",
+      "funder_display_name": "European Commission"
+    },
+    {
+      "id": "https://openalex.org/G5132640529",
+      "display_name": null,
+      "funder_award_id": "ID 100010434",
+      "funder_id": "https://openalex.org/F4320330256",
+      "funder_display_name": "Fundación Bancaria Caixa d'Estalvis i Pensions de Barcelona"
+    },
+    {
+      "id": "https://openalex.org/G6132391133",
+      "display_name": null,
+      "funder_award_id": "639889",
+      "funder_id": "https://openalex.org/F4320306076",
+      "funder_display_name": "National Science Foundation"
+    },
+    {
+      "id": "https://openalex.org/G654413331",
+      "display_name": null,
+      "funder_award_id": "100010434",
+      "funder_id": "https://openalex.org/F4320320924",
+      "funder_display_name": "Schweizerischer Nationalfonds zur Förderung der Wissenschaftlichen Forschung"
+    },
+    {
+      "id": "https://openalex.org/G6874025580",
+      "display_name": "NCCR PlanetS: Origin, evolution and characterisation of planets",
+      "funder_award_id": "182901",
+      "funder_id": "https://openalex.org/F4320320924",
+      "funder_display_name": "Schweizerischer Nationalfonds zur Förderung der Wissenschaftlichen Forschung"
+    },
+    {
+      "id": "https://openalex.org/G7182325560",
+      "display_name": null,
+      "funder_award_id": "639889",
+      "funder_id": "https://openalex.org/F4320320300",
+      "funder_display_name": "European Commission"
+    },
+    {
+      "id": "https://openalex.org/G7685134749",
+      "display_name": null,
+      "funder_award_id": "100010434",
+      "funder_id": "https://openalex.org/F4320330256",
+      "funder_display_name": "Fundación Bancaria Caixa d'Estalvis i Pensions de Barcelona"
+    },
+    {
+      "id": "https://openalex.org/G7731791180",
+      "display_name": null,
+      "funder_award_id": "ID 100010434",
+      "funder_id": "https://openalex.org/F4320320300",
+      "funder_display_name": "European Commission"
+    },
+    {
+      "id": "https://openalex.org/G8318038168",
+      "display_name": null,
+      "funder_award_id": "51NF40_205606",
+      "funder_id": "https://openalex.org/F4320306076",
+      "funder_display_name": "National Science Foundation"
+    },
+    {
+      "id": "https://openalex.org/G8505061131",
+      "display_name": null,
+      "funder_award_id": "51NF40_205606.",
+      "funder_id": "https://openalex.org/F4320320924",
+      "funder_display_name": "Schweizerischer Nationalfonds zur Förderung der Wissenschaftlichen Forschung"
+    }
+  ],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320306076",
+      "display_name": "National Science Foundation",
+      "ror": "https://ror.org/021nxhr62"
+    },
+    {
+      "id": "https://openalex.org/F4320306101",
+      "display_name": "National Aeronautics and Space Administration",
+      "ror": "https://ror.org/027ka1x80"
+    },
+    {
+      "id": "https://openalex.org/F4320306164",
+      "display_name": "Simons Foundation",
+      "ror": "https://ror.org/01cmst727"
+    },
+    {
+      "id": "https://openalex.org/F4320309398",
+      "display_name": "California Institute of Technology",
+      "ror": "https://ror.org/05dxps055"
+    },
+    {
+      "id": "https://openalex.org/F4320320300",
+      "display_name": "European Commission",
+      "ror": "https://ror.org/00k4n6c32"
+    },
+    {
+      "id": "https://openalex.org/F4320320924",
+      "display_name": "Schweizerischer Nationalfonds zur Förderung der Wissenschaftlichen Forschung",
+      "ror": "https://ror.org/00yjd3n13"
+    },
+    {
+      "id": "https://openalex.org/F4320330256",
+      "display_name": "Fundación Bancaria Caixa d'Estalvis i Pensions de Barcelona",
+      "ror": "https://ror.org/05r3yzw86"
+    },
+    {
+      "id": "https://openalex.org/F4320331784",
+      "display_name": "Fondation familiale Trottier",
+      "ror": null
+    },
+    {
+      "id": "https://openalex.org/F4320332375",
+      "display_name": "Jet Propulsion Laboratory",
+      "ror": "https://ror.org/027k65916"
+    },
+    {
+      "id": "https://openalex.org/F4320334841",
+      "display_name": "Fonds de recherche du Québec – Nature et technologies",
+      "ror": "https://ror.org/00b9f9778"
+    },
+    {
+      "id": "https://openalex.org/F4320337643",
+      "display_name": "U.S. Naval Observatory",
+      "ror": "https://ror.org/048s2rn92"
+    }
+  ],
+  "has_content": {
+    "pdf": true,
+    "grobid_xml": true
+  },
+  "content_urls": {
+    "pdf": "https://content.openalex.org/works/W3125077253.pdf",
+    "grobid_xml": "https://content.openalex.org/works/W3125077253.grobid-xml"
+  },
+  "referenced_works_count": 128,
+  "referenced_works": [
+    "https://openalex.org/W1515149315",
+    "https://openalex.org/W1557768444",
+    "https://openalex.org/W1636130649",
+    "https://openalex.org/W1751438617",
+    "https://openalex.org/W1928354904",
+    "https://openalex.org/W1932301516",
+    "https://openalex.org/W1977621864",
+    "https://openalex.org/W1986030486",
+    "https://openalex.org/W1996255849",
+    "https://openalex.org/W1996303783",
+    "https://openalex.org/W2011301426",
+    "https://openalex.org/W2012862685",
+    "https://openalex.org/W2023095629",
+    "https://openalex.org/W2023337217",
+    "https://openalex.org/W2030022966",
+    "https://openalex.org/W2035144479",
+    "https://openalex.org/W2035697154",
+    "https://openalex.org/W2047751764",
+    "https://openalex.org/W2068723602",
+    "https://openalex.org/W2070508637",
+    "https://openalex.org/W2077888576",
+    "https://openalex.org/W2078448024",
+    "https://openalex.org/W2083483973",
+    "https://openalex.org/W2085905336",
+    "https://openalex.org/W2086254053",
+    "https://openalex.org/W2095764533",
+    "https://openalex.org/W2096512653",
+    "https://openalex.org/W2101488484",
+    "https://openalex.org/W2104476704",
+    "https://openalex.org/W2107167284",
+    "https://openalex.org/W2116146124",
+    "https://openalex.org/W2120663217",
+    "https://openalex.org/W2134203307",
+    "https://openalex.org/W2135625048",
+    "https://openalex.org/W2136759257",
+    "https://openalex.org/W2145053595",
+    "https://openalex.org/W2145367011",
+    "https://openalex.org/W2146292423",
+    "https://openalex.org/W2198734808",
+    "https://openalex.org/W2319555001",
+    "https://openalex.org/W2333821472",
+    "https://openalex.org/W2339903148",
+    "https://openalex.org/W2508168437",
+    "https://openalex.org/W2515578541",
+    "https://openalex.org/W2516354059",
+    "https://openalex.org/W2519730153",
+    "https://openalex.org/W2590741408",
+    "https://openalex.org/W2594437117",
+    "https://openalex.org/W2594467206",
+    "https://openalex.org/W2616637335",
+    "https://openalex.org/W2732435475",
+    "https://openalex.org/W2737630073",
+    "https://openalex.org/W2748161957",
+    "https://openalex.org/W2748683973",
+    "https://openalex.org/W2761986865",
+    "https://openalex.org/W2766698839",
+    "https://openalex.org/W2783013714",
+    "https://openalex.org/W2783145282",
+    "https://openalex.org/W2788052345",
+    "https://openalex.org/W2789139673",
+    "https://openalex.org/W2794735996",
+    "https://openalex.org/W2797439311",
+    "https://openalex.org/W2804215788",
+    "https://openalex.org/W2888433204",
+    "https://openalex.org/W2891724451",
+    "https://openalex.org/W2892338809",
+    "https://openalex.org/W2893224932",
+    "https://openalex.org/W2912197362",
+    "https://openalex.org/W2917522614",
+    "https://openalex.org/W2935464616",
+    "https://openalex.org/W2938668306",
+    "https://openalex.org/W2948416255",
+    "https://openalex.org/W2949593113",
+    "https://openalex.org/W2950968622",
+    "https://openalex.org/W2951688286",
+    "https://openalex.org/W2962509707",
+    "https://openalex.org/W2963604282",
+    "https://openalex.org/W2965599940",
+    "https://openalex.org/W2995342262",
+    "https://openalex.org/W3003257820",
+    "https://openalex.org/W3010283675",
+    "https://openalex.org/W3014501993",
+    "https://openalex.org/W3015960007",
+    "https://openalex.org/W3037546246",
+    "https://openalex.org/W3083963661",
+    "https://openalex.org/W3096635878",
+    "https://openalex.org/W3098414160",
+    "https://openalex.org/W3098517235",
+    "https://openalex.org/W3098565679",
+    "https://openalex.org/W3098573929",
+    "https://openalex.org/W3099594464",
+    "https://openalex.org/W3099938065",
+    "https://openalex.org/W3100695565",
+    "https://openalex.org/W3101590310",
+    "https://openalex.org/W3102073657",
+    "https://openalex.org/W3102275088",
+    "https://openalex.org/W3102279444",
+    "https://openalex.org/W3102339150",
+    "https://openalex.org/W3102636919",
+    "https://openalex.org/W3102686543",
+    "https://openalex.org/W3103029959",
+    "https://openalex.org/W3103181187",
+    "https://openalex.org/W3103713821",
+    "https://openalex.org/W3103901635",
+    "https://openalex.org/W3104072178",
+    "https://openalex.org/W3104212047",
+    "https://openalex.org/W3104335016",
+    "https://openalex.org/W3104700304",
+    "https://openalex.org/W3105353888",
+    "https://openalex.org/W3105561859",
+    "https://openalex.org/W3105854230",
+    "https://openalex.org/W3106045330",
+    "https://openalex.org/W3114860606",
+    "https://openalex.org/W3123550779",
+    "https://openalex.org/W3124069841",
+    "https://openalex.org/W3198286657",
+    "https://openalex.org/W4220969557",
+    "https://openalex.org/W4225931137",
+    "https://openalex.org/W4238057555",
+    "https://openalex.org/W4245112136",
+    "https://openalex.org/W4250571869",
+    "https://openalex.org/W4289253515",
+    "https://openalex.org/W4295914956",
+    "https://openalex.org/W4391737785",
+    "https://openalex.org/W4394643535",
+    "https://openalex.org/W4394653429",
+    "https://openalex.org/W4396589129",
+    "https://openalex.org/W6948559638"
+  ],
+  "related_works": [
+    "https://openalex.org/W1978086464",
+    "https://openalex.org/W1989115034",
+    "https://openalex.org/W2879015029",
+    "https://openalex.org/W1986543338",
+    "https://openalex.org/W3162368756",
+    "https://openalex.org/W2146639474",
+    "https://openalex.org/W2289948862",
+    "https://openalex.org/W2762930106",
+    "https://openalex.org/W3112178909",
+    "https://openalex.org/W2811022833"
+  ],
+  "abstract_inverted_index": {
+    "Context.": [
+      0
+    ],
+    "One": [
+      1
+    ],
+    "of": [
+      2,
+      6,
+      13,
+      15,
+      39,
+      72,
+      84,
+      90,
+      99,
+      131,
+      142,
+      154,
+      175,
+      196,
+      213,
+      240,
+      275,
+      291,
+      325,
+      336,
+      367,
+      372,
+      397,
+      411,
+      423,
+      425,
+      434,
+      462
+    ],
+    "the": [
+      3,
+      10,
+      46,
+      58,
+      68,
+      81,
+      88,
+      95,
+      143,
+      150,
+      181,
+      203,
+      241,
+      252,
+      270,
+      281,
+      288,
+      310,
+      338,
+      348,
+      395,
+      409,
+      416,
+      426,
+      444,
+      458,
+      463
+    ],
+    "long-term": [
+      4
+    ],
+    "goals": [
+      5
+    ],
+    "exoplanet": [
+      7,
+      69,
+      134
+    ],
+    "science": [
+      8
+    ],
+    "is": [
+      9,
+      314,
+      351
+    ],
+    "atmospheric": [
+      11
+    ],
+    "characterization": [
+      12
+    ],
+    "dozens": [
+      14
+    ],
+    "small": [
+      16
+    ],
+    "exoplanets": [
+      17,
+      49,
+      59,
+      106,
+      155,
+      220,
+      243,
+      257,
+      328
+    ],
+    "in": [
+      18,
+      107,
+      202,
+      401
+    ],
+    "order": [
+      19
+    ],
+    "to": [
+      20,
+      66,
+      148,
+      218,
+      295,
+      297,
+      341,
+      363,
+      451,
+      467
+    ],
+    "understand": [
+      21
+    ],
+    "their": [
+      22,
+      51,
+      61,
+      276,
+      435
+    ],
+    "diversity": [
+      23
+    ],
+    "and": [
+      24,
+      29,
+      50,
+      54,
+      60,
+      93,
+      124,
+      187,
+      225,
+      263,
+      437,
+      440
+    ],
+    "search": [
+      25,
+      178,
+      417
+    ],
+    "for": [
+      26,
+      171,
+      431,
+      446
+    ],
+    "habitable": [
+      27,
+      272,
+      376,
+      398
+    ],
+    "worlds": [
+      28
+    ],
+    "potential": [
+      30
+    ],
+    "biosignatures.": [
+      31
+    ],
+    "Achieving": [
+      32
+    ],
+    "this": [
+      33
+    ],
+    "goal": [
+      34
+    ],
+    "requires": [
+      35
+    ],
+    "a": [
+      36,
+      73,
+      132,
+      209,
+      383,
+      412,
+      447
+    ],
+    "space": [
+      37
+    ],
+    "mission": [
+      38,
+      102,
+      158,
+      384,
+      449
+    ],
+    "sufficient": [
+      40
+    ],
+    "scale": [
+      41
+    ],
+    "that": [
+      42,
+      79,
+      98,
+      104,
+      117,
+      156,
+      381
+    ],
+    "can": [
+      43,
+      293,
+      385
+    ],
+    "spatially": [
+      44
+    ],
+    "separate": [
+      45
+    ],
+    "signals": [
+      47
+    ],
+    "from": [
+      48
+    ],
+    "host": [
+      52,
+      277
+    ],
+    "stars": [
+      53,
+      138,
+      278
+    ],
+    "thus": [
+      55
+    ],
+    "directly": [
+      56,
+      364
+    ],
+    "scrutinize": [
+      57
+    ],
+    "atmospheres.": [
+      62
+    ],
+    "Aims.": [
+      63
+    ],
+    "We": [
+      64,
+      86,
+      111
+    ],
+    "seek": [
+      65
+    ],
+    "quantify": [
+      67,
+      149
+    ],
+    "detection": [
+      70,
+      312,
+      349
+    ],
+    "performance": [
+      71,
+      96
+    ],
+    "space-based": [
+      74,
+      356
+    ],
+    "mid-infrared": [
+      75
+    ],
+    "(MIR)": [
+      76
+    ],
+    "nulling": [
+      77,
+      358
+    ],
+    "interferometer": [
+      78,
+      194,
+      359
+    ],
+    "measures": [
+      80
+    ],
+    "thermal": [
+      82,
+      454
+    ],
+    "emission": [
+      83,
+      455
+    ],
+    "exoplanets.": [
+      85
+    ],
+    "study": [
+      87
+    ],
+    "impact": [
+      89,
+      335
+    ],
+    "various": [
+      91
+    ],
+    "parameters": [
+      92
+    ],
+    "compare": [
+      94
+    ],
+    "with": [
+      97,
+      127,
+      208,
+      221,
+      229,
+      259,
+      387
+    ],
+    "large": [
+      100,
+      355,
+      388
+    ],
+    "single-aperture": [
+      101,
+      389
+    ],
+    "concepts": [
+      103
+    ],
+    "detect": [
+      105,
+      216,
+      365
+    ],
+    "reflected": [
+      108,
+      390
+    ],
+    "light.": [
+      109
+    ],
+    "Methods.": [
+      110
+    ],
+    "have": [
+      112,
+      244
+    ],
+    "developed": [
+      113
+    ],
+    "an": [
+      114,
+      176,
+      230
+    ],
+    "instrument": [
+      115,
+      211
+    ],
+    "simulator": [
+      116
+    ],
+    "considers": [
+      118
+    ],
+    "all": [
+      119
+    ],
+    "major": [
+      120
+    ],
+    "astrophysical": [
+      121
+    ],
+    "noise": [
+      122
+    ],
+    "sources": [
+      123
+    ],
+    "coupled": [
+      125
+    ],
+    "it": [
+      126
+    ],
+    "Monte": [
+      128
+    ],
+    "Carlo": [
+      129
+    ],
+    "simulations": [
+      130
+    ],
+    "synthetic": [
+      133
+    ],
+    "population": [
+      135
+    ],
+    "around": [
+      136,
+      331,
+      403
+    ],
+    "main-sequence": [
+      137
+    ],
+    "within": [
+      139,
+      269
+    ],
+    "20": [
+      140
+    ],
+    "pc": [
+      141
+    ],
+    "Sun.": [
+      144
+    ],
+    "This": [
+      145,
+      379
+    ],
+    "allows": [
+      146
+    ],
+    "us": [
+      147
+    ],
+    "number": [
+      151,
+      290,
+      396
+    ],
+    "(and": [
+      152
+    ],
+    "types)": [
+      153
+    ],
+    "our": [
+      157
+    ],
+    "concept": [
+      159
+    ],
+    "could": [
+      160,
+      215
+    ],
+    "detect.": [
+      161
+    ],
+    "Considering": [
+      162
+    ],
+    "single": [
+      163
+    ],
+    "visits": [
+      164
+    ],
+    "only,": [
+      165
+    ],
+    "we": [
+      166
+    ],
+    "discuss": [
+      167
+    ],
+    "two": [
+      168
+    ],
+    "different": [
+      169
+    ],
+    "scenarios": [
+      170
+    ],
+    "distributing": [
+      172
+    ],
+    "2.5": [
+      173
+    ],
+    "yr": [
+      174
+    ],
+    "initial": [
+      177
+    ],
+    "phase": [
+      179,
+      450
+    ],
+    "among": [
+      180,
+      280
+    ],
+    "stellar": [
+      182
+    ],
+    "targets.": [
+      183
+    ],
+    "Different": [
+      184
+    ],
+    "apertures": [
+      185,
+      200
+    ],
+    "sizes": [
+      186
+    ],
+    "wavelength": [
+      188,
+      206,
+      339
+    ],
+    "ranges": [
+      189
+    ],
+    "are": [
+      190,
+      279,
+      329
+    ],
+    "investigated.": [
+      191
+    ],
+    "Results.": [
+      192
+    ],
+    "An": [
+      193
+    ],
+    "consisting": [
+      195
+    ],
+    "four": [
+      197,
+      284,
+      305
+    ],
+    "2": [
+      198
+    ],
+    "m": [
+      199,
+      286,
+      308
+    ],
+    "working": [
+      201
+    ],
+    "4–18.5": [
+      204
+    ],
+    "μ.m": [
+      205
+    ],
+    "range": [
+      207,
+      340
+    ],
+    "total": [
+      210,
+      289
+    ],
+    "throughput": [
+      212
+    ],
+    "5%": [
+      214
+    ],
+    "up": [
+      217,
+      296
+    ],
+    "≈550": [
+      219
+    ],
+    "radii": [
+      222,
+      245,
+      260,
+      436
+    ],
+    "between": [
+      223,
+      261
+    ],
+    "0.5": [
+      224,
+      262
+    ],
+    "6": [
+      226
+    ],
+    "R": [
+      227,
+      247,
+      265
+    ],
+    "⊕": [
+      228,
+      248,
+      266
+    ],
+    "integrated": [
+      231
+    ],
+    "S": [
+      232
+    ],
+    "/": [
+      233
+    ],
+    "N": [
+      234
+    ],
+    "≥": [
+      235
+    ],
+    "7.": [
+      236
+    ],
+    "At": [
+      237
+    ],
+    "least": [
+      238
+    ],
+    "≈160": [
+      239
+    ],
+    "detected": [
+      242,
+      330,
+      427
+    ],
+    "≤1.5": [
+      246
+    ],
+    ".": [
+      249
+    ],
+    "Depending": [
+      250
+    ],
+    "on": [
+      251,
+      347
+    ],
+    "observing": [
+      253
+    ],
+    "scenario,": [
+      254
+    ],
+    "≈25–45": [
+      255
+    ],
+    "rocky": [
+      256,
+      301,
+      319
+    ],
+    "(objects": [
+      258
+    ],
+    "1.5": [
+      264
+    ],
+    ")": [
+      267
+    ],
+    "orbiting": [
+      268
+    ],
+    "empirical": [
+      271
+    ],
+    "zone": [
+      273
+    ],
+    "(eHZ)": [
+      274
+    ],
+    "detections.": [
+      282
+    ],
+    "With": [
+      283,
+      304
+    ],
+    "3.5": [
+      285
+    ],
+    "apertures,": [
+      287,
+      309
+    ],
+    "detections": [
+      292
+    ],
+    "increase": [
+      294
+    ],
+    "≈770,": [
+      298
+    ],
+    "including": [
+      299,
+      317
+    ],
+    "≈60–80": [
+      300
+    ],
+    "eHZ": [
+      302,
+      320
+    ],
+    "planets.": [
+      303,
+      321
+    ],
+    "times": [
+      306
+    ],
+    "1": [
+      307
+    ],
+    "maximum": [
+      311
+    ],
+    "yield": [
+      313,
+      350
+    ],
+    "≈315": [
+      315
+    ],
+    "exoplanets,": [
+      316,
+      370
+    ],
+    "≤20": [
+      318
+    ],
+    "The": [
+      322,
+      334,
+      419
+    ],
+    "vast": [
+      323
+    ],
+    "majority": [
+      324
+    ],
+    "small,": [
+      326,
+      368
+    ],
+    "temperate": [
+      327
+    ],
+    "M": [
+      332
+    ],
+    "dwarfs.": [
+      333
+    ],
+    "changing": [
+      337
+    ],
+    "3–20": [
+      342
+    ],
+    "μm": [
+      343,
+      346
+    ],
+    "or": [
+      344
+    ],
+    "6–17": [
+      345
+    ],
+    "negligible.": [
+      352
+    ],
+    "Conclusions.": [
+      353
+    ],
+    "A": [
+      354
+    ],
+    "MIR": [
+      357,
+      464
+    ],
+    "will": [
+      360,
+      429,
+      441
+    ],
+    "be": [
+      361,
+      375
+    ],
+    "able": [
+      362
+    ],
+    "hundreds": [
+      366
+    ],
+    "nearby": [
+      369
+    ],
+    "tens": [
+      371
+    ],
+    "which": [
+      373
+    ],
+    "would": [
+      374
+    ],
+    "world": [
+      377,
+      399
+    ],
+    "candidates.": [
+      378
+    ],
+    "shows": [
+      380
+    ],
+    "such": [
+      382
+    ],
+    "compete": [
+      386
+    ],
+    "light": [
+      391
+    ],
+    "missions.": [
+      392
+    ],
+    "Further": [
+      393
+    ],
+    "increasing": [
+      394
+    ],
+    "candidates,": [
+      400
+    ],
+    "particular": [
+      402
+    ],
+    "solar-type": [
+      404
+    ],
+    "stars,": [
+      405
+    ],
+    "appears": [
+      406
+    ],
+    "possible": [
+      407
+    ],
+    "via": [
+      408
+    ],
+    "implementation": [
+      410
+    ],
+    "multi-visit": [
+      413
+    ],
+    "strategy": [
+      414
+    ],
+    "during": [
+      415
+    ],
+    "phase.": [
+      418
+    ],
+    "high": [
+      420
+    ],
+    "median": [
+      421
+    ],
+    "S/N": [
+      422
+    ],
+    "most": [
+      424
+    ],
+    "planets": [
+      428
+    ],
+    "allow": [
+      430
+    ],
+    "first": [
+      432
+    ],
+    "estimates": [
+      433
+    ],
+    "effective": [
+      438
+    ],
+    "temperatures": [
+      439
+    ],
+    "help": [
+      442
+    ],
+    "prioritize": [
+      443
+    ],
+    "targets": [
+      445
+    ],
+    "second": [
+      448
+    ],
+    "obtain": [
+      452
+    ],
+    "high-S/N": [
+      453
+    ],
+    "spectra,": [
+      456
+    ],
+    "leveraging": [
+      457
+    ],
+    "superior": [
+      459
+    ],
+    "diagnostic": [
+      460
+    ],
+    "power": [
+      461
+    ],
+    "regime": [
+      465
+    ],
+    "compared": [
+      466
+    ],
+    "shorter": [
+      468
+    ],
+    "wavelengths.": [
+      469
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 46
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 57
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 50
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 31
+    },
+    {
+      "year": 2022,
+      "cited_by_count": 16
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 3
+    }
+  ],
+  "updated_date": "2026-10-07T09:51:55.459714",
+  "created_date": "2025-10-10T00:00:00"
+}

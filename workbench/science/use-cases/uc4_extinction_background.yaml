@@ -1,0 +1,38 @@
+# UC-4 消光与各向异性背景（TransmissionModel + 异向 BackgroundModel 组合）
+# 关联：UR-008/009；预期：Schema 校验通过（含 is_isotropic=false → spatial_model 联动约束）
+oasis_version: "1.0"
+theme: "stellar"
+source:
+  name: "target_star"
+  coordinates:
+    ra: {value: 120.5, unit: "deg"}
+    dec: {value: -15.25, unit: "deg"}
+    distance: {value: 250.0, unit: "pc"}
+  proper_motion:
+    pm_ra_cosdec: {value: 5.0, unit: "mas/yr"}
+    pm_dec: {value: -3.0, unit: "mas/yr"}
+  spectral_model:
+    type: "blackbody"
+    parameters:
+      temperature: {value: 9500, unit: "K"}
+background:
+  name: "zodiacal_anisotropic"
+  region: "full_sky"
+  is_isotropic: false
+  spatial_model:
+    type: "polynomial"
+    parameters:
+      c0: {value: 1.2, unit: "MJy/sr"}
+      c1: {value: 0.3, unit: "MJy/sr"}
+  spectral_model:
+    type: "power_law"
+    parameters:
+      alpha: {value: -0.5, unit: ""}
+transmission:
+  name: "ism_extinction"
+  optical_depth: {value: 0.3, unit: ""}
+  spectral_model:
+    type: "power_law"
+    parameters:
+      alpha: {value: -1.5, unit: ""}
+      reference_wavelength: {value: 5500, unit: "angstrom"}

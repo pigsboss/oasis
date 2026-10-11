@@ -1,0 +1,1462 @@
+{
+  "id": "https://openalex.org/W2125721090",
+  "doi": "https://doi.org/10.1088/0034-4885/66/5/203",
+  "title": "Optical interferometry in astronomy",
+  "display_name": "Optical interferometry in astronomy",
+  "publication_year": 2003,
+  "publication_date": "2003-04-25",
+  "ids": {
+    "openalex": "https://openalex.org/W2125721090",
+    "doi": "https://doi.org/10.1088/0034-4885/66/5/203",
+    "mag": "2125721090"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1088/0034-4885/66/5/203",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1088/0034-4885/66/5/203",
+    "pdf_url": "https://iopscience.iop.org/article/10.1088/0034-4885/66/5/203/pdf",
+    "source": {
+      "id": "https://openalex.org/S105282323",
+      "display_name": "Reports on Progress in Physics",
+      "issn_l": "0034-4885",
+      "issn": [
+        "0034-4885",
+        "1361-6633"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+        "cwts-core",
+        "jufo-3",
+        "medline",
+        "norway-2"
+      ],
+      "host_organization": "https://openalex.org/P4310320083",
+      "host_organization_name": "IOP Publishing",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310320083",
+        "https://openalex.org/P4310311669"
+      ],
+      "host_organization_lineage_names": [
+        "IOP Publishing",
+        "Institute of Physics"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Reports on Progress in Physics",
+    "raw_type": "journal-article"
+  },
+  "type": "article",
+  "indexed_in": [
+    "arxiv",
+    "crossref",
+    "datacite"
+  ],
+  "open_access": {
+    "is_oa": true,
+    "oa_status": "bronze",
+    "oa_url": "https://iopscience.iop.org/article/10.1088/0034-4885/66/5/203/pdf",
+    "any_repository_has_fulltext": true
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": null,
+        "display_name": "John D Monnier",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I27837315",
+          "display_name": "University of Michigan",
+          "ror": "https://ror.org/00jmfr291",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I27837315"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": true,
+      "raw_author_name": "John D Monnier",
+      "raw_affiliation_strings": [
+        "University of Michigan Astronomy Department, 941 Dennison Building, 500 Church Street, Ann Arbor, MI 48109, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "University of Michigan Astronomy Department, 941 Dennison Building, 500 Church Street, Ann Arbor, MI 48109, USA",
+          "institution_ids": [
+            "https://openalex.org/I27837315"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 1,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [
+    "https://openalex.org/I27837315"
+  ],
+  "apc_list": {
+    "value": 4680,
+    "currency": "USD",
+    "value_usd": 4680
+  },
+  "apc_paid": null,
+  "fwci": 4.0536,
+  "has_fulltext": true,
+  "cited_by_count": 260,
+  "citation_normalized_percentile": {
+    "value": 0.94751232,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 98,
+    "max": 100
+  },
+  "biblio": {
+    "volume": "66",
+    "issue": "5",
+    "first_page": "789",
+    "last_page": "857"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T11484",
+    "display_name": "Adaptive optics and wavefront sensing",
+    "score": 0.6395999789237976,
+    "subfield": {
+      "id": "https://openalex.org/subfields/3107",
+      "display_name": "Atomic and Molecular Physics, and Optics"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/31",
+      "display_name": "Physics and Astronomy"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T11484",
+      "display_name": "Adaptive optics and wavefront sensing",
+      "score": 0.6395999789237976,
+      "subfield": {
+        "id": "https://openalex.org/subfields/3107",
+        "display_name": "Atomic and Molecular Physics, and Optics"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/31",
+        "display_name": "Physics and Astronomy"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T12917",
+      "display_name": "Astronomy and Astrophysical Research",
+      "score": 0.31200000643730164,
+      "subfield": {
+        "id": "https://openalex.org/subfields/3105",
+        "display_name": "Instrumentation"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/31",
+        "display_name": "Physics and Astronomy"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10039",
+      "display_name": "Stellar, planetary, and galactic studies",
+      "score": 0.03970000147819519,
+      "subfield": {
+        "id": "https://openalex.org/subfields/3103",
+        "display_name": "Astronomy and Astrophysics"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/31",
+        "display_name": "Physics and Astronomy"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/ground-based-interferometers",
+      "display_name": "ground-based interferometers",
+      "score": 0.8849999904632568
+    },
+    {
+      "id": "https://openalex.org/keywords/space-interferometry",
+      "display_name": "space interferometry",
+      "score": 0.8619999885559082
+    },
+    {
+      "id": "https://openalex.org/keywords/chara-interferometer",
+      "display_name": "CHARA interferometer",
+      "score": 0.847000002861023
+    },
+    {
+      "id": "https://openalex.org/keywords/keck-interferometer",
+      "display_name": "Keck Interferometer",
+      "score": 0.9769999980926514
+    },
+    {
+      "id": "https://openalex.org/keywords/vlt-interferometer",
+      "display_name": "VLT Interferometer",
+      "score": 0.9580000042915344
+    },
+    {
+      "id": "https://openalex.org/keywords/interferometer-design",
+      "display_name": "interferometer design",
+      "score": 0.875
+    },
+    {
+      "id": "https://openalex.org/keywords/stellar-diameters",
+      "display_name": "stellar diameters",
+      "score": 0.6949999928474426
+    },
+    {
+      "id": "https://openalex.org/keywords/binary-orbit",
+      "display_name": "binary star orbits",
+      "score": 0.8949999809265137
+    },
+    {
+      "id": "https://openalex.org/keywords/stellar-surface-imaging",
+      "display_name": "stellar surface imaging",
+      "score": 0.8560000061988831
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C121332964",
+      "wikidata": "https://www.wikidata.org/wiki/Q413",
+      "display_name": "Physics",
+      "level": 0,
+      "score": 0.8633999824523926
+    },
+    {
+      "id": "https://openalex.org/C23576306",
+      "wikidata": "https://www.wikidata.org/wiki/Q17004698",
+      "display_name": "Astronomical interferometer",
+      "level": 3,
+      "score": 0.6858000159263611
+    },
+    {
+      "id": "https://openalex.org/C166689943",
+      "wikidata": "https://www.wikidata.org/wiki/Q850283",
+      "display_name": "Interferometry",
+      "level": 2,
+      "score": 0.6148999929428101
+    },
+    {
+      "id": "https://openalex.org/C1276947",
+      "wikidata": "https://www.wikidata.org/wiki/Q333",
+      "display_name": "Astronomy",
+      "level": 1,
+      "score": 0.5577999949455261
+    },
+    {
+      "id": "https://openalex.org/C180537121",
+      "wikidata": "https://www.wikidata.org/wiki/Q37547",
+      "display_name": "Stellar physics",
+      "level": 4,
+      "score": 0.5497000217437744
+    },
+    {
+      "id": "https://openalex.org/C133725777",
+      "wikidata": "https://www.wikidata.org/wiki/Q181505",
+      "display_name": "Astrometry",
+      "level": 3,
+      "score": 0.54830002784729
+    },
+    {
+      "id": "https://openalex.org/C2779121111",
+      "wikidata": "https://www.wikidata.org/wiki/Q11063",
+      "display_name": "Astronomer",
+      "level": 2,
+      "score": 0.44830000400543213
+    },
+    {
+      "id": "https://openalex.org/C9652623",
+      "wikidata": "https://www.wikidata.org/wiki/Q190109",
+      "display_name": "Field (mathematics)",
+      "level": 2,
+      "score": 0.4122999906539917
+    },
+    {
+      "id": "https://openalex.org/C2776401274",
+      "wikidata": "https://www.wikidata.org/wiki/Q3756855",
+      "display_name": "Accretion (finance)",
+      "level": 2,
+      "score": 0.3732999861240387
+    },
+    {
+      "id": "https://openalex.org/C44870925",
+      "wikidata": "https://www.wikidata.org/wiki/Q37547",
+      "display_name": "Astrophysics",
+      "level": 1,
+      "score": 0.34360000491142273
+    },
+    {
+      "id": "https://openalex.org/C195803813",
+      "wikidata": "https://www.wikidata.org/wiki/Q237604",
+      "display_name": "Accretion disc",
+      "level": 2,
+      "score": 0.3174000084400177
+    },
+    {
+      "id": "https://openalex.org/C17967879",
+      "wikidata": "https://www.wikidata.org/wiki/Q1195766",
+      "display_name": "Space Science",
+      "level": 2,
+      "score": 0.30379998683929443
+    },
+    {
+      "id": "https://openalex.org/C2778572836",
+      "wikidata": "https://www.wikidata.org/wiki/Q380933",
+      "display_name": "Space (punctuation)",
+      "level": 2,
+      "score": 0.2962999939918518
+    },
+    {
+      "id": "https://openalex.org/C23254167",
+      "wikidata": "https://www.wikidata.org/wiki/Q497654",
+      "display_name": "Young stellar object",
+      "level": 4,
+      "score": 0.2953000068664551
+    },
+    {
+      "id": "https://openalex.org/C19500987",
+      "wikidata": "https://www.wikidata.org/wiki/Q818557",
+      "display_name": "Observational astronomy",
+      "level": 3,
+      "score": 0.2906999886035919
+    },
+    {
+      "id": "https://openalex.org/C150739758",
+      "wikidata": "https://www.wikidata.org/wiki/Q188593",
+      "display_name": "Cepheid variable",
+      "level": 3,
+      "score": 0.28949999809265137
+    },
+    {
+      "id": "https://openalex.org/C201995342",
+      "wikidata": "https://www.wikidata.org/wiki/Q682496",
+      "display_name": "Systems engineering",
+      "level": 1,
+      "score": 0.2865999937057495
+    },
+    {
+      "id": "https://openalex.org/C27638517",
+      "wikidata": "https://www.wikidata.org/wiki/Q184274",
+      "display_name": "Celestial mechanics",
+      "level": 2,
+      "score": 0.2709999978542328
+    },
+    {
+      "id": "https://openalex.org/C125857072",
+      "wikidata": "https://www.wikidata.org/wiki/Q16744",
+      "display_name": "Star formation",
+      "level": 3,
+      "score": 0.2637999951839447
+    },
+    {
+      "id": "https://openalex.org/C62649853",
+      "wikidata": "https://www.wikidata.org/wiki/Q199687",
+      "display_name": "Remote sensing",
+      "level": 1,
+      "score": 0.26350000500679016
+    },
+    {
+      "id": "https://openalex.org/C104060986",
+      "wikidata": "https://www.wikidata.org/wiki/Q180046",
+      "display_name": "Space exploration",
+      "level": 2,
+      "score": 0.2630000114440918
+    },
+    {
+      "id": "https://openalex.org/C168589115",
+      "wikidata": "https://www.wikidata.org/wiki/Q3079618",
+      "display_name": "Stellar mass",
+      "level": 4,
+      "score": 0.26100000739097595
+    },
+    {
+      "id": "https://openalex.org/C193786831",
+      "wikidata": "https://www.wikidata.org/wiki/Q50053",
+      "display_name": "Binary star",
+      "level": 3,
+      "score": 0.26080000400543213
+    },
+    {
+      "id": "https://openalex.org/C110472602",
+      "wikidata": "https://www.wikidata.org/wiki/Q6472",
+      "display_name": "Stellar evolution",
+      "level": 3,
+      "score": 0.25029999017715454
+    }
+  ],
+  "mesh": [],
+  "locations_count": 4,
+  "locations": [
+    {
+      "id": "doi:10.1088/0034-4885/66/5/203",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.1088/0034-4885/66/5/203",
+      "pdf_url": "https://iopscience.iop.org/article/10.1088/0034-4885/66/5/203/pdf",
+      "source": {
+        "id": "https://openalex.org/S105282323",
+        "display_name": "Reports on Progress in Physics",
+        "issn_l": "0034-4885",
+        "issn": [
+          "0034-4885",
+          "1361-6633"
+        ],
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": true,
+        "listed_in": [
+          "cwts-core",
+          "jufo-3",
+          "medline",
+          "norway-2"
+        ],
+        "host_organization": "https://openalex.org/P4310320083",
+        "host_organization_name": "IOP Publishing",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310320083",
+          "https://openalex.org/P4310311669"
+        ],
+        "host_organization_lineage_names": [
+          "IOP Publishing",
+          "Institute of Physics"
+        ],
+        "type": "journal"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Reports on Progress in Physics",
+      "raw_type": "journal-article"
+    },
+    {
+      "id": "pmh:oai:arXiv.org:astro-ph/0307036",
+      "is_oa": true,
+      "landing_page_url": "http://arxiv.org/abs/astro-ph/0307036",
+      "pdf_url": "https://arxiv.org/pdf/astro-ph/0307036",
+      "source": {
+        "id": "https://openalex.org/S4306400194",
+        "display_name": "arXiv (Cornell University)",
+        "issn_l": "2331-8422",
+        "issn": [
+          "2331-8422"
+        ],
+        "is_oa": true,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I205783295",
+        "host_organization_name": "Cornell University",
+        "host_organization_lineage": [
+          "https://openalex.org/I205783295"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "text"
+    },
+    {
+      "id": "pmh:oai:deepblue.lib.umich.edu:2027.42/48845",
+      "is_oa": false,
+      "landing_page_url": "http://hdl.handle.net/2027.42/48845",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400393",
+        "display_name": "Deep Blue (University of Michigan)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I27837315",
+        "host_organization_name": "University of Michigan",
+        "host_organization_lineage": [
+          "https://openalex.org/I27837315"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "Article"
+    },
+    {
+      "id": "doi:10.48550/arxiv.astro-ph/0307036",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.48550/arxiv.astro-ph/0307036",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400194",
+        "display_name": "arXiv (Cornell University)",
+        "issn_l": "2331-8422",
+        "issn": [
+          "2331-8422"
+        ],
+        "is_oa": true,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I205783295",
+        "host_organization_name": "Cornell University",
+        "host_organization_lineage": [
+          "https://openalex.org/I205783295"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": null,
+      "is_accepted": false,
+      "is_published": null,
+      "raw_source_name": null,
+      "raw_type": "article-journal"
+    }
+  ],
+  "best_oa_location": {
+    "id": "doi:10.1088/0034-4885/66/5/203",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1088/0034-4885/66/5/203",
+    "pdf_url": "https://iopscience.iop.org/article/10.1088/0034-4885/66/5/203/pdf",
+    "source": {
+      "id": "https://openalex.org/S105282323",
+      "display_name": "Reports on Progress in Physics",
+      "issn_l": "0034-4885",
+      "issn": [
+        "0034-4885",
+        "1361-6633"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+        "cwts-core",
+        "jufo-3",
+        "medline",
+        "norway-2"
+      ],
+      "host_organization": "https://openalex.org/P4310320083",
+      "host_organization_name": "IOP Publishing",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310320083",
+        "https://openalex.org/P4310311669"
+      ],
+      "host_organization_lineage_names": [
+        "IOP Publishing",
+        "Institute of Physics"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Reports on Progress in Physics",
+    "raw_type": "journal-article"
+  },
+  "sustainable_development_goals": [],
+  "sustainable_development_goals_aurora": [],
+  "study_designs": [],
+  "awards": [],
+  "funders": [],
+  "has_content": {
+    "grobid_xml": true,
+    "pdf": true
+  },
+  "content_urls": {
+    "pdf": "https://content.openalex.org/works/W2125721090.pdf",
+    "grobid_xml": "https://content.openalex.org/works/W2125721090.grobid-xml"
+  },
+  "referenced_works_count": 187,
+  "referenced_works": [
+    "https://openalex.org/W103268",
+    "https://openalex.org/W1488678412",
+    "https://openalex.org/W1557638888",
+    "https://openalex.org/W1622101081",
+    "https://openalex.org/W1623827168",
+    "https://openalex.org/W1655798568",
+    "https://openalex.org/W1672743884",
+    "https://openalex.org/W1842153380",
+    "https://openalex.org/W1924642903",
+    "https://openalex.org/W1951037376",
+    "https://openalex.org/W1965040789",
+    "https://openalex.org/W1965750355",
+    "https://openalex.org/W1966307383",
+    "https://openalex.org/W1966566101",
+    "https://openalex.org/W1968291109",
+    "https://openalex.org/W1968645281",
+    "https://openalex.org/W1969654500",
+    "https://openalex.org/W1971313682",
+    "https://openalex.org/W1972419586",
+    "https://openalex.org/W1972465956",
+    "https://openalex.org/W1972483776",
+    "https://openalex.org/W1972570339",
+    "https://openalex.org/W1973021591",
+    "https://openalex.org/W1973642255",
+    "https://openalex.org/W1977693089",
+    "https://openalex.org/W1978339047",
+    "https://openalex.org/W1979546591",
+    "https://openalex.org/W1979954116",
+    "https://openalex.org/W1980176546",
+    "https://openalex.org/W1981061070",
+    "https://openalex.org/W1981924251",
+    "https://openalex.org/W1982080051",
+    "https://openalex.org/W1982650938",
+    "https://openalex.org/W1982666129",
+    "https://openalex.org/W1982688673",
+    "https://openalex.org/W1984403449",
+    "https://openalex.org/W1984635727",
+    "https://openalex.org/W1986226601",
+    "https://openalex.org/W1987051899",
+    "https://openalex.org/W1987530442",
+    "https://openalex.org/W1988735261",
+    "https://openalex.org/W1989112925",
+    "https://openalex.org/W1992523418",
+    "https://openalex.org/W1992573017",
+    "https://openalex.org/W1996874740",
+    "https://openalex.org/W2000311564",
+    "https://openalex.org/W2000548943",
+    "https://openalex.org/W2000740667",
+    "https://openalex.org/W2001876144",
+    "https://openalex.org/W2001946966",
+    "https://openalex.org/W2004037510",
+    "https://openalex.org/W2005757469",
+    "https://openalex.org/W2005842982",
+    "https://openalex.org/W2007130534",
+    "https://openalex.org/W2007299564",
+    "https://openalex.org/W2007481221",
+    "https://openalex.org/W2008847765",
+    "https://openalex.org/W2009551075",
+    "https://openalex.org/W2010720514",
+    "https://openalex.org/W2011845631",
+    "https://openalex.org/W2012271094",
+    "https://openalex.org/W2012379477",
+    "https://openalex.org/W2012426479",
+    "https://openalex.org/W2013356511",
+    "https://openalex.org/W2013471119",
+    "https://openalex.org/W2015637917",
+    "https://openalex.org/W2016080498",
+    "https://openalex.org/W2016625303",
+    "https://openalex.org/W2017683686",
+    "https://openalex.org/W2018298909",
+    "https://openalex.org/W2018654274",
+    "https://openalex.org/W2020280028",
+    "https://openalex.org/W2020713657",
+    "https://openalex.org/W2023090711",
+    "https://openalex.org/W2023581385",
+    "https://openalex.org/W2024197020",
+    "https://openalex.org/W2024612159",
+    "https://openalex.org/W2025679659",
+    "https://openalex.org/W2026169758",
+    "https://openalex.org/W2027210768",
+    "https://openalex.org/W2029022101",
+    "https://openalex.org/W2029898200",
+    "https://openalex.org/W2030751810",
+    "https://openalex.org/W2031297915",
+    "https://openalex.org/W2031454615",
+    "https://openalex.org/W2032881480",
+    "https://openalex.org/W2037706728",
+    "https://openalex.org/W2038260410",
+    "https://openalex.org/W2038820884",
+    "https://openalex.org/W2039645605",
+    "https://openalex.org/W2043089330",
+    "https://openalex.org/W2043908116",
+    "https://openalex.org/W2044999901",
+    "https://openalex.org/W2045242116",
+    "https://openalex.org/W2046478406",
+    "https://openalex.org/W2047754542",
+    "https://openalex.org/W2047971340",
+    "https://openalex.org/W2048044970",
+    "https://openalex.org/W2048208241",
+    "https://openalex.org/W2048448689",
+    "https://openalex.org/W2048619347",
+    "https://openalex.org/W2049642538",
+    "https://openalex.org/W2049998941",
+    "https://openalex.org/W2051462797",
+    "https://openalex.org/W2053110192",
+    "https://openalex.org/W2053396638",
+    "https://openalex.org/W2054688037",
+    "https://openalex.org/W2055506125",
+    "https://openalex.org/W2056377899",
+    "https://openalex.org/W2056469526",
+    "https://openalex.org/W2059139406",
+    "https://openalex.org/W2059546234",
+    "https://openalex.org/W2060455914",
+    "https://openalex.org/W2061554597",
+    "https://openalex.org/W2063781844",
+    "https://openalex.org/W2064913823",
+    "https://openalex.org/W2065513774",
+    "https://openalex.org/W2065979324",
+    "https://openalex.org/W2066808952",
+    "https://openalex.org/W2066962664",
+    "https://openalex.org/W2067801244",
+    "https://openalex.org/W2068266595",
+    "https://openalex.org/W2069842908",
+    "https://openalex.org/W2070205970",
+    "https://openalex.org/W2070244703",
+    "https://openalex.org/W2070974308",
+    "https://openalex.org/W2071612417",
+    "https://openalex.org/W2071648446",
+    "https://openalex.org/W2071733898",
+    "https://openalex.org/W2075776888",
+    "https://openalex.org/W2078478103",
+    "https://openalex.org/W2079113177",
+    "https://openalex.org/W2082715840",
+    "https://openalex.org/W2083302690",
+    "https://openalex.org/W2085571145",
+    "https://openalex.org/W2085905336",
+    "https://openalex.org/W2086180078",
+    "https://openalex.org/W2087808478",
+    "https://openalex.org/W2090801813",
+    "https://openalex.org/W2091353304",
+    "https://openalex.org/W2092201514",
+    "https://openalex.org/W2092593075",
+    "https://openalex.org/W2092605574",
+    "https://openalex.org/W2092824088",
+    "https://openalex.org/W2093789253",
+    "https://openalex.org/W2094282857",
+    "https://openalex.org/W2099559854",
+    "https://openalex.org/W2101458338",
+    "https://openalex.org/W2106314309",
+    "https://openalex.org/W2108309395",
+    "https://openalex.org/W2108492479",
+    "https://openalex.org/W2110153726",
+    "https://openalex.org/W2110894057",
+    "https://openalex.org/W2112772428",
+    "https://openalex.org/W2115142379",
+    "https://openalex.org/W2121093015",
+    "https://openalex.org/W2121189310",
+    "https://openalex.org/W2121341901",
+    "https://openalex.org/W2121769580",
+    "https://openalex.org/W2122160778",
+    "https://openalex.org/W2122202374",
+    "https://openalex.org/W2125120917",
+    "https://openalex.org/W2125680938",
+    "https://openalex.org/W2128441099",
+    "https://openalex.org/W2131761824",
+    "https://openalex.org/W2141366596",
+    "https://openalex.org/W2148171877",
+    "https://openalex.org/W2158211072",
+    "https://openalex.org/W2162651523",
+    "https://openalex.org/W2165948454",
+    "https://openalex.org/W2166606451",
+    "https://openalex.org/W2167656187",
+    "https://openalex.org/W2168563946",
+    "https://openalex.org/W2169694555",
+    "https://openalex.org/W2171611268",
+    "https://openalex.org/W2173421968",
+    "https://openalex.org/W2179470523",
+    "https://openalex.org/W2323233131",
+    "https://openalex.org/W2619778765",
+    "https://openalex.org/W2950392022",
+    "https://openalex.org/W4206252964",
+    "https://openalex.org/W4233036364",
+    "https://openalex.org/W4239879715",
+    "https://openalex.org/W4244022605",
+    "https://openalex.org/W4246944130",
+    "https://openalex.org/W4255299438",
+    "https://openalex.org/W4302381266"
+  ],
+  "related_works": [],
+  "abstract_inverted_index": {
+    "Here": [
+      0,
+      115
+    ],
+    "I": [
+      1,
+      201,
+      224
+    ],
+    "review": [
+      2,
+      66
+    ],
+    "the": [
+      3,
+      7,
+      38,
+      58,
+      68,
+      76,
+      83,
+      94,
+      104,
+      124,
+      127,
+      141,
+      162,
+      171,
+      186,
+      203,
+      208,
+      215,
+      220,
+      227,
+      234,
+      240
+    ],
+    "current": [
+      4,
+      121,
+      198
+    ],
+    "state": [
+      5
+    ],
+    "of": [
+      6,
+      9,
+      21,
+      34,
+      49,
+      91,
+      98,
+      106,
+      120,
+      143,
+      150,
+      170,
+      177,
+      205,
+      210,
+      230,
+      242
+    ],
+    "field": [
+      8,
+      39
+    ],
+    "optical": [
+      10,
+      231
+    ],
+    "stellar": [
+      11,
+      72,
+      144,
+      151,
+      178
+    ],
+    "interferometry,": [
+      12,
+      191,
+      206,
+      232
+    ],
+    "concentrating": [
+      13
+    ],
+    "on": [
+      14,
+      32
+    ],
+    "ground-based": [
+      15,
+      244
+    ],
+    "work": [
+      16
+    ],
+    "although": [
+      17
+    ],
+    "a": [
+      18,
+      46
+    ],
+    "brief": [
+      19
+    ],
+    "report": [
+      20
+    ],
+    "space": [
+      22,
+      237
+    ],
+    "interferometry": [
+      23,
+      73,
+      145,
+      238
+    ],
+    "missions": [
+      24
+    ],
+    "is": [
+      25,
+      117,
+      183
+    ],
+    "included.": [
+      26
+    ],
+    "We": [
+      27
+    ],
+    "pause": [
+      28
+    ],
+    "both": [
+      29
+    ],
+    "to": [
+      30,
+      43,
+      81,
+      111,
+      156,
+      185,
+      252
+    ],
+    "reflect": [
+      31
+    ],
+    "decades": [
+      33
+    ],
+    "immense": [
+      35
+    ],
+    "progress": [
+      36
+    ],
+    "in": [
+      37,
+      123,
+      219
+    ],
+    "as": [
+      40,
+      42,
+      86,
+      88,
+      160
+    ],
+    "well": [
+      41,
+      87
+    ],
+    "prepare": [
+      44
+    ],
+    "for": [
+      45,
+      236
+    ],
+    "new": [
+      47,
+      128,
+      157,
+      211
+    ],
+    "generation": [
+      48
+    ],
+    "large": [
+      50
+    ],
+    "interferometers": [
+      51,
+      100,
+      216
+    ],
+    "just": [
+      52
+    ],
+    "now": [
+      53
+    ],
+    "being": [
+      54,
+      135
+    ],
+    "commissioned": [
+      55
+    ],
+    "(most": [
+      56
+    ],
+    "notably,": [
+      57
+    ],
+    "CHARA,": [
+      59
+    ],
+    "Keck": [
+      60
+    ],
+    "and": [
+      61,
+      78,
+      108,
+      132,
+      153,
+      175,
+      239,
+      257
+    ],
+    "VLT": [
+      62
+    ],
+    "Interferometers).": [
+      63
+    ],
+    "First,": [
+      64
+    ],
+    "this": [
+      65
+    ],
+    "summarizes": [
+      67
+    ],
+    "basic": [
+      69,
+      95
+    ],
+    "principles": [
+      70,
+      97
+    ],
+    "behind": [
+      71
+    ],
+    "needed": [
+      74,
+      251
+    ],
+    "by": [
+      75,
+      214
+    ],
+    "lay-physicist": [
+      77
+    ],
+    "general": [
+      79
+    ],
+    "astronomer": [
+      80
+    ],
+    "understand": [
+      82
+    ],
+    "scientific": [
+      84,
+      188
+    ],
+    "potential": [
+      85
+    ],
+    "technical": [
+      89
+    ],
+    "challenges": [
+      90
+    ],
+    "interferometry.": [
+      92
+    ],
+    "Next,": [
+      93
+    ],
+    "design": [
+      96
+    ],
+    "practical": [
+      99
+    ],
+    "are": [
+      101,
+      249
+    ],
+    "discussed,": [
+      102
+    ],
+    "using": [
+      103
+    ],
+    "experience": [
+      105
+    ],
+    "past": [
+      107
+    ],
+    "existing": [
+      109
+    ],
+    "facilities": [
+      110,
+      129
+    ],
+    "illustrate": [
+      112
+    ],
+    "important": [
+      113
+    ],
+    "points.": [
+      114
+    ],
+    "there": [
+      116
+    ],
+    "significant": [
+      118
+    ],
+    "discussion": [
+      119
+    ],
+    "trends": [
+      122
+    ],
+    "field,": [
+      125
+    ],
+    "including": [
+      126,
+      233
+    ],
+    "under": [
+      130
+    ],
+    "construction": [
+      131
+    ],
+    "advanced": [
+      133
+    ],
+    "technologies": [
+      134
+    ],
+    "debuted.": [
+      136
+    ],
+    "This": [
+      137
+    ],
+    "decade": [
+      138
+    ],
+    "has": [
+      139
+    ],
+    "seen": [
+      140
+    ],
+    "influence": [
+      142
+    ],
+    "extend": [
+      146
+    ],
+    "beyond": [
+      147
+    ],
+    "classical": [
+      148
+    ],
+    "regimes": [
+      149
+    ],
+    "diameters": [
+      152
+    ],
+    "binary": [
+      154
+    ],
+    "orbits": [
+      155
+    ],
+    "areas": [
+      158
+    ],
+    "such": [
+      159
+    ],
+    "mapping": [
+      161
+    ],
+    "accretion": [
+      163
+    ],
+    "discs": [
+      164
+    ],
+    "around": [
+      165
+    ],
+    "young": [
+      166
+    ],
+    "stars,": [
+      167
+    ],
+    "novel": [
+      168
+    ],
+    "calibration": [
+      169
+    ],
+    "cepheid": [
+      172
+    ],
+    "period-luminosity": [
+      173
+    ],
+    "relation,": [
+      174
+    ],
+    "imaging": [
+      176
+    ],
+    "surfaces.": [
+      179
+    ],
+    "The": [
+      180
+    ],
+    "third": [
+      181
+    ],
+    "section": [
+      182
+    ],
+    "devoted": [
+      184
+    ],
+    "major": [
+      187
+    ],
+    "results": [
+      189
+    ],
+    "from": [
+      190
+    ],
+    "grouped": [
+      192
+    ],
+    "into": [
+      193
+    ],
+    "natural": [
+      194
+    ],
+    "categories": [
+      195
+    ],
+    "reflecting": [
+      196
+    ],
+    "these": [
+      197,
+      254
+    ],
+    "developments.": [
+      199
+    ],
+    "Lastly,": [
+      200
+    ],
+    "consider": [
+      202
+    ],
+    "future": [
+      204,
+      229
+    ],
+    "highlighting": [
+      207
+    ],
+    "kinds": [
+      209
+    ],
+    "science": [
+      212
+    ],
+    "promised": [
+      213
+    ],
+    "coming": [
+      217
+    ],
+    "on-line": [
+      218
+    ],
+    "next": [
+      221
+    ],
+    "few": [
+      222
+    ],
+    "years.": [
+      223
+    ],
+    "also": [
+      225
+    ],
+    "discuss": [
+      226
+    ],
+    "longer-term": [
+      228
+    ],
+    "prospects": [
+      235
+    ],
+    "possibilities": [
+      241
+    ],
+    "large-scale": [
+      243
+    ],
+    "projects.": [
+      245
+    ],
+    "Critical": [
+      246
+    ],
+    "technological": [
+      247
+    ],
+    "developments": [
+      248
+    ],
+    "still": [
+      250
+    ],
+    "make": [
+      253
+    ],
+    "projects": [
+      255
+    ],
+    "attractive": [
+      256
+    ],
+    "affordable.": [
+      258
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 11
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 18
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 22
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 12
+    },
+    {
+      "year": 2022,
+      "cited_by_count": 18
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 10
+    },
+    {
+      "year": 2020,
+      "cited_by_count": 19
+    },
+    {
+      "year": 2019,
+      "cited_by_count": 10
+    },
+    {
+      "year": 2018,
+      "cited_by_count": 5
+    },
+    {
+      "year": 2017,
+      "cited_by_count": 10
+    },
+    {
+      "year": 2016,
+      "cited_by_count": 12
+    },
+    {
+      "year": 2015,
+      "cited_by_count": 8
+    },
+    {
+      "year": 2014,
+      "cited_by_count": 12
+    },
+    {
+      "year": 2013,
+      "cited_by_count": 9
+    },
+    {
+      "year": 2012,
+      "cited_by_count": 12
+    }
+  ],
+  "updated_date": "2026-10-01T08:54:57.152042",
+  "created_date": "2016-06-24T00:00:00"
+}

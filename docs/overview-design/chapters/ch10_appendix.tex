@@ -1,0 +1,41 @@
+\section{附录}
+
+\subsection{架构决策记录（ADR）索引}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+编号 & 标题 & 状态 \\
+\midrule
+ADR 0001 & 采用架构决策记录机制 & 已接受 \\
+ADR 0002 & 目标层采用三段式 V 型纵向架构 & 已接受 \\
+ADR 0003 & 建立核心参数化模型层次结构 & 已接受 \\
+ADR 0004 & 统一分布表示为 TargetHistogram & 已接受 \\
+ADR 0005 & 将 TargetModel 溯源字段命名为 provider & 已接受 \\
+ADR 0006 & 为 BackgroundModel 增加空间各向异性支持 & 已接受 \\
+ADR 0007 & TargetModel 基类字段设计 & 已接受 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{文档变更记录}
+
+\begin{center}
+\begin{tabular}{llp{8.2cm}}
+\toprule
+版本 & 日期 & 说明 \\
+\midrule
+v0.1 & 2026-10-10 & 初版（G1 评审稿）：基于清理后的文档基线（ICN 台账 0 OPEN）编制 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{配套文件清单}
+
+\begin{itemize}
+  \item 设计基线：\texttt{docs/design/targets.md}、\texttt{targets\_data\_model.md}、\texttt{targets\_interfaces.md}；
+  \item 架构决策：\texttt{docs/design/adr/0001--0007}；
+  \item 设计图（PlantUML 源）：\texttt{docs/diagrams/targets/\{classes,components,activities\}.puml}；
+  \item 科学需求：\texttt{workbench/science/requirements/UR-catalog.md}（UR-CAT-001）；
+  \item 文献库：\texttt{workbench/library/}（登记册、BibTeX 与全文解析；本说明书参考文献取自其中 key）。
+\end{itemize}

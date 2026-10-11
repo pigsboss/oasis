@@ -1,0 +1,23 @@
+# UC-5 参数扫描与正反演闭环（扫描输入样例）
+# 关联：UR-002/006/014；预期：Schema 校验通过（linspace / list 两种网格）
+oasis_version: "1.0"
+theme: "stellar"
+source:
+  name: "scan_star"
+  coordinates:
+    ra: {value: 83.633, unit: "deg"}
+    dec: {value: 22.014, unit: "deg"}
+  proper_motion:
+    pm_ra_cosdec: {value: 0.0, unit: "mas/yr"}
+    pm_dec: {value: 0.0, unit: "mas/yr"}
+  spectral_model:
+    type: "blackbody"
+    parameters:
+      temperature: {linspace: {start: 5000.0, stop: 6500.0, num: 5}, unit: "K"}
+transmission:
+  name: "ism_scan"
+  optical_depth: {list: [0.1, 0.3, 0.5], unit: ""}
+  spectral_model:
+    type: "power_law"
+    parameters:
+      alpha: {list: [-1.0, -1.5, -2.0], unit: ""}

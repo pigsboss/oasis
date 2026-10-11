@@ -1,0 +1,35 @@
+\section{观测量层与载荷层概要（接口级大纲）}
+\label{sec:layers}
+
+观测量层与载荷层的详细设计待其立项后补充；本章给出与目标层及相互之间已确定的接口级约束。
+
+\subsection{观测量层}
+
+\begin{itemize}
+  \item \textbf{职责}：干涉观测量（可见度振幅/相位、闭合相位等）的模拟与重建。
+  \item \textbf{数据交换}：以 OIFITS 2 \cite{duvert2017oifits} 为核心格式；$(u,v)$ 采样点内嵌于 OIFITS 表的
+        \texttt{UCOORD}、\texttt{VCOORD} 列，无需单独文件；干涉仪动态状态（延迟线位置、环境参数、指向修正）
+        以 JSON 辅助文件与 OIFITS 配套保存。
+  \item \textbf{与目标层的接口}：接收目标层正演产品包（FITS 图像/光谱/光变；见第~\ref{sec:formats} 章）；
+        向目标层提供反演输入包（携带 \texttt{DATA\_QUAL} 数据质量标记、仪器标识与校准版本）并以
+        \texttt{.inverse\_ready} 哨兵通知就绪；处理失败时放置 \texttt{.error} 文件（错误码与英文摘要）。
+  \item \textbf{对外兼容}：与国内外干涉数据处理工具集（如 JMMC 工具链）以 OIFITS 2 互操作。
+\end{itemize}
+
+\subsection{载荷层}
+
+\begin{itemize}
+  \item \textbf{职责}：仪器数据生成与处理（探测器、条纹、噪声）。
+  \item \textbf{数据}：原始条纹数据（自定义二进制或 FITS）；工程辅助数据（望远镜指向、活塞误差、环境监测）
+        以 OIFITS 自定义扩展表 \texttt{OI\_ENG} / \texttt{OI\_ENV} 承载，确保时间同步；
+        经条纹提取与校准后的干涉采样输出为标准 OIFITS 2，供观测量层进一步分析。
+\end{itemize}
+
+\subsection{后续工作}
+
+\begin{itemize}
+  \item 两层详细设计（组件、文件与表结构清单、校验规则）待立项后编制；
+  \item OIFITS 2 表结构清单与校验工具、与 JMMC 工具集的互操作测试纳入后续验证计划；
+  \item 目标层侧接口（数据段）已冻结：层间交换为 FITS 主数据 + JSON/YAML 辅助 + 哨兵协议，
+        对接两层不需要目标层设计变更。
+\end{itemize}

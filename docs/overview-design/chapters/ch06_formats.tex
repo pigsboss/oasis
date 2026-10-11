@@ -1,0 +1,88 @@
+\section{数据与文件格式}
+\label{sec:formats}
+
+\subsection{用户输入：YAML 参数化模型}
+
+顶层字段与约束：
+\begin{itemize}
+  \item 必填：\texttt{oasis\_version}、\texttt{theme}，以及至少一个模型定义块（\texttt{source} 必选；
+        \texttt{background}、\texttt{transmission} 可选）；编码 UTF-8；
+  \item 物理量统一以 \texttt{\{value, unit\}} 表达，单位兼容天文标准单位制；
+  \item \texttt{extends} 支持引用基础模型或上级主题；参数扫描支持 \texttt{linspace} / \texttt{logspace} / \texttt{list}；
+  \item 物理语义校验（量纲一致性、非物理取值）由模型段执行，不前置在文件解析层。
+\end{itemize}
+
+示例（节选）：
+\begin{verbatim}
+oasis_version: "1.0"
+theme: "stellar"
+source:
+  name: "sun_like_1"
+  extends: "stellar_base"
+  coordinates:
+    ra: {value: 83.633, unit: "deg"}
+    dec: {value: 22.014, unit: "deg"}
+    distance: {value: 10, unit: "pc"}
+  proper_motion:
+    pm_ra_cosdec: {value: 34.5, unit: "mas/yr"}
+    pm_dec: {value: -12.3, unit: "mas/yr"}
+  spectral_model:
+    type: "blackbody"
+    parameters:
+      temperature: {value: 5778, unit: "K"}
+transmission:
+  name: "ism_extinction"
+  optical_depth: {value: 0.3, unit: ""}
+  spectral_model:
+    type: "power_law"
+    parameters:
+      alpha: {value: -1.5, unit: ""}
+      reference_wavelength: {value: 5500, unit: "angstrom"}
+\end{verbatim}
+
+\subsection{正演输出包（目标层 $\rightarrow$ observables）}
+
+\begin{itemize}
+  \item \textbf{主 FITS}：\texttt{TargetHistogram} 序列化（二维/三维/四维数组），WCS 完备自洽，
+        光变曲线含时间轴描述；
+  \item \textbf{必填头关键字}：\texttt{OASIS\_VER}、\texttt{MODEL\_ID}、\texttt{TIMESTAMP}、
+        \texttt{TARGET\_CLASS}、\texttt{OASIS\_OBS\_INTF\_VER}，以及 \texttt{SRC\_MODEL} /
+        \texttt{BKG\_MODEL} / \texttt{TRANS\_MODEL} / \texttt{SPATIAL\_TYP}（无对应内容时为空字符串）；
+  \item \textbf{辅助文件}：\texttt{params.json}（参数侧写）、\texttt{config.yaml}（观测配置摘要）、
+        \texttt{processing\_log.txt}（计算过程日志）；CSV/TSV 处理指令可选；
+  \item \textbf{哨兵}：全部写入完成后生成 \texttt{.forward\_ready}。
+\end{itemize}
+
+\subsection{反演输入包（observables $\rightarrow$ 目标层）}
+
+\begin{itemize}
+  \item \textbf{主 FITS}：科学数据产品，结构与正演输出一致（\texttt{TargetHistogram} 存储形态）；
+  \item \textbf{头关键字}：\texttt{TASK\_ID}、\texttt{INSTRUMENT}、\texttt{CALIB\_VER}、\texttt{DATA\_QUAL}
+        （good / warning / bad）、\texttt{OASIS\_OBS\_INTF\_VER}；
+  \item \textbf{辅助文件}：\texttt{noise\_model.json}（噪声模型）、\texttt{observation\_config.yaml}
+        （观测配置）、\texttt{instrument\_response.json}（仪器响应，可选）；
+  \item \textbf{哨兵}：\texttt{.inverse\_ready}；
+  \item \textbf{异常路径}：\texttt{.error} 文件承载 JSON 载荷（\texttt{error\_code} / \texttt{english\_message} /
+        \texttt{timestamp}），错误码统一为 \texttt{E\_\{DOMAIN\}\_\{CODE\}} 格式（如 \texttt{E\_OBS\_001}）。
+\end{itemize}
+
+\subsection{哨兵协议}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+哨兵文件 & 放置方 & 含义 \\
+\midrule
+\texttt{.forward\_ready} & 目标层 & 正演产物就绪，observables 层可消费 \\
+\texttt{.inverse\_ready} & observables 层 & 反演输入数据就绪 \\
+\texttt{.error} & 任意方 & 处理失败，阻止后续自动流转 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{与 OIFITS 2 的关系}
+
+目标层与 observables 层之间交换的是目标区域的亮度分布产品（图像/光谱/光变），以 FITS 主数据 +
+JSON/YAML 辅助文件表达，\emph{不使用 OIFITS 表结构}。OIFITS 2 是干涉观测量（可见度、闭合相位等）的交换标准，
+适用于观测量层与载荷层之间及对外发布环节；当观测流程需要将目标模型转换为干涉观测量时，
+由观测量层负责 OIFITS 封装，目标层不直接产出 OIFITS。

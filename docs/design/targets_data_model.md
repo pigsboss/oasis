@@ -19,8 +19,8 @@
 | 字段名 | Python 类型 | 必需 | 说明 |
 |:---|:---|:---|:---|
 | `name` | `str` | 是 | 模型实例的逻辑名称，在所属层级命名空间内唯一。 |
-| `provider` | `str` | 是 | 模型提供者标识，可为用户名、文献 DOI、算法名称或反演任务 ID。若未提供，使用默认值 `"user"`。 |
-| `version` | `str` | 是 | 语义化版本号，推荐 `MAJOR.MINOR.PATCH` 格式，支持预发布标识（如 `1.0.0-alpha`）。 |
+| `provider` | `str` | 否 | 模型提供者标识，可为用户名、文献 DOI、算法名称或反演任务 ID。默认值 `"user"`；提供时不可为空。 |
+| `version` | `str` | 否 | 语义化版本号，推荐 `MAJOR.MINOR.PATCH` 格式，支持预发布标识（如 `1.0.0-alpha`）。默认值 `"0.1.0"`。 |
 | `metadata` | `dict[str, Any]` | 否 | 用户自定义扩展字典，用于存储附加描述信息。默认为空字典。禁止在此存放影响模型数值计算的物理参数。 |
 | `hierarchy` | `Optional[HierarchyDescriptor]` | 否 | 模型在五级层级体系中的定位信息，由 `Hierarchy Manager` 在解析/注册时填充，初始为 `None`。 |
 

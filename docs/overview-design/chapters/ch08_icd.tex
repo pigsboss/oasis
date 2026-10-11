@@ -1,0 +1,67 @@
+\section{接口控制摘要}
+\label{sec:icd-summary}
+
+\subsection{错误码}
+
+统一错误码格式 \texttt{E\_\{DOMAIN\}\_\{CODE\}}，附英文摘要；由 Result Presenter 封装进结果报告呈现。
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+错误码 & 说明 \\
+\midrule
+\texttt{E\_INPUT\_001} & YAML syntax error \\
+\texttt{E\_INPUT\_002} & Missing required field \\
+\texttt{E\_INPUT\_003} & Invalid unit string \\
+\texttt{E\_COMPUTE\_001} & Insufficient memory \\
+\texttt{E\_COMPUTE\_002} & Parameter out of physical bounds \\
+\texttt{E\_COMPUTE\_003} & Simulation diverged \\
+\texttt{E\_DATA\_001} & FITS header incompatible \\
+\texttt{E\_DATA\_002} & .error sentinel received from observables \\
+\texttt{E\_OBS\_001} & Observables layer processing failed（校准、条纹提取等） \\
+\texttt{E\_COMM\_001} & Observatory node unreachable \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{任务状态枚举}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+枚举值 & 含义 \\
+\midrule
+\texttt{queued} & 已提交排队 \\
+\texttt{resource\_wait} & 等待资源准入 \\
+\texttt{running} & 执行中 \\
+\texttt{completed} & 正常完成 \\
+\texttt{failed} & 异常终止 \\
+\texttt{cancelled} & 已取消 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{事件主题}
+
+\begin{itemize}
+  \item 资源状态：\texttt{oasis.resource.status}（发布-订阅；接口段订阅用于系统健康展示与任务降级）；
+  \item 任务状态：\texttt{oasis.task.\{task\_id\}}，载荷示例：
+\end{itemize}
+
+\begin{verbatim}
+{
+  "task_id": "...",
+  "old_state": "queued",
+  "new_state": "running",
+  "timestamp": "...",
+  "message": "Starting physics simulation"
+}
+\end{verbatim}
+
+\subsection{版本控制}
+
+\begin{itemize}
+  \item 外部接口以 \texttt{oasis\_version}（YAML）与 \texttt{OASIS\_OBS\_INTF\_VER}（FITS 头）标识；
+  \item 内部 Pydantic 模型以类级 \texttt{model\_version} 管理变迁，主版本不兼容变更须保留旧解析器至少一个版本周期；
+  \item 发布-订阅主题命名含主版本以支持多版本共存。
+\end{itemize}

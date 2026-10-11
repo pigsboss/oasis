@@ -1,4 +1,4 @@
-# MCPC Coding Standards & Internationalization Policy
+# OASIS Coding Standards & Internationalization Policy
 
 ## 1. File Encoding
 

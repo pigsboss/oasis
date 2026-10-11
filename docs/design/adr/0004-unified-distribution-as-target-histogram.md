@@ -1,9 +1,9 @@
-# 统一分布表示为 TargetHistogram
+# ADR 0004: 统一分布表示为 TargetHistogram
 
 - **状态**：已接受
 - **日期**：2026-04-24
 - **决策者**：OASIS 目标层设计团队
-- **涉及文档**：docs/guides/targets.md, docs/diagrams/targets/classes.puml
+- **涉及文档**：docs/design/targets.md, docs/diagrams/targets/classes.puml
 
 ## 背景
 正演引擎的输出和反演引擎的输入均表现为多维亮度分布，具体形态有图像（空间直方图）、光谱（波长直方图）、光变曲线（时间直方图）甚至多维数据立方。在设计初期，曾考虑分别为每种类型创建单独的类（如 `Image`、`Spectrum`、`LightCurve`），但这将导致管道分支逻辑复杂，组件间传递的数据类型多样化，增加维护负担。我们需要一种统一的方式来处理这些分布，保持接口简洁和流程通用。

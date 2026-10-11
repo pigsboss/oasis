@@ -1,0 +1,904 @@
+{
+  "id": "https://openalex.org/W2051633863",
+  "doi": "https://doi.org/10.1051/0004-6361:20021326",
+  "title": "Representations of world coordinates in FITS",
+  "display_name": "Representations of world coordinates in FITS",
+  "publication_year": 2002,
+  "publication_date": "2002-11-18",
+  "ids": {
+    "openalex": "https://openalex.org/W2051633863",
+    "doi": "https://doi.org/10.1051/0004-6361:20021326",
+    "mag": "2051633863"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1051/0004-6361:20021326",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1051/0004-6361:20021326",
+    "pdf_url": "https://www.aanda.org/articles/aa/pdf/2002/45/aah3859.pdf",
+    "source": {
+      "id": "https://openalex.org/S205231332",
+      "display_name": "Astronomy and Astrophysics",
+      "issn_l": "0004-6361",
+      "issn": [
+        "0004-6361",
+        "1432-0746"
+      ],
+      "is_oa": false,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+        "cwts-core",
+        "doaj",
+        "jufo-3",
+        "ki-jl-2",
+        "norway-2"
+      ],
+      "host_organization": "https://openalex.org/P4310319748",
+      "host_organization_name": "EDP Sciences",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319748",
+        "https://openalex.org/P4310319982"
+      ],
+      "host_organization_lineage_names": [
+        "EDP Sciences",
+        "Science Press"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Astronomy &amp; Astrophysics",
+    "raw_type": "journal-article"
+  },
+  "type": "article",
+  "indexed_in": [
+    "arxiv",
+    "crossref",
+    "datacite",
+    "doaj"
+  ],
+  "open_access": {
+    "is_oa": true,
+    "oa_status": "bronze",
+    "oa_url": "https://www.aanda.org/articles/aa/pdf/2002/45/aah3859.pdf",
+    "any_repository_has_fulltext": true
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": null,
+        "display_name": "E. W. Greisen",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2609998029",
+          "display_name": "National Radio Astronomy Observatory",
+          "ror": "https://ror.org/04m24yn62",
+          "country_code": "US",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2609998029",
+            "https://openalex.org/I867387847"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "E. W. Greisen",
+      "raw_affiliation_strings": [
+        "National Radio Astronomy Observatory, PO Box O, Socorro, NM 87801-0387, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "National Radio Astronomy Observatory, PO Box O, Socorro, NM 87801-0387, USA",
+          "institution_ids": [
+            "https://openalex.org/I2609998029"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": null,
+        "display_name": "M. R. Calabretta",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I1299164729",
+          "display_name": "Australia Telescope National Facility",
+          "ror": "https://ror.org/05qajvd42",
+          "country_code": "AU",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1292875679",
+            "https://openalex.org/I1299164729",
+            "https://openalex.org/I2801453606",
+            "https://openalex.org/I4387156119"
+          ]
+        }
+      ],
+      "countries": [
+        "AU"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "M. R. Calabretta",
+      "raw_affiliation_strings": [
+        "Australia Telescope National Facility, PO Box 76, Epping, NSW 1710, Australia"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Australia Telescope National Facility, PO Box 76, Epping, NSW 1710, Australia",
+          "institution_ids": [
+            "https://openalex.org/I1299164729"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 2,
+  "institutions_distinct_count": 2,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [],
+  "apc_list": {
+    "value": 1650,
+    "currency": "EUR",
+    "value_usd": 1865
+  },
+  "apc_paid": null,
+  "fwci": 7.5352,
+  "has_fulltext": true,
+  "cited_by_count": 204,
+  "citation_normalized_percentile": {
+    "value": 0.97226075,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 98,
+    "max": 100
+  },
+  "biblio": {
+    "volume": "395",
+    "issue": "3",
+    "first_page": "1061",
+    "last_page": "1075"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T12917",
+    "display_name": "Astronomy and Astrophysical Research",
+    "score": 0.8637999892234802,
+    "subfield": {
+      "id": "https://openalex.org/subfields/3105",
+      "display_name": "Instrumentation"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/31",
+      "display_name": "Physics and Astronomy"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T12917",
+      "display_name": "Astronomy and Astrophysical Research",
+      "score": 0.8637999892234802,
+      "subfield": {
+        "id": "https://openalex.org/subfields/3105",
+        "display_name": "Instrumentation"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/31",
+        "display_name": "Physics and Astronomy"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T14163",
+      "display_name": "Astronomical Observations and Instrumentation",
+      "score": 0.10540000349283218,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2206",
+        "display_name": "Computational Mechanics"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10039",
+      "display_name": "Stellar, planetary, and galactic studies",
+      "score": 0.01489999983459711,
+      "subfield": {
+        "id": "https://openalex.org/subfields/3103",
+        "display_name": "Astronomy and Astrophysics"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/31",
+        "display_name": "Physics and Astronomy"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/fits-format",
+      "display_name": "FITS format",
+      "score": 0.9629999995231628
+    },
+    {
+      "id": "https://openalex.org/keywords/world-coordinates",
+      "display_name": "world coordinates",
+      "score": 0.9610000252723694
+    },
+    {
+      "id": "https://openalex.org/keywords/coordinate-systems",
+      "display_name": "coordinate systems",
+      "score": 0.41600000858306885
+    },
+    {
+      "id": "https://openalex.org/keywords/spherical-projection",
+      "display_name": "spherical projection",
+      "score": 0.640999972820282
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C121332964",
+      "wikidata": "https://www.wikidata.org/wiki/Q413",
+      "display_name": "Physics",
+      "level": 0,
+      "score": 0.6353999972343445
+    },
+    {
+      "id": "https://openalex.org/C27451561",
+      "wikidata": "https://www.wikidata.org/wiki/Q2588831",
+      "display_name": "Orthogonal coordinates",
+      "level": 2,
+      "score": 0.5044000148773193
+    },
+    {
+      "id": "https://openalex.org/C17825722",
+      "wikidata": "https://www.wikidata.org/wiki/Q17285",
+      "display_name": "Plane (geometry)",
+      "level": 2,
+      "score": 0.4966000020503998
+    },
+    {
+      "id": "https://openalex.org/C115961682",
+      "wikidata": "https://www.wikidata.org/wiki/Q860623",
+      "display_name": "Image (mathematics)",
+      "level": 2,
+      "score": 0.4966000020503998
+    },
+    {
+      "id": "https://openalex.org/C80551277",
+      "wikidata": "https://www.wikidata.org/wiki/Q11210",
+      "display_name": "Coordinate system",
+      "level": 2,
+      "score": 0.48510000109672546
+    },
+    {
+      "id": "https://openalex.org/C126990412",
+      "wikidata": "https://www.wikidata.org/wiki/Q203218",
+      "display_name": "Spherical coordinate system",
+      "level": 2,
+      "score": 0.45339998602867126
+    },
+    {
+      "id": "https://openalex.org/C136119220",
+      "wikidata": "https://www.wikidata.org/wiki/Q1000660",
+      "display_name": "Algebra over a field",
+      "level": 2,
+      "score": 0.42480000853538513
+    },
+    {
+      "id": "https://openalex.org/C2776799497",
+      "wikidata": "https://www.wikidata.org/wiki/Q484298",
+      "display_name": "Surface (topology)",
+      "level": 2,
+      "score": 0.353300005197525
+    },
+    {
+      "id": "https://openalex.org/C136364276",
+      "wikidata": "https://www.wikidata.org/wiki/Q6666761",
+      "display_name": "Log-polar coordinates",
+      "level": 3,
+      "score": 0.3255999982357025
+    },
+    {
+      "id": "https://openalex.org/C2777686260",
+      "wikidata": "https://www.wikidata.org/wiki/Q144037",
+      "display_name": "Calculus (dental)",
+      "level": 2,
+      "score": 0.32109999656677246
+    },
+    {
+      "id": "https://openalex.org/C33332235",
+      "wikidata": "https://www.wikidata.org/wiki/Q18362",
+      "display_name": "Theoretical physics",
+      "level": 1,
+      "score": 0.3127000033855438
+    },
+    {
+      "id": "https://openalex.org/C206647686",
+      "wikidata": "https://www.wikidata.org/wiki/Q2383591",
+      "display_name": "Bipolar coordinates",
+      "level": 3,
+      "score": 0.30720001459121704
+    },
+    {
+      "id": "https://openalex.org/C11413529",
+      "wikidata": "https://www.wikidata.org/wiki/Q8366",
+      "display_name": "Algorithm",
+      "level": 1,
+      "score": 0.28949999809265137
+    },
+    {
+      "id": "https://openalex.org/C2777212361",
+      "wikidata": "https://www.wikidata.org/wiki/Q5127848",
+      "display_name": "Class (philosophy)",
+      "level": 2,
+      "score": 0.28839999437332153
+    },
+    {
+      "id": "https://openalex.org/C154945302",
+      "wikidata": "https://www.wikidata.org/wiki/Q11660",
+      "display_name": "Artificial intelligence",
+      "level": 1,
+      "score": 0.2727000117301941
+    },
+    {
+      "id": "https://openalex.org/C106402246",
+      "wikidata": "https://www.wikidata.org/wiki/Q528525",
+      "display_name": "Homogeneous coordinates",
+      "level": 2,
+      "score": 0.2669999897480011
+    },
+    {
+      "id": "https://openalex.org/C201076478",
+      "wikidata": "https://www.wikidata.org/wiki/Q211851",
+      "display_name": "Cylindrical coordinate system",
+      "level": 2,
+      "score": 0.2646999955177307
+    },
+    {
+      "id": "https://openalex.org/C123046963",
+      "wikidata": "https://www.wikidata.org/wiki/Q22664",
+      "display_name": "Geographic coordinate system",
+      "level": 2,
+      "score": 0.2605000138282776
+    },
+    {
+      "id": "https://openalex.org/C120515352",
+      "wikidata": "https://www.wikidata.org/wiki/Q2564580",
+      "display_name": "Image plane",
+      "level": 3,
+      "score": 0.2597000002861023
+    },
+    {
+      "id": "https://openalex.org/C31972630",
+      "wikidata": "https://www.wikidata.org/wiki/Q844240",
+      "display_name": "Computer vision",
+      "level": 1,
+      "score": 0.25929999351501465
+    },
+    {
+      "id": "https://openalex.org/C134306372",
+      "wikidata": "https://www.wikidata.org/wiki/Q7754",
+      "display_name": "Mathematical analysis",
+      "level": 1,
+      "score": 0.2587999999523163
+    }
+  ],
+  "mesh": [],
+  "locations_count": 3,
+  "locations": [
+    {
+      "id": "doi:10.1051/0004-6361:20021326",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.1051/0004-6361:20021326",
+      "pdf_url": "https://www.aanda.org/articles/aa/pdf/2002/45/aah3859.pdf",
+      "source": {
+        "id": "https://openalex.org/S205231332",
+        "display_name": "Astronomy and Astrophysics",
+        "issn_l": "0004-6361",
+        "issn": [
+          "0004-6361",
+          "1432-0746"
+        ],
+        "is_oa": false,
+        "is_in_doaj": true,
+        "is_core": true,
+        "listed_in": [
+          "cwts-core",
+          "doaj",
+          "jufo-3",
+          "ki-jl-2",
+          "norway-2"
+        ],
+        "host_organization": "https://openalex.org/P4310319748",
+        "host_organization_name": "EDP Sciences",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310319748",
+          "https://openalex.org/P4310319982"
+        ],
+        "host_organization_lineage_names": [
+          "EDP Sciences",
+          "Science Press"
+        ],
+        "type": "journal"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Astronomy &amp; Astrophysics",
+      "raw_type": "journal-article"
+    },
+    {
+      "id": "pmh:oai:arXiv.org:astro-ph/0207407",
+      "is_oa": true,
+      "landing_page_url": "http://arxiv.org/abs/astro-ph/0207407",
+      "pdf_url": "https://arxiv.org/pdf/astro-ph/0207407",
+      "source": {
+        "id": "https://openalex.org/S4306400194",
+        "display_name": "arXiv (Cornell University)",
+        "issn_l": "2331-8422",
+        "issn": [
+          "2331-8422"
+        ],
+        "is_oa": true,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I205783295",
+        "host_organization_name": "Cornell University",
+        "host_organization_lineage": [
+          "https://openalex.org/I205783295"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "text"
+    },
+    {
+      "id": "doi:10.48550/arxiv.astro-ph/0207407",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.48550/arxiv.astro-ph/0207407",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400194",
+        "display_name": "arXiv (Cornell University)",
+        "issn_l": "2331-8422",
+        "issn": [
+          "2331-8422"
+        ],
+        "is_oa": true,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I205783295",
+        "host_organization_name": "Cornell University",
+        "host_organization_lineage": [
+          "https://openalex.org/I205783295"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": null,
+      "is_accepted": false,
+      "is_published": null,
+      "raw_source_name": null,
+      "raw_type": "article-journal"
+    }
+  ],
+  "best_oa_location": {
+    "id": "doi:10.1051/0004-6361:20021326",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1051/0004-6361:20021326",
+    "pdf_url": "https://www.aanda.org/articles/aa/pdf/2002/45/aah3859.pdf",
+    "source": {
+      "id": "https://openalex.org/S205231332",
+      "display_name": "Astronomy and Astrophysics",
+      "issn_l": "0004-6361",
+      "issn": [
+        "0004-6361",
+        "1432-0746"
+      ],
+      "is_oa": false,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+        "cwts-core",
+        "doaj",
+        "jufo-3",
+        "ki-jl-2",
+        "norway-2"
+      ],
+      "host_organization": "https://openalex.org/P4310319748",
+      "host_organization_name": "EDP Sciences",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319748",
+        "https://openalex.org/P4310319982"
+      ],
+      "host_organization_lineage_names": [
+        "EDP Sciences",
+        "Science Press"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Astronomy &amp; Astrophysics",
+    "raw_type": "journal-article"
+  },
+  "sustainable_development_goals": [],
+  "sustainable_development_goals_aurora": [],
+  "study_designs": [],
+  "awards": [],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320306101",
+      "display_name": "National Aeronautics and Space Administration",
+      "ror": "https://ror.org/027ka1x80"
+    },
+    {
+      "id": "https://openalex.org/F4320314503",
+      "display_name": "Space Telescope Science Institute",
+      "ror": "https://ror.org/036f5mx38"
+    },
+    {
+      "id": "https://openalex.org/F4320332377",
+      "display_name": "Goddard Space Flight Center",
+      "ror": "https://ror.org/0171mag52"
+    }
+  ],
+  "has_content": {
+    "grobid_xml": true,
+    "pdf": true
+  },
+  "content_urls": {
+    "pdf": "https://content.openalex.org/works/W2051633863.pdf",
+    "grobid_xml": "https://content.openalex.org/works/W2051633863.grobid-xml"
+  },
+  "referenced_works_count": 3,
+  "referenced_works": [
+    "https://openalex.org/W2048251016",
+    "https://openalex.org/W2119442535",
+    "https://openalex.org/W2156099691"
+  ],
+  "related_works": [],
+  "abstract_inverted_index": {
+    "The": [
+      0
+    ],
+    "initial": [
+      1
+    ],
+    "descriptions": [
+      2
+    ],
+    "of": [
+      3,
+      17,
+      27,
+      36,
+      62
+    ],
+    "the": [
+      4,
+      13,
+      18,
+      28,
+      34,
+      54,
+      59,
+      74
+    ],
+    "FITS": [
+      5,
+      63
+    ],
+    "format": [
+      6
+    ],
+    "provided": [
+      7
+    ],
+    "a": [
+      8,
+      84
+    ],
+    "simplified": [
+      9
+    ],
+    "method": [
+      10
+    ],
+    "for": [
+      11,
+      57
+    ],
+    "describing": [
+      12,
+      58
+    ],
+    "physical": [
+      14
+    ],
+    "coordinate": [
+      15
+    ],
+    "values": [
+      16
+    ],
+    "image": [
+      19,
+      38
+    ],
+    "pixels,": [
+      20
+    ],
+    "but": [
+      21
+    ],
+    "deliberately": [
+      22
+    ],
+    "did": [
+      23
+    ],
+    "not": [
+      24
+    ],
+    "specify": [
+      25
+    ],
+    "any": [
+      26
+    ],
+    "detailed": [
+      29
+    ],
+    "conventions": [
+      30,
+      42,
+      72
+    ],
+    "required": [
+      31
+    ],
+    "to": [
+      32,
+      53,
+      73,
+      88
+    ],
+    "convey": [
+      33
+    ],
+    "complexities": [
+      35
+    ],
+    "actual": [
+      37
+    ],
+    "coordinates.": [
+      39,
+      90
+    ],
+    "Building": [
+      40
+    ],
+    "on": [
+      41
+    ],
+    "in": [
+      43
+    ],
+    "wide": [
+      44
+    ],
+    "use": [
+      45
+    ],
+    "within": [
+      46
+    ],
+    "astronomy,": [
+      47
+    ],
+    "this": [
+      48
+    ],
+    "paper": [
+      49
+    ],
+    "proposes": [
+      50
+    ],
+    "general": [
+      51,
+      71
+    ],
+    "extensions": [
+      52
+    ],
+    "original": [
+      55
+    ],
+    "methods": [
+      56,
+      75
+    ],
+    "world": [
+      60
+    ],
+    "coordinates": [
+      61,
+      79
+    ],
+    "data.": [
+      64
+    ],
+    "In": [
+      65
+    ],
+    "subsequent": [
+      66
+    ],
+    "papers,": [
+      67
+    ],
+    "we": [
+      68
+    ],
+    "apply": [
+      69
+    ],
+    "these": [
+      70
+    ],
+    "by": [
+      76
+    ],
+    "which": [
+      77
+    ],
+    "spherical": [
+      78
+    ],
+    "may": [
+      80
+    ],
+    "be": [
+      81
+    ],
+    "projected": [
+      82
+    ],
+    "onto": [
+      83
+    ],
+    "two-dimensional": [
+      85
+    ],
+    "plane": [
+      86
+    ],
+    "and": [
+      87
+    ],
+    "frequency/wavelength/velocity": [
+      89
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 11
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 8
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 12
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 12
+    },
+    {
+      "year": 2022,
+      "cited_by_count": 16
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 7
+    },
+    {
+      "year": 2020,
+      "cited_by_count": 12
+    },
+    {
+      "year": 2019,
+      "cited_by_count": 6
+    },
+    {
+      "year": 2018,
+      "cited_by_count": 8
+    },
+    {
+      "year": 2017,
+      "cited_by_count": 12
+    },
+    {
+      "year": 2016,
+      "cited_by_count": 17
+    },
+    {
+      "year": 2015,
+      "cited_by_count": 13
+    },
+    {
+      "year": 2014,
+      "cited_by_count": 11
+    },
+    {
+      "year": 2013,
+      "cited_by_count": 6
+    },
+    {
+      "year": 2012,
+      "cited_by_count": 8
+    }
+  ],
+  "updated_date": "2026-10-04T09:36:47.201465",
+  "created_date": "2016-06-24T00:00:00"
+}

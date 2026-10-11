@@ -206,3 +206,18 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 .aider*
+
+# macOS
+.DS_Store
+
+# LaTeX build artifacts (regenerable; main.pdf is the deliverable and is tracked)
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.toc
+*.xdv
+*.synctex.gz

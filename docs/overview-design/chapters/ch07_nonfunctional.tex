@@ -1,0 +1,44 @@
+\section{非功能设计}
+\label{sec:nonfunctional}
+
+\subsection{性能}
+
+\begin{itemize}
+  \item \textbf{交互侧}：交互式操作低延迟响应；任务提交支持高吞吐（批量任务与蒙特卡洛场景）；
+        结果返回支持分页、流式传输与增量更新；资源状态查询低延迟，不阻塞交互；
+  \item \textbf{数据交换}：支持大体积科学数据的高效传输与并发任务的严格数据隔离；
+        序列化/反序列化性能匹配观测模拟与分析的实时性要求；
+  \item \textbf{计算}：段间大数组以共享内存视图零拷贝传递；缓存基于参数哈希（LRU）避免重复计算；
+        支持 CPU/GPU 异构与 MPI 分布式调度的扩展能力；
+  \item \textbf{资源探测}：网络、计算、存储状态采集须低开销，不挤占科学计算与传输带宽。
+\end{itemize}
+
+\subsection{可靠性}
+
+\begin{itemize}
+  \item 异步任务生命周期：排队 $\rightarrow$ 资源准入 $\rightarrow$ 执行 $\rightarrow$ 完成/异常，
+        状态可查询、事件可订阅；
+  \item 层间容错：哨兵文件驱动解耦；\texttt{.error} 哨兵携带英文错误码与摘要，向上传播不静默失败；
+        长链路任务支持重试；
+  \item 资源不足时执行排队、拒绝或降级策略并向用户提示，避免阻塞观测任务时效性；
+  \item 缓存与版本一致性检查，防止陈旧结果复用。
+\end{itemize}
+
+\subsection{安全与数据保护}
+
+\begin{itemize}
+  \item 用户数据下载经接口 G（受控 Unix Domain Socket 端口），禁止接口段直接穿透底层存储句柄；
+  \item 数据访问权限控制与生命周期管理，防止未授权访问；
+  \item 段间诊断导出（JSON/HDF5）仅限开发/测试/故障诊断，生产环境默认禁用；
+        组件内部诊断文件须命名空间隔离，禁止写入层间交换目录、结果仓库与用户工作区。
+\end{itemize}
+
+\subsection{可维护性与文档工程}
+
+\begin{itemize}
+  \item \textbf{单一来源原则}：设计规范描述“是什么”，ADR 记录“为什么”；术语与字段跨文档一致；
+  \item \textbf{版本策略}：外部接口（YAML schema、FITS 关键字）以 \texttt{oasis\_version} 标识；
+        内部模型以 \texttt{model\_version} 管理变迁；事件主题携带主版本（如 \texttt{oasis.v1.*}）；
+  \item \textbf{需求—设计—验证追溯}：UR $\rightarrow$ 设计落点 $\rightarrow$ UC/TV 全链可追溯（第~\ref{sec:traceability} 章）；
+  \item \textbf{验证工件}：JSON Schema、YAML 用例样例与一致性检查脚本纳入交付与回归。
+\end{itemize}

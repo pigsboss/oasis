@@ -100,7 +100,7 @@
 
 ### 3.1 总体架构
 
-目标层采用**三段式 V 字形纵向架构**。接口段位于 V 字顶部，是 OASIS 面向用户及外部系统的唯一外部边界；模型段位于 V 字中段，是目标层的核心计算引擎；数据段位于 V 字底部，是目标层与观测量层的唯一接口。三段纵向串接，形成清晰的单向依赖关系：**接口段只应对上，数据段只对下，模型段承上启下并专注于物理计算与参数反演**。
+目标层采用**三段式 V 字形纵向架构**。接口段位于 V 字顶部，是 OASIS 面向用户及外部系统的唯一外部边界；模型段位于 V 字中段，是目标层的核心计算引擎；数据段位于 V 字底部，是目标层与观测量层的唯一接口。三段纵向串接，形成清晰的单向依赖关系：**接口段只应对上，数据段只对下，模型段承上启下并专注于物理计算与参数反演**（"只应对上/只对下"指职责与接口归属；段间数据流方向以 §3.3.2 接口 A–H 为准：G 为受控横向通道，D/H 等反向回传通过回调与发布-订阅实现，不构成反向依赖）。
 
 **架构说明**
 
@@ -180,7 +180,7 @@
 
 **Observables Interface / 观测量层接口**
 - 目标层与 observables 层文件级层间接口的唯一管理者，定义目录结构、命名规范、就绪信号与状态回报机制
-- 正演时组织输出文件包（FITS/HDF5 主数据 + JSON/YAML/TSV/CSV 辅助文件），产出参数侧写、观测配置摘要与处理指令
+- 正演时组织输出文件包（FITS 主数据 + JSON/YAML 辅助文件），产出参数侧写、观测配置摘要与处理指令
 - 反演时扫描并读取 observables 层放回的结果包，解析附带辅助元数据
 - 探测目标层与 observables 层分布式节点间的局域网连通性与端到端延迟
 - 向外部工作流编排器发送"输出就绪"或"输入可用"事件，不直接调用 observables 层内部工具
@@ -214,7 +214,7 @@
 **接口文件要求（YAML 参数化模型）**
 
 - **编码**：采用 UTF-8 编码
-- **顶层必填字段**：须包含 `oasis_version`、`theme`、`target_name`、`parameters`
+- **顶层必填字段**：须包含 `oasis_version`、`theme`，以及至少一个模型定义块（`source` 必选；`background`、`transmission` 可选）
 - **层级继承**：支持 `extends` 关键字引用基础模型或上级主题
 - **物理量表达**：所有带量纲数值须以 `value` + `unit` 键值对表示，单位字符串须兼容天文标准单位制
 - **参数扫描**：支持 `linspace`、`logspace`、`list` 三种参数网格定义
@@ -241,13 +241,13 @@
 - **正演输出（目标层 → observables 层）**
   - 主数据文件：采用标准 FITS，封装图像模型（2D/3D/4D 亮度分布）、光谱模型（波长-通量关系）、光变模型（时间-通量关系）及可选偏振模型
   - WCS 要求：图像与光谱数据须包含完整、自洽的 WCS 描述
-  - 头部关键字：须包含 `OASIS_VER`、`MODEL_ID`、`TIMESTAMP`、`TARGET_CLASS` 及 `OASIS_OBS_INTF_VER`
+  - 头部关键字：须包含 `OASIS_VER`、`MODEL_ID`、`TIMESTAMP`、`TARGET_CLASS` 及 `OASIS_OBS_INTF_VER`（完整必填清单见 §4.4.2）
   - 辅助文件包：配套 JSON/YAML/TSV/CSV 辅助文件，携带参数侧写、观测配置摘要与处理指令
   - 就绪信号：数据段完成写入后，在层间交换目录生成 `.forward_ready` 哨兵文件
 
 - **反演输入（observables 层 → 目标层）**
   - 数据产品文件：采用标准 FITS，由 observables 层生成的高级科学数据产品
-  - 头部元数据：须包含 `TASK_ID`、`INSTRUMENT`、`CALIB_VER`、`DATA_QUAL`
+  - 头部元数据：须包含 `TASK_ID`、`INSTRUMENT`、`CALIB_VER`、`DATA_QUAL`（完整必填清单见 §4.4.3）
   - 辅助文件包：配套 JSON/YAML 辅助文件，声明观测参数、噪声模型、校准系数及数据质量说明
   - 就绪信号：observables 层完成处理后，在交换目录生成 `.inverse_ready` 哨兵文件
 
@@ -424,9 +424,9 @@ A–H 接口严格遵循段间内存对象契约。开发、测试及故障诊�
 
 | 数据类型 | 说明 | 关键字段 |
 |:---|:---|:---|
-| `TargetModel` | 参数化模型的抽象基类，携带通用标识、层级属性与溯源信息 | `name` (str), `provider` (str), `metadata` (dict), `version` (str) |
+| `TargetModel` | 参数化模型的抽象基类，携带通用标识、层级属性与溯源信息 | `name` (str), `provider` (str), `version` (str), `metadata` (dict), `hierarchy` (Optional[HierarchyDescriptor]) |
 | `SourceModel` | 目标区域信号源的参数化模型，继承自 `TargetModel` | `coordinates` (SkyCoord 兼容), `proper_motion` (Quantity 对), `spectral_model` (描述光谱类型与参数，涵盖辐射光谱与透过率曲线的抽象) |
-| `BackgroundModel` | 目标区域背景辐射的参数化模型，继承自 `TargetModel` | `region` (全天或区域参数), `spectral_model` (同 `SourceModel` 共用抽象) |
+| `BackgroundModel` | 目标区域背景辐射的参数化模型，继承自 `TargetModel` | `region` (全天或区域参数), `spectral_model` (同 `SourceModel` 共用抽象), `is_isotropic` (bool，默认 true), `spatial_model` (各向异性时必填，见 ADR 0006) |
 | `TransmissionModel` | 目标区域介质对信号传输的透过率模型，继承自 `TargetModel` | `optical_depth` (Quantity), `transmission_curve` (描述透过率曲线), `spectral_model` (涵盖辐射光谱与透过率曲线的抽象) |
 | `TargetHistogram` | 目标区域亮度在空间/时间/波长维度上的离散分布（直方图），继承自 `TargetModel` | `data` (ndarray), `axes` (List[AxisDescriptor]), `units` (Quantity/Unit), `uncertainty` (噪声描述), `histogram_type` (枚举：image/spectrum/light_curve/cube), `source_model_ref` (追溯信源), `background_model_ref` (追溯背景), `transmission_model_ref` (追溯介质) |
 
@@ -489,7 +489,7 @@ A–H 接口严格遵循段间内存对象契约。开发、测试及故障诊�
 
 ### 4.4 文件格式
 
-定义目标层对外交互的关键文件格式规范，作为后续格式文档、Schema 和测试用例的基础。
+定义目标层对外交互的关键文件格式规范，作为后续格式文档、Schema 和测试用例的基础。当前版本层间交换以 **FITS** 为确定格式；**HDF5** 仅用于开发诊断与大数组缓存场景（§3.3.2 诊断补充机制），不参与层间交换。
 
 #### 4.4.1 YAML 参数化模型（用户输入）
 
@@ -519,28 +519,32 @@ A–H 接口严格遵循段间内存对象契约。开发、测试及故障诊�
       pm_dec: {value: -12.3, unit: "mas/yr"}
     spectral_model:
       type: "blackbody"
-      temperature: {value: 5778, unit: "K"}
+      parameters:
+        temperature: {value: 5778, unit: "K"}
   transmission:
     name: "ism_extinction"
-    type: "power_law"
-    alpha: -1.5
-    A_v: {value: 0.3, unit: "mag"}
+    optical_depth: {value: 0.3, unit: ""}
+    spectral_model:
+      type: "power_law"
+      parameters:
+        alpha: {value: -1.5, unit: ""}
+        reference_wavelength: {value: 5500, unit: "angstrom"}
   ```
-  上述示例定义了一个信号源（太阳型恒星）及一个星际消光透射模型，背景模型可按需添加。不涉及系外行星凌星研究方向。`parameters` 字段可根据实际科学需求动态扩展。
+  上述示例定义了一个信号源（太阳型恒星）及一个星际消光透射模型，背景模型可按需添加；不涉及系外行星凌星研究方向。光谱参数统一置于 `spectral_model.parameters` 字典内。
 
 #### 4.4.2 FITS 正演输出包（目标层 → observables）
 
 - **主 HDU**：对应于 `TargetHistogram` 的序列化，包括图像/光谱/光变数据（二维/三维/四维数组）
-- **必填关键字**：`OASIS_VER`, `MODEL_ID`, `TIMESTAMP`, `TARGET_CLASS`, `OASIS_OBS_INTF_VER`
+- **必填关键字**：`OASIS_VER`, `MODEL_ID`, `TIMESTAMP`, `TARGET_CLASS`, `OASIS_OBS_INTF_VER`, `SRC_MODEL`, `BKG_MODEL`, `TRANS_MODEL`, `SPATIAL_TYP`（后四者无对应内容时为空字符串）
 - **WCS**：图像和光谱必须包含完整、自洽的 WCS 头；光变曲线包含时间轴描述
-- **辅助文件**：JSON/YAML 参数侧写、观测配置摘要；CSV/TSV 处理指令（可选）
+- **辅助文件**：`params.json`（参数侧写）、`config.yaml`（观测配置摘要）、`processing_log.txt`（计算过程日志）；CSV/TSV 处理指令（可选）
 - **哨兵**：写入完成后在交换目录生成 `.forward_ready` 空文件
 
 #### 4.4.3 FITS 反演输入包（observables → 目标层）
 
 - **主 HDU**：科学数据产品（图像/光谱/光变），格式与正演输出一致，代表观测到的 `TargetHistogram`
-- **必填关键字**：`TASK_ID`, `INSTRUMENT`, `CALIB_VER`, `DATA_QUAL`
-- **辅助文件**：JSON/YAML 包含观测参数、噪声模型、校准系数
+- **必填关键字**：`TASK_ID`, `INSTRUMENT`, `CALIB_VER`, `DATA_QUAL`, `OASIS_OBS_INTF_VER`
+- **辅助文件**：`noise_model.json`（噪声模型）、`observation_config.yaml`（观测配置）、`instrument_response.json`（仪器响应，可选）
 - **哨兵**：observables 层放置 `.inverse_ready` 文件后目标层开始处理；异常时放置 `.error` 文件（含错误码与英文摘要）
 
 #### 4.4.4 用户输出报告

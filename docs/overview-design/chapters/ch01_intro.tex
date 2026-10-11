@@ -1,0 +1,67 @@
+\section{引言}
+
+\subsection{目的与范围}
+
+本说明书为 OASIS（空间干涉仪观测数据分析与模拟系统）的概要设计文件，基于已冻结的需求与架构决策基线，
+给出系统总体设计、目标层（Targets Layer）的组件级与数据类型级设计，以及各层间接口的权威描述。
+
+\begin{itemize}
+  \item \textbf{覆盖范围}：系统 TOP 三层架构（目标层 / 观测量层 / 载荷层）。其中目标层细化到组件与数据类型；
+        观测量层与载荷层给出接口级大纲（详细设计待其立项后补充）。
+  \item \textbf{不在范围}：OASIS 软件系统的正式实现（约束与假设见第~\ref{sec:constraints} 节）。
+  \item \textbf{读者对象}：设计开发、科学用户、评审专家、质量管理人员四类角色。
+\end{itemize}
+
+\subsection{术语与缩略语}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{3.4cm}p{11.5cm}}
+\toprule
+术语 & 说明 \\
+\midrule
+\endhead
+TOP & Targets--Observables--Payloads：系统级三层架构（目标层 / 观测量层 / 载荷层） \\
+目标层 & 观测目标建模：参数化模型 $\rightarrow$ 图像/光谱/光变等可观测模型，并支持参数反演 \\
+观测量层 & 干涉观测量（可见度、闭合相位等）的模拟与重建；OIFITS 2 交换的承载层 \\
+载荷层 & 仪器数据生成与处理（探测器、条纹、噪声） \\
+接口段 / 模型段 / 数据段 & 目标层内部的三段式 V 型纵向架构（层内级，勿与 TOP 三层混淆） \\
+\texttt{TargetModel} & 目标层模型抽象基类（含 \texttt{SourceModel}、\texttt{BackgroundModel}、\texttt{TransmissionModel}、\texttt{TargetHistogram}） \\
+\texttt{TargetHistogram} & 亮度分布统一容器（图像 / 光谱 / 光变 / 数据立方） \\
+\texttt{SpectralModel} / \texttt{SpatialModel} & 光谱 / 空间分布描述符抽象基类 \\
+OIFITS 2 & 光学干涉测量数据交换标准 \cite{duvert2017oifits} \\
+FITS & 天文图像与表格标准格式 \cite{fits_standard40} \\
+WCS & 世界坐标系统（World Coordinate System） \cite{greisen2002wcs} \\
+哨兵文件 & 层间异步就绪通知文件：\texttt{.forward\_ready} / \texttt{.inverse\_ready} / \texttt{.error} \\
+ADR & 架构决策记录（Architecture Decision Record） \\
+ICN & 问题台账条目（Issue/Nonconformity） \\
+UR / UC / TV & 科学需求 / 天文用例 / 测试验证报告 \\
+G1 / G2 & 阶段门禁：方案设计评审 / 测试报告评审 \\
+\bottomrule
+\end{longtable}
+
+\subsection{引用文件}
+
+\subsubsection{外部标准与文献}
+本说明书引用的标准与文献见文末参考文献，对应关系如下：
+OIFITS 2 标准 \cite{duvert2017oifits}；
+FITS 4.0 官方标准 \cite{fits_standard40}；
+FITS WCS 论文 \cite{greisen2002wcs}；
+astropy 科学计算栈 \cite{astropy2022}；
+LIFE 空间干涉任务科学评估 \cite{quanz2022life}；
+光学干涉测量综述 \cite{monnier2003optical, eisenhauer2023advances}。
+
+\subsubsection{项目内部文件}
+\begin{itemize}
+  \item \texttt{docs/design/targets.md}：目标层设计开发规范（主规范）；
+  \item \texttt{docs/design/targets\_data\_model.md}：目标层数据类型详细设计；
+  \item \texttt{docs/design/targets\_interfaces.md}：目标层接口详细设计；
+  \item \texttt{docs/design/adr/0001--0007}：架构决策记录（ADR）；
+  \item \texttt{workbench/science/requirements/UR-catalog.md}：科学需求集 UR-CAT-001；
+  \item \texttt{workbench/PLAN.md}：总计划 PLAN-001；\texttt{workbench/GOAL.md}：完成契约 G-001。
+\end{itemize}
+
+\subsection{文档约定}
+\begin{itemize}
+  \item 代码标识（字段、文件名、命令）采用等宽字体；物理量统一以 \texttt{\{value, unit\}} 表达；
+  \item 接口方向以箭头标注：A~$\rightarrow$~B 表示 A 向 B 提供数据；
+  \item 文档中的“三段”指目标层内部架构（接口段/模型段/数据段），“三层”指系统级 TOP 架构，两者不可混用。
+\end{itemize}
