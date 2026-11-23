@@ -35,6 +35,8 @@ tools/oasis-datasets consolidate-select CATALOG.h5 --id ID | --cone RA,DEC,R | -
 tools/oasis-datasets hpxmap CATALOG.h5 --nside 512 --quantity count \
     [--expr EXPR] [--weight-expr EXPR] [--unit UNIT] --out MAP.fits
                                                           # 源表 bincount -> NESTED HEALPix FITS
+tools/oasis-datasets spectral-cube CATALOG.h5 --nside 2048 --out CUBE.h5
+                                                          # 逐像素 343 点光谱立方（当前 blackbody/BP-RP，D 级推断）
 tools/oasis-datasets probe [ids...] [--channel id] # 渠道连通性 + 版本确定（file/https/ssh）
 tools/oasis-datasets storages [--json]             # 本机文件系统视图（挂载/未挂载/未登记）
 tools/oasis-datasets web [--port 8787] [--no-open] # 本机 Web（127.0.0.1）：清单/存储/任务/审计 + 配置编辑器
@@ -116,6 +118,37 @@ tools/oasis-datasets consolidate --from gaia.fits --app /tmp/skyapp --profile ga
 - `consolidate-select` 的 `--where` 是 PyTables 表达式（列名白名单校验）；
 - FITS 输出需 astropy；系统 Python 无 astropy 时 CSV/NPY 仍可用。
 
+### 光谱立方（Phase 1）
+
+```bash
+tools/oasis-datasets spectral-cube \
+    /mnt/data/huo/Datasets/Gaia/gdr3/consolidated/gaia_dr3_core_spatial.h5 \
+    --nside 2048 --chunk 2000000 \
+    --out /mnt/data/huo/Datasets/Gaia/gdr3/spectral/gaia_dr3_spectral_n2048.h5
+```
+
+当前实现（SPECTRA-001 T1）：
+
+- 1.8B 源没有 XP/GSP-Phot 参数；使用 **BP-RP→Teff 16 级 + 黑体模板**；
+- `/spectra/flux[npix,343]` 是逐像素源光谱 bincount；
+- 所有像素 `inferred=true`、`quality=4 (inferred_blackbody)`、`xp_fraction=0`；
+- 相对通量：`G=6.5` 参考、600 nm 归一；
+- nside 2048：npix 50,331,648，343 点，float32 约 **68.9 GB**；
+- 完整任务书：`workbench/design/design-report/SPECTRA-001-spectral-cube.md`。
+
+输出布局：
+
+```text
+/spectra/wavelength       float32[343]
+/spectra/templates        float32[16,343]
+/spectra/teff             float32[16]
+/spectra/flux             float32[npix,343]
+/spectra/count            int64[npix]
+/spectra/quality          uint8[npix]
+/spectra/inferred_fraction float32[npix]
+/spectra/xp_fraction      float32[npix]
+```
+
 ### HEALPix bincount
 
 ```bash
@@ -153,7 +186,7 @@ tools/oasis-datasets hpxmap gaia.h5 --nside 256 --quantity weighted_mean \
 
 对照 AstroToys `table2hpx.py`：它固定 nside 4096，用 `source_id//2**35` 的 level-12 近似像素，并用 `gmag2photrate`；本工具支持任意 nside、实际 RA/Dec 精确像素、任意物理表达式。
 
-测试（11 项）：
+测试（14 项）：
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
@@ -252,6 +285,12 @@ PYTHONPATH=src /home/huo/Projects/distoptics/.venv/bin/python -m unittest discov
   - **10°**：中位 **275 ms**，P95 797 ms；中位 2,808,933 行（1,569,075–7,878,665）；
   - 结果均为精确 `ra/dec` 锥，spatial 连续区间读；1′ 主要受 fixed/open 开销影响，
     1°/10° 主要受该天区实际行数影响。数据在 page cache 中。
+- **M5.10 光谱立方 Phase 1**：`spectral-cube` 从 core/spatial 表流式生成逐像素 343 点立方；
+  已生成 nside 2048、50,331,648 像素、343 点、**69.9 GB** float32：
+  `/mnt/data/huo/Datasets/Gaia/gdr3/spectral/gaia_dr3_spectral_n2048.h5`；
+  行数 1,811,709,771，count 和一致，flux 全 finite；当前无 XP/GSP-Phot，使用 BP-RP 黑体模板，
+  全部标记 `inferred/quality=D`，`missing_bp_rp=270,939,282`、`missing_g=5,455,339`；
+  任务书 `SPECTRA-001`。
 - **M5.9 HEALPix bincount**：`hpxmap` 支持 count/sum/mean/weighted_mean、任意 nside、表达式定义物理量；
   全量 GDR3 `count` nside 512：25 MB FITS，和 = 1,811,709,771，51 s。
 - **M5.8 全量 GDR3 core/spatial**：`/mnt/data/huo/Datasets/Gaia/gdr3/consolidated/gaia_dr3_core_spatial.h5`

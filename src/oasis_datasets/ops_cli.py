@@ -370,6 +370,24 @@ def cmd_hpxmap(args) -> int:
     return 0
 
 
+def cmd_spectral_cube(args) -> int:
+    from .spectra import build_spectral_cube
+    def progress(done, total):
+        if args.progress:
+            print(f"  {done}/{total} rows", file=sys.stderr)
+    try:
+        result = build_spectral_cube(
+            args.source, args.out, nside=args.nside,
+            chunk_rows=args.chunk, buffer_parents=args.buffer_parents,
+            progress=progress)
+    except (ValueError, OSError, FileExistsError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    print(f"spectral cube nside={result.nside} shape=({result.npix},{result.nwave}) "
+          f"rows={result.rows} model={result.model} quality=D -> {result.path}")
+    return 0
+
+
 def _default_mpcorb() -> Path | None:
     for candidate in (Path.home() / "Datasets/catalogs/mpc/elements/MPCORB.DAT.gz",
                       Path.home() / "oasis-catalog-store/catalogs/mpc/elements/MPCORB.DAT.gz"):
@@ -637,6 +655,16 @@ def register(sub, common) -> dict:
     p_h.add_argument("--progress", action="store_true")
     p_h.set_defaults(func=cmd_hpxmap)
 
+    p_sc = sub.add_parser("spectral-cube", parents=[common],
+                          help="build a per-pixel 343-point HEALPix spectral cube")
+    p_sc.add_argument("source", help="consolidated spatial .h5")
+    p_sc.add_argument("--nside", type=int, default=2048)
+    p_sc.add_argument("--out", required=True)
+    p_sc.add_argument("--chunk", type=int, default=1_000_000)
+    p_sc.add_argument("--buffer-parents", type=int, default=4096)
+    p_sc.add_argument("--progress", action="store_true")
+    p_sc.set_defaults(func=cmd_spectral_cube)
+
     p_hdf5 = sub.add_parser("hdf5", parents=[common],
                             help="CSV.gz -> HDF5 rendition (optional format; canonical stays CSV.gz)")
     p_hdf5.add_argument("files", nargs="+", help="CSV.gz file(s)")
@@ -646,4 +674,5 @@ def register(sub, common) -> dict:
     return {"probe": cmd_probe, "storages": cmd_storages, "web": cmd_web,
             "slice": cmd_slice, "tasks": cmd_tasks, "mpc": cmd_mpc, "hdf5": cmd_hdf5,
             "consolidate": cmd_consolidate, "consolidate-select": cmd_consolidate_select,
-            "hpxmap": cmd_hpxmap, "kernels": cmd_kernels}
+            "hpxmap": cmd_hpxmap, "spectral-cube": cmd_spectral_cube,
+            "kernels": cmd_kernels}
