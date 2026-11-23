@@ -18,7 +18,7 @@ set -euo pipefail
 
 BASE_URL="${XP_BASE_URL:-https://159.226.170.25/mirror/Gaia/dr3/Spectroscopy/xp_continuous_mean_spectrum}"
 DEST="${XP_DEST:-/mnt/data/huo/Datasets/Gaia/gdr3/xp_continuous_mean_spectrum}"
-JOBS=4
+JOBS=8
 CONNECTIONS=8
 SPLITS=8
 LIMIT=""
@@ -27,6 +27,16 @@ VERIFY=1
 ALLOW_LOW_SPACE=0
 EXPECTED_BYTES=$((3610 * 1000 * 1000 * 1000))  # ~3.61 TB
 MIN_FREE_BYTES=$((3800 * 1000 * 1000 * 1000))
+
+find_tool() {
+  local name="$1"
+  command -v "$name" 2>/dev/null && return 0
+  local p
+  for p in /opt/homebrew/bin /usr/local/bin /opt/local/bin /usr/bin /sbin; do
+    if [[ -x "$p/$name" ]]; then echo "$p/$name"; return 0; fi
+  done
+  return 1
+}
 
 while (($#)); do
   case "$1" in
@@ -47,8 +57,12 @@ mkdir -p "$DEST"
 MANIFEST="$DEST/_MD5SUM.txt"
 URLS="$DEST/_aria2_urls.txt"
 
+WGET=$(find_tool wget) || { echo "error: wget not found" >&2; exit 2; }
+ARIA2=$(find_tool aria2c) || true
+MD5SUM=$(find_tool md5sum) || { echo "error: md5sum not found" >&2; exit 2; }
+
 echo "== manifest =="
-wget --no-check-certificate -q -O "$MANIFEST" "$BASE_URL/_MD5SUM.txt"
+"$WGET" --no-check-certificate -q -O "$MANIFEST" "$BASE_URL/_MD5SUM.txt"
 lines=$(wc -l < "$MANIFEST")
 echo "manifest: $MANIFEST ($lines entries)"
 if [[ "$lines" -lt 3000 ]]; then
@@ -66,7 +80,7 @@ echo "urls: $URLS ($count files)"
 echo "dest: $DEST"
 echo "expected raw payload: ~3.61 TB"
 
-free_bytes=$(df -PB1 "$DEST" | awk 'NR==2 {print $4}')
+free_bytes=$(df -Pk "$DEST" | awk 'NR==2 {print $4 * 1024}')
 echo "free bytes: $free_bytes"
 if (( free_bytes < MIN_FREE_BYTES && ! ALLOW_LOW_SPACE )); then
   echo "warning: free space is below 3.8 TB; use --allow-low-space only if you have another volume." >&2
@@ -78,13 +92,13 @@ if (( DRY_RUN )); then
   echo "first URL: $(head -1 "$URLS")"
   exit 0
 fi
-command -v aria2c >/dev/null 2>&1 || {
-  echo "error: aria2c not found; install aria2 first (e.g. emerge net-misc/aria2)" >&2
+[[ -n "$ARIA2" ]] || {
+  echo "error: aria2c not found; install aria2 first (e.g. emerge net-misc/aria2 or brew install aria2)" >&2
   exit 2
 }
 
 echo "== aria2c ($count files, -j $JOBS, -x $CONNECTIONS, -s $SPLITS) =="
-aria2c \
+"$ARIA2" \
   --input-file="$URLS" \
   --dir="$DEST" \
   --continue=true \
@@ -101,6 +115,6 @@ aria2c \
 
 if (( VERIFY )); then
   echo "== md5 verify =="
-  ( cd "$DEST" && md5sum -c _MD5SUM.txt )
+  ( cd "$DEST" && "$MD5SUM" -c _MD5SUM.txt )
 fi
 echo "done: $DEST"
