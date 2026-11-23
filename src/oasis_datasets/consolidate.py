@@ -1224,7 +1224,11 @@ def _finalize(plan: ConsolidatePlan, tmp: Path, source_cols: list[str],
             "source_format": plan.source_format,
             "region": plan.region, "attributes": plan.attributes, "limit": plan.limit,
             "column_profile": plan.column_profile, "layout": plan.layout,
-            "order": plan.order, "sources": [p.name for p in plan.source_files],
+            "order": plan.order,
+            # HDF5 attributes are capped at ~64 KiB; the full list lives in
+            # the manifest, not in the object header.
+            "source_count": len(plan.source_files),
+            "source_sample": [p.name for p in plan.source_files[:8]],
         }, ensure_ascii=False)
     os.replace(tmp, plan.dest_h5)
     digest = sha256_file(plan.dest_h5)

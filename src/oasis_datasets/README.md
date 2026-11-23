@@ -212,6 +212,12 @@ PYTHONPATH=src /home/huo/Projects/distoptics/.venv/bin/python -m unittest discov
   - **10°**：中位 **275 ms**，P95 797 ms；中位 2,808,933 行（1,569,075–7,878,665）；
   - 结果均为精确 `ra/dec` 锥，spatial 连续区间读；1′ 主要受 fixed/open 开销影响，
     1°/10° 主要受该天区实际行数影响。数据在 page cache 中。
+- **M5.8 全量 GDR3 core/spatial**：`/mnt/data/huo/Datasets/Gaia/gdr3/consolidated/gaia_dr3_core_spatial.h5`
+  - 1,811,709,771 行 × core 14 列 + ipix；**404.7 GB**（377 GiB）；
+  - 96 reader，**3867.7 s（64.5 min）**；QC 288/288；
+  - `spatial`、order 9、`source_id` CSI（不建 mag CSI）；manifest 442 KB；
+  - 全表锥查询（hierarchical candidate，非全像素扫描）：
+    1′ **10 ms**、1° **21 ms**、10° **1.15–1.22 s**（该中心 975k 行）。
 - v0.2（M5 后补，裁决七）：kernels 底座资产管理——`~/.config/oasis/kernels.yaml` ＋
   store `/Volumes/ArecaStudio/Datasets/SPICE Kernels/`（生态数据区命名约定）＋ `kernels`
   命令族（并行取件/校验/投送+manifest）；首件 de442／de440／naif0012／pck00011 已官方校验登记（de441 已取件，3.3 GB）；

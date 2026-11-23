@@ -453,21 +453,42 @@ def disc_candidates(ra: float, dec: float, radius_deg: float,
 
 def query_disc_candidates(nside: int, ra: float, dec: float,
                           radius_deg: float, pixels=None) -> np.ndarray:
-    """Sparse-table broad phase: pixels whose centres may touch the disc.
+    """Broad phase: target pixels whose tile may intersect the query disc.
 
-    Adds the pixel centre-to-boundary radius so a source inside the disc is
-    never missed by the sparse ipix offsets.  The caller filters exactly by
-    source RA/Dec afterwards.
+    Walks the NESTED hierarchy from order 0 instead of scanning all target
+    pixels; adds the conservative centre-to-boundary radius at every level.
+    The caller filters exactly by source RA/Dec afterwards.
     """
-    if pixels is None:
-        pixels = np.arange(nside2npix(nside), dtype=np.int64)
-    else:
-        pixels = np.asarray(pixels, dtype=np.int64)
-    theta, phi = pix2ang(nside, pixels, nest=True)
-    pix_dec = 90.0 - np.degrees(theta)
-    pix_ra = np.degrees(phi)
-    sep = angular_distance_deg(ra, dec, pix_ra, pix_dec)
-    return pixels[sep <= float(radius_deg) + max_tile_radius_deg(nside)]
+    target = nside2order(nside)
+    cand = np.arange(12, dtype=np.int64)
+    for level in range(target):
+        level_nside = 1 << level
+        theta, phi = pix2ang_nest(level_nside, cand)
+        pdec = 90.0 - np.degrees(theta)
+        pra = np.degrees(phi)
+        sep = angular_distance_deg(ra, dec, pra, pdec)
+        keep = sep <= float(radius_deg) + max_tile_radius_deg(level_nside)
+        cand = cand[keep]
+        if cand.size == 0:
+            return np.empty(0, dtype=np.int64)
+        cand = (cand[:, None] * 4 + np.arange(4, dtype=np.int64)).ravel()
+    # final filter at target resolution
+    theta, phi = pix2ang_nest(nside, cand)
+    pdec = 90.0 - np.degrees(theta)
+    pra = np.degrees(phi)
+    sep = angular_distance_deg(ra, dec, pra, pdec)
+    cand = cand[sep <= float(radius_deg) + max_tile_radius_deg(nside)]
+    if pixels is not None:
+        # Callers pass the sparse pixel table in ascending order.
+        target_pixels = np.asarray(pixels, dtype=np.int64)
+        if target_pixels.size == 0 or cand.size == 0:
+            return np.empty(0, dtype=np.int64)
+        pos = np.searchsorted(target_pixels, cand)
+        ok = pos < target_pixels.size
+        pos = pos[ok]
+        cand = cand[ok]
+        cand = cand[target_pixels[pos] == cand]
+    return cand
 
 
 def query_disc_centers(nside: int, ra: float, dec: float, radius_deg: float,

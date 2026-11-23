@@ -160,9 +160,15 @@ class ConsolidatedCatalog:
         ra, dec, radius = cone
         if self.pixels is None:
             raise ValueError("cone selection requires layout=spatial")
-        pra, pdec = self._pixel_centers()
-        sep = hpx.angular_distance_deg(ra, dec, pra, pdec)
-        return np.where(sep <= float(radius) + hpx.max_tile_radius_deg(self.nside))[0]
+        cand = hpx.query_disc_candidates(self.nside, ra, dec, radius,
+                                         pixels=self.pixels)
+        if cand.size == 0:
+            return np.array([], dtype=np.int64)
+        pos = np.searchsorted(self.pixels, cand)
+        ok = pos < self.pixels.size
+        pos = pos[ok]
+        cand = cand[ok]
+        return pos[self.pixels[pos] == cand]
 
     def _box_pixels(self, box) -> np.ndarray:
         ra1, ra2, d1, d2 = box
