@@ -12,7 +12,8 @@
 #   tools/oasis-datasets tasks list | tasks show <id> | tasks watch <id>
 #   tools/oasis-datasets mpc parse [--raw PATH] [--dest DIR] [--apply]
 #   tools/oasis-datasets hdf5 <csv.gz...> [--dest DIR] [--apply]
-#   tools/oasis-datasets consolidate <catalogue|--from PATH> --app WORKSPACE [--profile P] [--region R] [--attributes A,B] [--apply]
+#   tools/oasis-datasets consolidate <catalogue|--from PATH> --app WORKSPACE [--profile P] [--column-profile core|full] [--layout spatial|source_id|csr] [--order N] [--index COLS] [--jobs N] [--schema JSON] [--apply]
+#   tools/oasis-datasets consolidate-select CATALOG.h5 --id ID | --cone RA,DEC,R | --box ... [--where EXPR] [--columns ...] --out FILE
 #   tools/oasis-datasets kernels list|verify|fetch|send --app DIR
 #   tools/oasis-datasets inventory validate
 #   tools/oasis-datasets propose <spec.yaml> | review list|approve|reject <id> [--note N]

@@ -291,7 +291,7 @@ def main(argv=None) -> int:
 
     parser = argparse.ArgumentParser(
         prog="oasis-datasets",
-        description="OASIS datasets manager (targets layer): list / verify / sync / probe / storages / inventory / propose / review / migrate-config",
+        description="OASIS datasets manager (targets layer): list / verify / sync / consolidate / probe / storages / inventory / propose / review / migrate-config",
         parents=[common],
     )
     parser.add_argument("--version", action="version", version=f"oasis-datasets {__version__}")

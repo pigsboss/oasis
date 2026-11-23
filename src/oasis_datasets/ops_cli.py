@@ -227,7 +227,11 @@ def cmd_consolidate(args) -> int:
     plan, err = cs.build_plan(source=src, dataset_path=None, app=Path(args.app),
                               profile_spec=args.profile, dataset_id=dataset_id,
                               region_spec=args.region, attributes=args.attributes,
-                              limit=args.limit, name=args.name)
+                              limit=args.limit, name=args.name,
+                              column_profile=args.column_profile,
+                              layout=args.layout, order=args.order,
+                              index=args.index, hdu=args.hdu,
+                              jobs=args.jobs, schema=args.schema)
     if plan is None:
         print(f"error: {err}", file=sys.stderr)
         return 2
@@ -244,6 +248,12 @@ def cmd_consolidate(args) -> int:
             print(f"           ... (+{len(plan.source_files)-5} more)")
         print(f"  columns: {len(plan.columns)} total"
               + (f"; writing: {', '.join(plan.attributes)}" if plan.attributes else ""))
+        print(f"  format : {plan.source_format}; layout={plan.layout}; order={plan.order}; "
+              f"column-profile={plan.column_profile}; index={','.join(plan.index_columns)}; "
+              f"jobs={plan.jobs}")
+        if plan.warnings:
+            for w in plan.warnings:
+                print(f"  warning: {w}")
         if plan.region:
             print(f"  region : {plan.region}")
         if plan.limit:
@@ -269,6 +279,65 @@ def cmd_consolidate(args) -> int:
         _print_slice_event(event, printed)
     print(f"  result : {task.state} (exit {task.exit_code})")
     return 0 if task.state == "done" else 1
+
+
+def _parse_cone(text):
+    parts = [float(x) for x in str(text).split(",")]
+    if len(parts) != 3:
+        raise ValueError("--cone needs RA,DEC,RADIUS_DEG")
+    return tuple(parts)
+
+
+def _parse_box(text):
+    parts = [float(x) for x in str(text).split(",")]
+    if len(parts) != 4:
+        raise ValueError("--box needs RA1,RA2,DEC1,DEC2")
+    return tuple(parts)
+
+
+def cmd_consolidate_select(args) -> int:
+    from .select import ConsolidatedCatalog
+    ids = []
+    if args.ids:
+        ids.extend(int(x) for x in str(args.ids).split(",") if x.strip())
+    if args.id:
+        ids.extend(int(x) for x in args.id)
+    cone = _parse_cone(args.cone) if args.cone else None
+    box = _parse_box(args.box) if args.box else None
+    cols = [c.strip() for c in args.columns.split(",")] if args.columns else None
+    try:
+        cat = ConsolidatedCatalog(args.source)
+        sel = cat.select(ids=ids or None, cone=cone, box=box, where=args.where or "",
+                         columns=cols, limit=args.limit)
+    except (ValueError, FileNotFoundError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    if args.count:
+        print(sel.meta["rows"])
+        return 0
+    if not args.out:
+        print("error: give --out or --count", file=sys.stderr)
+        return 2
+    out = Path(args.out).expanduser()
+    fmt = args.format
+    if fmt == "csv":
+        sel.to_csv(out)
+    elif fmt == "npy":
+        sel.to_npy(out)
+    elif fmt == "fits":
+        try:
+            sel.to_fits(out)
+        except ValueError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
+    else:
+        print(f"error: unsupported format '{fmt}'", file=sys.stderr)
+        return 2
+    if args.json:
+        print(json.dumps(sel.meta, indent=2, ensure_ascii=False))
+    else:
+        print(f"selected {sel.meta['rows']} row(s) -> {out}")
+    return 0
 
 
 def _default_mpcorb() -> Path | None:
@@ -489,7 +558,34 @@ def register(sub, common) -> dict:
     p_c.add_argument("--attributes", default=None, help="comma-separated attribute subset")
     p_c.add_argument("--limit", type=int, default=None, help="max input rows (partial/test)")
     p_c.add_argument("--name", default=None, help="output basename override")
+    p_c.add_argument("--column-profile", choices=["core", "full"], default=None,
+                     help="column set (default: profile default, Gaia=core)")
+    p_c.add_argument("--layout", choices=["spatial", "source_id", "csr"], default=None,
+                     help="table layout (default: profile, Gaia=spatial)")
+    p_c.add_argument("--order", type=int, default=None, help="HEALPix order for spatial layout")
+    p_c.add_argument("--index", default=None,
+                     help="comma-separated CSI columns (default: source_id,phot_g_mean_mag)")
+    p_c.add_argument("--hdu", default=None, help="FITS HDU name/index (default: 0)")
+    p_c.add_argument("--jobs", type=int, default=1,
+                     help="parallel CSV reader processes (default: 1)")
+    p_c.add_argument("--schema", default=None,
+                     help="JSON column dtype schema; skips full type inference")
     p_c.add_argument("--apply", action="store_true", help="execute (default: dry-run plan)")
+
+    p_s = sub.add_parser("consolidate-select", parents=[common],
+                         help="select rows from a consolidated PyTables catalogue")
+    p_s.add_argument("source", help="consolidated .h5")
+    p_s.add_argument("--id", action="append", default=None, help="source_id (repeatable)")
+    p_s.add_argument("--ids", default=None, help="comma-separated source_ids")
+    p_s.add_argument("--cone", default=None, help="RA,DEC,RADIUS_DEG")
+    p_s.add_argument("--box", default=None, help="RA1,RA2,DEC1,DEC2")
+    p_s.add_argument("--where", default=None, help="PyTables condition, e.g. 'phot_g_mean_mag < 18'")
+    p_s.add_argument("--columns", default=None, help="comma-separated output columns")
+    p_s.add_argument("--limit", type=int, default=None)
+    p_s.add_argument("--format", choices=["csv", "fits", "npy"], default="csv")
+    p_s.add_argument("--out", default=None)
+    p_s.add_argument("--count", action="store_true")
+    p_s.add_argument("--json", action="store_true")
 
     p_hdf5 = sub.add_parser("hdf5", parents=[common],
                             help="CSV.gz -> HDF5 rendition (optional format; canonical stays CSV.gz)")
@@ -499,4 +595,5 @@ def register(sub, common) -> dict:
 
     return {"probe": cmd_probe, "storages": cmd_storages, "web": cmd_web,
             "slice": cmd_slice, "tasks": cmd_tasks, "mpc": cmd_mpc, "hdf5": cmd_hdf5,
-            "consolidate": cmd_consolidate, "kernels": cmd_kernels}
+            "consolidate": cmd_consolidate, "consolidate-select": cmd_consolidate_select,
+            "kernels": cmd_kernels}

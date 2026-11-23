@@ -25,8 +25,13 @@ tools/oasis-datasets hdf5 <csv.gz...> [--dest DIR] [--apply]          # CSV.gz �
 tools/refresh-delivery mpc|gaia|verify                                # UR-2026-1012 交付刷新（按需运行，自校）
 tools/oasis-datasets kernels list|verify|fetch|send --app DIR        # SPICE 底座资产（注册/校验/取件/投送）
 tools/oasis-datasets consolidate <catalogue|--from PATH> --app WORKSPACE [--profile P] \
-    [--region cone:RA,DEC,R_DEG] [--attributes A,B,C] [--limit N] [--apply]
-                                                          # 应用侧整合（PyTables 工作集；两档：整目录/天区×属性裁剪）
+    [--column-profile core|full] [--layout spatial|source_id] [--order N] \
+    [--index source_id,phot_g_mean_mag] [--region cone:RA,DEC,R_DEG] \
+    [--attributes A,B,C] [--limit N] [--apply]
+                                                          # 应用侧整合（PyTables 工作集；core/spatial/CSI）
+tools/oasis-datasets consolidate-select CATALOG.h5 --id ID | --cone RA,DEC,R | --box RA1,RA2,D1,D2 \
+    [--where "phot_g_mean_mag < 18"] [--columns ...] [--format csv|fits|npy] --out FILE
+                                                          # 从 consolidated 表按 ID/锥/盒/表达式选择
 tools/oasis-datasets probe [ids...] [--channel id] # 渠道连通性 + 版本确定（file/https/ssh）
 tools/oasis-datasets storages [--json]             # 本机文件系统视图（挂载/未挂载/未登记）
 tools/oasis-datasets web [--port 8787] [--no-open] # 本机 Web（127.0.0.1）：清单/存储/任务/审计 + 配置编辑器
@@ -45,6 +50,76 @@ tools/oasis-datasets migrate-config [--dry-run] [--force]   # 旧 config.dataset
 
 **读取路径**：`list/verify/sync` 优先读 `inventory.yaml`，无清单时回退旧 `config.datasets`
 （一个版本周期）；`oasis-catalog update` 仍读旧配置（store 布局在其中）。
+
+## consolidate：Gaia 源表 → 可查询 HDF5
+
+### 快速使用
+
+```bash
+# Gaia CSV.gz（自动识别 gaia profile）；默认 core + spatial + order 9
+tools/oasis-datasets consolidate \
+    --from /mnt/data/huo/Datasets/catalogs/gaia/t3/gaia_t3.csv.gz \
+    --app /tmp/skyapp \
+    --column-profile core --layout spatial --order 9 \
+    --index source_id,phot_g_mean_mag --apply
+
+# 锥查询 + 星等
+tools/oasis-datasets consolidate-select /tmp/skyapp/consolidated/gaia_t3.h5 \
+    --cone 83.822,-5.391,0.5 --where "phot_g_mean_mag < 18" \
+    --columns source_id,ra,dec,phot_g_mean_mag --format csv --out orion.csv
+
+# 多分片并行：--jobs N 只对多个 CSV 文件有效；单个 CSV.gz 不可 seek，会退化为单进程
+# --schema 给出列 dtype，可完全跳过全表类型扫描
+tools/oasis-datasets consolidate --from /tmp/t3shards --profile gaia_tier \
+    --app /tmp/skyapp --column-profile core --layout spatial --order 9 \
+    --jobs 8 --schema /tmp/t3_schema.json --apply
+
+# 全量 Gaia DR3 官方 ECSV 分片：显式 gaia_dr3_source profile
+# --schema 用 gdr3_csv_dtype 生成，保留 i1/i2/i4/f4/f8/S 精度
+tools/oasis-datasets consolidate --from /mnt/data/huo/Datasets/Gaia/gdr3/gaia_source \
+    --profile gaia_dr3_source --column-profile full --layout spatial --order 9 \
+    --schema /tmp/gdr3_schema.json --jobs 16 --apply
+
+# FITS 源表（需要 astropy；HDU 0 无表时自动找第一个 BINTABLE）
+tools/oasis-datasets consolidate --from gaia.fits --app /tmp/skyapp --profile gaia_tier --apply
+```
+
+### HDF5 布局
+
+```text
+/table                  PyTables Table，按 ipix 排序（spatial）
+  source_id, ra, dec, ipix, core columns ...
+/index/ipix_pixels      int32[npix_used]   稀疏像素表
+/index/ipix_offsets     int64[npix_used+1] 每个像素的行区间
+/meta/*                 schema/source/index/manifest（attrs + manifest.json）
+```
+
+- **不压缩、不担心索引体积**：consolidate 是可再生工作集，用完删除；优先写吞吐与查询延迟；
+- `source_id`、`phot_g_mean_mag` 建 **无压缩 CSI**；`ipix` 不建 CSI（排序 + 稀疏 offsets 已足够）；
+- `--jobs N`：文件级并行 reader；共享内存 ring + 小消息队列；writer 只做
+  `table.append(array_view)`，不做转换、不 pickle 数组；
+- `--schema schema.json`：列 dtype 已知时跳过全表类型扫描；保留 `i1/i2/i4/f4/f8/S` 精确类型；
+  无 schema 时回退全表推断；
+- `null` 整数按 `-1` sentinel 写入（表 manifest 记 `int_null_sentinel`）；float 用 NaN；
+- `core` 默认列：`source_id, ra, dec, ref_epoch, parallax, pmra, pmdec,
+  phot_g_mean_mag, phot_bp_mean_mag, phot_rp_mean_mag, bp_rp, ruwe,
+  duplicated_source, phot_variable_flag`；源表缺列自动裁剪并记 warning；
+- `--column-profile full` / `--attributes` 可写全列或自定义子集；
+- `--layout source_id` 保留 ID 排序（无 ipix offsets），适合 ID 中心目录；
+- `--layout csr`：**仅作 ingest/吞吐实验**；表不排序，额外写
+  `ipix_pixels/ipix_offsets/ipix_rowids`；锥/盒是 row-id 随机读，**不是天区访问核心**；
+  64 reader 下比 `spatial` 少 18–22 s sort/copy，但同一 1° 天区查询约 115–133 ms，
+  `spatial` 仅 50–64 ms；核心仍用 `spatial`。
+- `consolidate-select` 的 `--where` 是 PyTables 表达式（列名白名单校验）；
+- FITS 输出需 astropy；系统 Python 无 astropy 时 CSV/NPY 仍可用。
+
+测试（7 项）：
+
+```bash
+PYTHONPATH=src python3 -m unittest discover -s tests -v
+# 参考环境（含 astropy）：
+PYTHONPATH=src /home/huo/Projects/distoptics/.venv/bin/python -m unittest discover -s tests -v
+```
 
 ## 清单与审计（M1）
 
@@ -89,9 +164,54 @@ tools/oasis-datasets migrate-config [--dry-run] [--force]   # 旧 config.dataset
 - v0.2（M4 后补，rendition）：`hdf5` 命令——CSV.gz → `/table` 复合数据集（chunked+gzip、
   定宽串、`track_times=False` 字节可复现；回读校验）；交付物落 `~/Datasets/catalogs/`；
 - v0.2（M5 首验，F-09/F-10 consolidate）：`consolidate`——profile 驱动任意格式 → PyTables
-  工作集（列名齐备、blosc、CSI、attrs 带 epoch/frame；manifest 记来源/参数/QC）；
+  工作集（列名齐备、无压缩、CSI、attrs 带 epoch/frame；manifest 记来源/参数/QC）；
   已验格式：Gaia 档（CSV+表头）／2MASS（pipe+SQL schema）／TIC（无表头+bracket 头）；
   锥面查询毫秒级；
+- **v0.2（M5.1 consolidate core/spatial）**：Gaia 默认 `core`（14 列，按源表实际列裁剪）、
+  `spatial` 布局（实际 HEALPix `ipix`，按 ipix 排序）；无压缩表 + 无压缩 CSI；
+  稀疏 `/index/ipix_pixels` + `/index/ipix_offsets`；`consolidate-select` 支持
+  ID/cone/box/where/columns/FITS/CSV/NPY；CSV+FITS（FITS 需 astropy）单文件；T1/T2/T3
+  实测 6,764/177,426/3,087,828 行；T1 0.6 s/1.0 MB、T2 3.1 s/24.4 MB、
+  单进程 T3 41 s/544 MB（无 schema）/ 24.6 s（schema）；4 分片×4 reader **10.2 s**，
+  8 分片×8 reader **8.3 s**；T3 ID 查询 ~9 ms、1° 锥 ~67 ms（热缓存）、
+  盒查询 ~11 ms、where 20 万行 ~2.0 s；
+- **M5.2 astrotoys 对比**：GDR3 官方 4 个 ECSV 分片（1,812,532 行 × 152 列）：
+  OASIS 4 reader + 纯 append writer + spatial/CSI **47.9 s / 2.4 GB 无压缩**；
+  astrotoys 古法（4×`csv2npy` + `npy2table -c 5 -l blosc`）**49.9 s / 611 MB**；
+  行数/QC 一致；OASIS 额外带 ipix 排序、稀疏 offsets、`source_id` CSI。
+- **M5.3 64 分片 + 共享内存 ring**：官方 Gaia DR3 `gaia_source` 的 64 个 ECSV 分片，
+  32,897,902 行；core 14 列；spatial + source_id/phot_g_mean_mag CSI；无压缩输出 7.35 GB：
+  4/8/16/24/32/64 reader = **209.7 / 133.3 / 84.4 / 74.4 / 66.0 / 56.2 s**；
+  64 reader 实际 CPU ~17 核；sort+offsets+CSI 固定 ~30 s。
+  此前 `mp.Queue` 16 reader 为 86.9 s；共享内存 ring 只快 2–3%，主瓶颈在
+  Python 解析/单 writer/串行 sort+CSI，而不是数组 IPC。
+- **M5.5 64 reader 尾部**：`--index source_id`（不建 mag CSI）64 reader = **48.5 s**；
+  其中 `ipix` CSI **10.6 s** + sort copy **8.2 s** + offsets 1.3 s + source_id CSI 5.5 s；
+  parse/write 约 20 s。继续提升需要改排序/索引布局（例如 CSR row-id），而非加 reader。
+- **M5.4 profiling（16 reader，64 分片，32.9M 行）**：
+  - 每个 reader 的 wall ≈ 50 s：**parse 34.5 s + build/coerce 13.2 s**；
+    shared-memory copy 0.06 s、free-slot wait <0.001 s、queue put <0.001 s；
+  - writer：**等待 49.3 s、`table.append` 2.1 s**、free_slot put 0.007 s；
+  - sort 18.6 s + offsets 1.4 s + CSI 12.0 s；
+  - cProfile（498,386 行单分片）：`iter_rows` 9.1 s（gzip 2.5 s）、
+    `_make_text_array` 5.1 s、`_coerce` 4.1 s、`ang2pix` 0.06 s；
+  - 结论：ring 不是瓶颈；**parse 和 build（尤其 `_coerce`）是 reader 主成本，
+    sort+CSI 是固定尾部**。
+- **M5.6 CSR layout（吞吐优先）**：64 个 GDR3 ECSV 分片、32,897,902 行、core 14 列；
+  `--layout csr --index source_id`：
+  4/8/16/64 reader = **181.4 / 106.0 / 58.3 / 25.7 s**；
+  实际 CPU约 **3.8 / 7.3 / 13.3 / 36.6 核**；输出 4.45 GB 无压缩 + 264 MB row-id；
+  同条件 sorted `spatial` 64 reader 为 45.9 s（sort 18.8 + offsets 1.3 + CSI 5.5）。
+  同一 424k 行天区：`spatial` 1° 锥 50–64 ms、盒 43 ms；
+  CSR 1° 锥 **115–133 ms**、盒 119 ms；`source_id` 两者约 8–9 ms。
+  CSR 适合“先快速落盘、后续再整理”，**不是天区查询核心**；`spatial` 仍是默认。
+- **M5.7 天区访问（spatial 核心）**：64 个 GDR3 分片、32,897,902 行、core、
+  `source_id` 索引；12/12/6 个落在源表中的随机中心，查询含 HDF5 open：
+  - **1′**：中位 **8.6 ms**，P95 10.5 ms；中位 644 行（23–865）；
+  - **1°**：中位 **116 ms**，P95 273 ms；中位 1,115,154 行（17,949–2,646,918）；
+  - **10°**：中位 **275 ms**，P95 797 ms；中位 2,808,933 行（1,569,075–7,878,665）；
+  - 结果均为精确 `ra/dec` 锥，spatial 连续区间读；1′ 主要受 fixed/open 开销影响，
+    1°/10° 主要受该天区实际行数影响。数据在 page cache 中。
 - v0.2（M5 后补，裁决七）：kernels 底座资产管理——`~/.config/oasis/kernels.yaml` ＋
   store `/Volumes/ArecaStudio/Datasets/SPICE Kernels/`（生态数据区命名约定）＋ `kernels`
   命令族（并行取件/校验/投送+manifest）；首件 de442／de440／naif0012／pck00011 已官方校验登记（de441 已取件，3.3 GB）；
