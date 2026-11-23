@@ -32,6 +32,9 @@ tools/oasis-datasets consolidate <catalogue|--from PATH> --app WORKSPACE [--prof
 tools/oasis-datasets consolidate-select CATALOG.h5 --id ID | --cone RA,DEC,R | --box RA1,RA2,D1,D2 \
     [--where "phot_g_mean_mag < 18"] [--columns ...] [--format csv|fits|npy] --out FILE
                                                           # 从 consolidated 表按 ID/锥/盒/表达式选择
+tools/oasis-datasets hpxmap CATALOG.h5 --nside 512 --quantity count \
+    [--expr EXPR] [--weight-expr EXPR] [--unit UNIT] --out MAP.fits
+                                                          # 源表 bincount -> NESTED HEALPix FITS
 tools/oasis-datasets probe [ids...] [--channel id] # 渠道连通性 + 版本确定（file/https/ssh）
 tools/oasis-datasets storages [--json]             # 本机文件系统视图（挂载/未挂载/未登记）
 tools/oasis-datasets web [--port 8787] [--no-open] # 本机 Web（127.0.0.1）：清单/存储/任务/审计 + 配置编辑器
@@ -113,7 +116,44 @@ tools/oasis-datasets consolidate --from gaia.fits --app /tmp/skyapp --profile ga
 - `consolidate-select` 的 `--where` 是 PyTables 表达式（列名白名单校验）；
 - FITS 输出需 astropy；系统 Python 无 astropy 时 CSV/NPY 仍可用。
 
-测试（7 项）：
+### HEALPix bincount
+
+```bash
+# 源计数（使用 consolidate 的实际 ipix；nside <= 存储 order 时直接降采样）
+tools/oasis-datasets hpxmap gaia.h5 --nside 512 --quantity count \
+    --unit "sources/pixel" --out count_n512.fits
+
+# 物理量：sum / mean / weighted_mean 由表达式定义
+tools/oasis-datasets hpxmap gaia.h5 --nside 512 --quantity sum \
+    --expr "3.3e6*10**(-0.4*phot_g_mean_mag)" \
+    --unit "photon/s/cm2" --out g_flux_n512.fits
+
+tools/oasis-datasets hpxmap gaia.h5 --nside 256 --quantity mean \
+    --expr "bp_rp" --unit "mag" --out bp_rp_n256.fits
+
+tools/oasis-datasets hpxmap gaia.h5 --nside 256 --quantity weighted_mean \
+    --expr "bp_rp" --weight-expr "10**(-0.4*phot_g_mean_mag)" \
+    --unit "mag" --out bp_rp_weighted_n256.fits
+```
+
+语义：
+
+| quantity | 像素值 |
+|:--|:--|
+| `count` | 落入像素的源数 |
+| `sum` | `expr` 的逐源值之和 |
+| `mean` | `expr` 的算术平均（空像素为 0） |
+| `weighted_mean` | `sum(expr*weight_expr) / sum(weight_expr)` |
+
+- 目标 `nside` 粗于/等于存储 order 时用实际 `ipix` 右移，精确且快；
+- 更细时用 RA/Dec → `ang2pix_nest`；
+- 输出 NESTED、ICRS、float64 FITS BINTABLE；`PIXTYPE/ORDERING/NSIDE` 标准头，`healpy.read_map` 可读；
+- FITS 头/JSON sidecar 记录 `QUANTITY/EXPR/WEIGHTEX/UNIT/NROWS`；
+- 表达式使用表列名 + 常用 `np` 函数，本地 CLI 执行。
+
+对照 AstroToys `table2hpx.py`：它固定 nside 4096，用 `source_id//2**35` 的 level-12 近似像素，并用 `gmag2photrate`；本工具支持任意 nside、实际 RA/Dec 精确像素、任意物理表达式。
+
+测试（11 项）：
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
@@ -212,6 +252,8 @@ PYTHONPATH=src /home/huo/Projects/distoptics/.venv/bin/python -m unittest discov
   - **10°**：中位 **275 ms**，P95 797 ms；中位 2,808,933 行（1,569,075–7,878,665）；
   - 结果均为精确 `ra/dec` 锥，spatial 连续区间读；1′ 主要受 fixed/open 开销影响，
     1°/10° 主要受该天区实际行数影响。数据在 page cache 中。
+- **M5.9 HEALPix bincount**：`hpxmap` 支持 count/sum/mean/weighted_mean、任意 nside、表达式定义物理量；
+  全量 GDR3 `count` nside 512：25 MB FITS，和 = 1,811,709,771，51 s。
 - **M5.8 全量 GDR3 core/spatial**：`/mnt/data/huo/Datasets/Gaia/gdr3/consolidated/gaia_dr3_core_spatial.h5`
   - 1,811,709,771 行 × core 14 列 + ipix；**404.7 GB**（377 GiB）；
   - 96 reader，**3867.7 s（64.5 min）**；QC 288/288；

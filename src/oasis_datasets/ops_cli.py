@@ -340,6 +340,36 @@ def cmd_consolidate_select(args) -> int:
     return 0
 
 
+def cmd_hpxmap(args) -> int:
+    from .hpxmap import build_map, write_healpix_fits, write_npy_map
+    out = Path(args.out).expanduser()
+    fmt = args.format
+    if fmt is None:
+        fmt = "npy" if out.suffix.lower() == ".npy" else "fits"
+    def progress(done, total):
+        if args.progress:
+            print(f"  {done}/{total} rows", file=sys.stderr)
+    try:
+        result = build_map(
+            args.source, nside=args.nside, quantity=args.quantity,
+            expr=args.expr, weight_expr=args.weight_expr,
+            unit=args.unit, label=args.label, chunk_rows=args.chunk,
+            limit=args.limit, progress=progress)
+    except (ValueError, OSError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    if fmt == "npy":
+        path = write_npy_map(out, result)
+    else:
+        path = write_healpix_fits(out, result)
+    if args.json:
+        print(json.dumps(result.meta, indent=2, ensure_ascii=False))
+    else:
+        print(f"HEALPix nside={result.meta['nside']} npix={result.meta['npix']} "
+              f"quantity={result.meta['quantity']} rows={result.meta['rows']} -> {path}")
+    return 0
+
+
 def _default_mpcorb() -> Path | None:
     for candidate in (Path.home() / "Datasets/catalogs/mpc/elements/MPCORB.DAT.gz",
                       Path.home() / "oasis-catalog-store/catalogs/mpc/elements/MPCORB.DAT.gz"):
@@ -587,6 +617,26 @@ def register(sub, common) -> dict:
     p_s.add_argument("--count", action="store_true")
     p_s.add_argument("--json", action="store_true")
 
+    p_h = sub.add_parser("hpxmap", parents=[common],
+                         help="bincount a consolidated catalogue onto a HEALPix map")
+    p_h.add_argument("source", help="consolidated .h5")
+    p_h.add_argument("--nside", type=int, required=True,
+                     help="target NESTED nside (power of two)")
+    p_h.add_argument("--quantity", choices=["count", "sum", "mean", "weighted_mean"],
+                     default="count")
+    p_h.add_argument("--expr", default=None,
+                     help="value expression, e.g. 'phot_g_mean_flux' or '10**(-0.4*phot_g_mean_mag)'")
+    p_h.add_argument("--weight-expr", default=None, help="weight expression for weighted_mean")
+    p_h.add_argument("--unit", default=None, help="physical unit written to FITS BUNIT/TUNIT1")
+    p_h.add_argument("--label", default=None, help="human label for OBJECT")
+    p_h.add_argument("--chunk", type=int, default=1_000_000, help="rows per chunk")
+    p_h.add_argument("--limit", type=int, default=None)
+    p_h.add_argument("--out", required=True)
+    p_h.add_argument("--format", choices=["fits", "npy"], default=None)
+    p_h.add_argument("--json", action="store_true")
+    p_h.add_argument("--progress", action="store_true")
+    p_h.set_defaults(func=cmd_hpxmap)
+
     p_hdf5 = sub.add_parser("hdf5", parents=[common],
                             help="CSV.gz -> HDF5 rendition (optional format; canonical stays CSV.gz)")
     p_hdf5.add_argument("files", nargs="+", help="CSV.gz file(s)")
@@ -596,4 +646,4 @@ def register(sub, common) -> dict:
     return {"probe": cmd_probe, "storages": cmd_storages, "web": cmd_web,
             "slice": cmd_slice, "tasks": cmd_tasks, "mpc": cmd_mpc, "hdf5": cmd_hdf5,
             "consolidate": cmd_consolidate, "consolidate-select": cmd_consolidate_select,
-            "kernels": cmd_kernels}
+            "hpxmap": cmd_hpxmap, "kernels": cmd_kernels}
