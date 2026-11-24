@@ -346,7 +346,8 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
             dst.create_array(spectra, "count", counts)
             dst.create_array(spectra, "tier_counts", tier_counts)
             # 0=A,1=B,2=C,3=D,4=E,5=F,6=G; worst tier per pixel.
-            quality = (6 - np.argmax(tier_counts[:, ::-1], axis=1)).astype(np.uint8)
+            quality = (6 - np.argmax((tier_counts > 0)[:, ::-1],
+                                     axis=1)).astype(np.uint8)
             quality[counts == 0] = 255  # empty pixel: no tier
             dst.create_array(spectra, "quality", quality)
             dst.create_array(spectra, "inferred_fraction",
