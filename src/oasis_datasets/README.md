@@ -35,8 +35,10 @@ tools/oasis-datasets consolidate-select CATALOG.h5 --id ID | --cone RA,DEC,R | -
 tools/oasis-datasets hpxmap CATALOG.h5 --nside 512 --quantity count \
     [--expr EXPR] [--weight-expr EXPR] [--unit UNIT] --out MAP.fits
                                                           # 源表 bincount -> NESTED HEALPix FITS
-tools/oasis-datasets spectral-cube CATALOG.h5 --nside 2048 --out CUBE.h5
+tools/oasis-datasets spectral-cube CATALOG.h5 --nside 2048 [--no-g-supp no_g_supp.h5] --out CUBE.h5
                                                           # 逐像素 343 点光谱立方（当前 blackbody/BP-RP，D 级推断）
+tools/oasis-datasets crossmatch LEFT.h5 RIGHT.h5 --radius-arcsec 3 --out MATCHES.h5
+                                                          # HDF5 源表空间最近邻交叉证认
 tools/oasis-datasets probe [ids...] [--channel id] # 渠道连通性 + 版本确定（file/https/ssh）
 tools/oasis-datasets storages [--json]             # 本机文件系统视图（挂载/未挂载/未登记）
 tools/oasis-datasets web [--port 8787] [--no-open] # 本机 Web（127.0.0.1）：清单/存储/任务/审计 + 配置编辑器
@@ -118,6 +120,20 @@ tools/oasis-datasets consolidate --from gaia.fits --app /tmp/skyapp --profile ga
 - `consolidate-select` 的 `--where` 是 PyTables 表达式（列名白名单校验）；
 - FITS 输出需 astropy；系统 Python 无 astropy 时 CSV/NPY 仍可用。
 
+### 源表交叉证认
+
+```bash
+tools/oasis-datasets crossmatch LEFT.h5 RIGHT.h5 \
+    --radius-arcsec 3 --left-table /no_g --right-table /table \
+    --left-id source_id --right-id source_id --out matches.h5
+```
+
+- 右表在单位球三维网格上建索引；
+- 左表分块查询 27 个邻域 cell；
+- 输出 `/matches`：`left_index, right_index, sep_arcsec, left_id, right_id`；
+- 目前是 **HDF5 表到 HDF5 表**；AllWISE/2MASS 原始 bz2/固定宽度表还需要 NIR ingest adapter；
+- 设计见 `SPECTRA-004-source-crossmatch.md`。
+
 ### 光谱立方（Phase 1）
 
 ```bash
@@ -186,7 +202,7 @@ tools/oasis-datasets hpxmap gaia.h5 --nside 256 --quantity weighted_mean \
 
 对照 AstroToys `table2hpx.py`：它固定 nside 4096，用 `source_id//2**35` 的 level-12 近似像素，并用 `gmag2photrate`；本工具支持任意 nside、实际 RA/Dec 精确像素、任意物理表达式。
 
-测试（14 项）：
+测试（16 项）：
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
@@ -285,6 +301,8 @@ PYTHONPATH=src /home/huo/Projects/distoptics/.venv/bin/python -m unittest discov
   - **10°**：中位 **275 ms**，P95 797 ms；中位 2,808,933 行（1,569,075–7,878,665）；
   - 结果均为精确 `ra/dec` 锥，spatial 连续区间读；1′ 主要受 fixed/open 开销影响，
     1°/10° 主要受该天区实际行数影响。数据在 page cache 中。
+- **M5.12 通用交叉证认**：`crossmatch` HDF5 源表最近邻；
+  单位球三维网格索引、3″ 半径、HDF5/CSV 输出；测试覆盖 brute-force 一致性。
 - **M5.11 缺 G 源 v2**：`spectral-cube --no-g-supp no_g_supp.h5`；
   5,455,339 个缺 G 源中 3,848,128 有 RP，使用 RP-only 恒星回退或 QSO/星系模板；
   1,607,211 无 G/BP/RP，仅保留 count、flux=0、quality=7；v2 文件：

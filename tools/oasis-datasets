@@ -16,6 +16,7 @@
 #   tools/oasis-datasets consolidate-select CATALOG.h5 --id ID | --cone RA,DEC,R | --box ... [--where EXPR] [--columns ...] --out FILE
 #   tools/oasis-datasets hpxmap CATALOG.h5 --nside N --quantity count|sum|mean|weighted_mean --out MAP.fits
 #   tools/oasis-datasets spectral-cube CATALOG.h5 --nside 2048 [--no-g-supp no_g_supp.h5] --out CUBE.h5
+#   tools/oasis-datasets crossmatch LEFT.h5 RIGHT.h5 --radius-arcsec 3 --out MATCHES.h5
 #   tools/oasis-datasets kernels list|verify|fetch|send --app DIR
 #   tools/oasis-datasets inventory validate
 #   tools/oasis-datasets propose <spec.yaml> | review list|approve|reject <id> [--note N]

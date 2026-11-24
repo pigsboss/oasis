@@ -388,6 +388,26 @@ def cmd_spectral_cube(args) -> int:
     return 0
 
 
+def cmd_crossmatch(args) -> int:
+    from .crossmatch import crossmatch_tables
+    try:
+        result = crossmatch_tables(
+            args.left, args.right, args.out,
+            radius_arcsec=args.radius_arcsec,
+            left_node=args.left_table, right_node=args.right_table,
+            left_ra=args.left_ra, left_dec=args.left_dec,
+            right_ra=args.right_ra, right_dec=args.right_dec,
+            left_id=args.left_id, right_id=args.right_id,
+            chunk_rows=args.chunk, fmt=args.format)
+    except (ValueError, OSError, KeyError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    print(f"crossmatch radius={result.radius_arcsec} arcsec "
+          f"left={result.left_rows} right={result.right_rows} "
+          f"matches={result.matches} -> {result.path}")
+    return 0
+
+
 def _default_mpcorb() -> Path | None:
     for candidate in (Path.home() / "Datasets/catalogs/mpc/elements/MPCORB.DAT.gz",
                       Path.home() / "oasis-catalog-store/catalogs/mpc/elements/MPCORB.DAT.gz"):
@@ -655,6 +675,24 @@ def register(sub, common) -> dict:
     p_h.add_argument("--progress", action="store_true")
     p_h.set_defaults(func=cmd_hpxmap)
 
+    p_cm = sub.add_parser("crossmatch", parents=[common],
+                          help="spatial nearest-neighbour match between HDF5 tables")
+    p_cm.add_argument("left")
+    p_cm.add_argument("right")
+    p_cm.add_argument("--out", required=True)
+    p_cm.add_argument("--radius-arcsec", type=float, default=3.0)
+    p_cm.add_argument("--left-table", default="/table")
+    p_cm.add_argument("--right-table", default="/table")
+    p_cm.add_argument("--left-ra", default="ra")
+    p_cm.add_argument("--left-dec", default="dec")
+    p_cm.add_argument("--right-ra", default="ra")
+    p_cm.add_argument("--right-dec", default="dec")
+    p_cm.add_argument("--left-id", default=None)
+    p_cm.add_argument("--right-id", default=None)
+    p_cm.add_argument("--chunk", type=int, default=200_000)
+    p_cm.add_argument("--format", choices=["hdf5", "csv"], default="hdf5")
+    p_cm.set_defaults(func=cmd_crossmatch)
+
     p_sc = sub.add_parser("spectral-cube", parents=[common],
                           help="build a per-pixel 343-point HEALPix spectral cube")
     p_sc.add_argument("source", help="consolidated spatial .h5")
@@ -676,5 +714,5 @@ def register(sub, common) -> dict:
     return {"probe": cmd_probe, "storages": cmd_storages, "web": cmd_web,
             "slice": cmd_slice, "tasks": cmd_tasks, "mpc": cmd_mpc, "hdf5": cmd_hdf5,
             "consolidate": cmd_consolidate, "consolidate-select": cmd_consolidate_select,
-            "hpxmap": cmd_hpxmap, "spectral-cube": cmd_spectral_cube,
-            "kernels": cmd_kernels}
+            "hpxmap": cmd_hpxmap, "crossmatch": cmd_crossmatch,
+            "spectral-cube": cmd_spectral_cube, "kernels": cmd_kernels}
