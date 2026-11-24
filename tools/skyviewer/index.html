@@ -36,8 +36,8 @@
 </head>
 <body>
 <canvas id="sky"></canvas>
-<div class="hud" id="brand"><b>GAIA DR3 · TRUE COLOUR</b>OASIS spectral cube v4 · CIE 1931</div>
-<div class="hud" id="stats"><div>FOV <b id="fov">65°</b></div><div>RA <b id="ra">—</b> · DEC <b id="dec">—</b></div></div>
+<div class="hud" id="brand"><b>GAIA DR3 · GALACTIC · HDR</b>OASIS · Galactic frame · CIE 1931</div>
+<div class="hud" id="stats"><div>FOV <b id="fov">65°</b></div><div>l <b id="ra">—</b> · b <b id="dec">—</b></div></div>
 <div class="hud" id="hint">拖动旋转 · 滚轮/双指缩放 · 双击复位<br><kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd><kbd>↓</kbd> 旋转 · <kbd>+</kbd><kbd>−</kbd> 缩放</div>
 <div id="bar"><button id="auto" aria-pressed="true">自动旋转</button><button id="reset">复位</button><button id="full">全屏</button></div>
 <div id="loading"><div id="error">正在加载立方体贴图…</div><div id="bar-progress"><i></i></div></div>
@@ -115,7 +115,7 @@
   gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
-  let yaw = 0.55, pitch = -0.18, fov = 65.0;
+  let yaw = -Math.PI / 2, pitch = 0.0, fov = 65.0;
   let auto = true, dirty = true, ready = false;
   const pointers = new Map();
   let drag = null, pinch = null;
@@ -177,7 +177,7 @@
   function clampFov(v){ return Math.max(12, Math.min(110, v)); }
 
   function reset(){
-    yaw = 0.55; pitch = -0.18; fov = 65; vYaw = vPitch = 0; dirty = true;
+    yaw = -Math.PI / 2; pitch = 0.0; fov = 65; vYaw = vPitch = 0; dirty = true;
   }
 
   canvas.addEventListener("pointerdown", (e) => {

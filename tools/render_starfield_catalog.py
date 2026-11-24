@@ -38,6 +38,7 @@ def main(argv=None):
     ap.add_argument("--gamma", type=float, default=2.2)
     ap.add_argument("--exposure-percentile", type=float, default=99.9)
     ap.add_argument("--tone-mode", choices=["gamma", "reinhard"], default="gamma")
+    ap.add_argument("--frame", choices=["icrs", "galactic"], default="icrs")
     ap.add_argument("--chunk", type=int, default=10_000_000)
     ap.add_argument("--stem", required=True)
     args = ap.parse_args(argv)
@@ -60,8 +61,23 @@ def main(argv=None):
             if not np.any(m):
                 continue
             ra = ra[m]; dec = dec[m]; g = g[m]; bprp = bprp[m]
-            x = np.floor(ra / 360.0 * W).astype(np.int64)
-            y = np.floor((90.0 - dec) / 180.0 * H).astype(np.int64)
+            if args.frame == "galactic":
+                # ICRS -> Galactic (J2000) rotation
+                ra_r = np.radians(ra); dec_r = np.radians(dec)
+                x0 = np.cos(dec_r) * np.cos(ra_r)
+                y0 = np.cos(dec_r) * np.sin(ra_r)
+                z0 = np.sin(dec_r)
+                xg = -0.0548755604*x0 - 0.8734370902*y0 - 0.4838350155*z0
+                yg =  0.4941094279*x0 - 0.4448296300*y0 + 0.7469822445*z0
+                zg = -0.8676661490*x0 - 0.1980763734*y0 + 0.4559837762*z0
+                lon = np.degrees(np.arctan2(yg, xg)) % 360.0
+                lat = np.degrees(np.arcsin(np.clip(zg, -1, 1)))
+                # equirectangular centered on l=0
+                x = np.floor(((lon + 180.0) % 360.0) / 360.0 * W).astype(np.int64)
+                y = np.floor((90.0 - lat) / 180.0 * H).astype(np.int64)
+            else:
+                x = np.floor(ra / 360.0 * W).astype(np.int64)
+                y = np.floor((90.0 - dec) / 180.0 * H).astype(np.int64)
             ok = (x >= 0) & (x < W) & (y >= 0) & (y < H)
             ra = ra[ok]; dec = dec[ok]; g = g[ok]; bprp = bprp[ok]
             x = x[ok]; y = y[ok]
@@ -103,7 +119,7 @@ def main(argv=None):
     (dst / f"{args.stem}_{args.width}x{args.height}_{tag}.json").write_text(json.dumps({
         "core": args.core, "max_g": args.max_g, "n_stars": int(n),
         "width": args.width, "height": args.height, "supersample": ss,
-        "fwhm_pixels": args.fwhm, "gamma": args.gamma,
+        "fwhm_pixels": args.fwhm, "gamma": args.gamma, "frame": args.frame,
         "psf": "Gaussian display PSF", "tone_mapping": args.tone_mode,
         "exposure_percentile": args.exposure_percentile, "scale": scale,
         "png": str(png), "jpeg": str(jpg),

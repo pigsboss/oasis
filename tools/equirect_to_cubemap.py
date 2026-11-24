@@ -46,6 +46,8 @@ def main(argv=None):
     ap.add_argument("--size", type=int, default=2048)
     ap.add_argument("--quality", type=int, default=92)
     ap.add_argument("--fwhm", type=float, default=1.0)
+    ap.add_argument("--center-lon", type=float, default=180.0,
+                    help="equirect centre longitude; 180 = current ICRS layout")
     args = ap.parse_args(argv)
     src = Image.open(args.equirect).convert("RGB")
     a = np.asarray(src)
@@ -56,7 +58,7 @@ def main(argv=None):
         x, y, z = face_dirs(args.size, face)
         lon = np.degrees(np.arctan2(z, x)) % 360.0
         lat = np.degrees(np.arcsin(np.clip(y, -1.0, 1.0)))
-        u = np.clip((lon / 360.0 * w).astype(np.int64), 0, w - 1)
+        u = np.mod(((lon - args.center_lon + 180.0) / 360.0 * w).astype(np.int64), w)
         v = np.clip(((90.0 - lat) / 180.0 * h).astype(np.int64), 0, h - 1)
         rgb = a[v, u]
         if args.fwhm > 0:
