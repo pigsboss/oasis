@@ -331,6 +331,10 @@ A–G 七级定义、缺 G 源映射、源级/图级字段：
   - **10°**：中位 **275 ms**，P95 797 ms；中位 2,808,933 行（1,569,075–7,878,665）；
   - 结果均为精确 `ra/dec` 锥，spatial 连续区间读；1′ 主要受 fixed/open 开销影响，
     1°/10° 主要受该天区实际行数影响。数据在 page cache 中。
+- **M5.14 A–G tiered v3 cube**：`spectral-cube --no-g-supp ... --nir-supp ...`
+  输出 `gaia_dr3_spectral_n2048_v3.h5`，67 GiB，`tier_counts[npix,7]`；
+  tier 计数 C=1.540B、D=267.5M、E=2.54M、F=0.642M、G=0.278M，
+  A/B=0（XP 尚未接入）；quality 0=A…6=G，255=空像素。
 - **M5.13 AllWISE/2MASS compact**：新增 `allwise_psc/allwise_nir` 与 `twomass_nir` profile；
   compact 列、内置 schema、自动路径识别；测试覆盖两种 compact 固化。
 - **M5.12 通用交叉证认**：`crossmatch` HDF5 源表最近邻；

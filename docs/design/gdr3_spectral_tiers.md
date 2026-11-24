@@ -134,16 +134,28 @@ sep_2mass / sep_wise arcsec
 像素 `quality` 取该像素中**最差**的源等级（G 最差），或按通量加权另存质量层；
 两者必须明确，不可混用。
 
-当前 v2 立方的数值 quality：
+v3 已采用 A–G 数值码：
 
 ```text
-4 = G+BP-RP 黑体
-5 = RP-only
-6 = class template
-7 = 无宽带测光（flux=0）
+0=A, 1=B, 2=C, 3=D, 4=E, 5=F, 6=G
+255 = 空像素
 ```
 
-v3 建议改为 A–G 字母码，或保留数值但发布明确的映射表。
+v3 全量统计：
+
+```text
+A          0
+B          0
+C  1,540,770,340
+D    267,478,000
+E      2,541,258
+F        641,979
+G        278,194
+合计 1,811,709,771
+```
+
+A/B 为 0：本轮 v3 尚未把 XP sampled 表接入立方；正常 G 源归 C，
+缺 G 源按 NIR/RP/分类归 D/E/F/G。
 
 ## 7. 与现有产品的对应
 
@@ -152,7 +164,8 @@ v3 建议改为 A–G 字母码，或保留数值但发布明确的映射表。
 | `gaia_dr3_core_spatial.h5` | 1.811B 行 core 14 列 |
 | `no_g_supp.h5` | 5.45M 缺 G 源 flags/class/RP |
 | `nir_supp.h5` | 5.45M 源 + 2MASS JHK + AllWISE W1–W4 + 匹配质量 |
-| `gaia_dr3_spectral_n2048_v2.h5` | v2 数值 quality 4/5/6/7，尚未按 A–G 重标 |
+| `gaia_dr3_spectral_n2048_v3.h5` | v3 A–G tiered；tier_counts + quality；67 GiB |
+| `gaia_dr3_spectral_n2048_v2.h5` | v2 数值 quality 4/5/6/7（历史产品） |
 | XP sampled 镜像 | 107 GB，3386/3386 MD5 OK |
 | XP summary 镜像 | 9.2 GB，3386/3386 MD5 OK |
 
