@@ -582,7 +582,7 @@ def _coerce(values, kind: str, width: int):
                 return int(v)
             except ValueError:
                 text = v.decode("ascii", "ignore") if isinstance(v, bytes) else str(v)
-                if set(text.lower()) <= set("0n"):
+                if set(text.lower()) <= set("0123456789n"):
                     return -1
                 raise
         return np.array([_int_or_null(v) for v in values], dtype=np.dtype(kind))
@@ -594,7 +594,7 @@ def _coerce(values, kind: str, width: int):
                 return int(v)
             except ValueError:
                 text = v.decode("ascii", "ignore") if isinstance(v, bytes) else str(v)
-                if set(text.lower()) <= set("0n"):
+                if set(text.lower()) <= set("0123456789n"):
                     return 0
                 raise
         return np.array([_uint_or_null(v) for v in values], dtype=np.dtype(kind))
