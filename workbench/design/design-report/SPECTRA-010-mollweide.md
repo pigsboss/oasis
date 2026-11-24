@@ -5,7 +5,7 @@
 - 投影：Mollweide（椭圆全天空）
 - 尺寸：4096 × 2048
 - CIE：CIE 1931 2°，D65
-- 输出：Reinhard 映射后的 PNG/JPEG
+- 输出：Reinhard 映射后的 PNG/JPEG，高斯 FWHM=1 px
 
 ## 结果
 
@@ -15,6 +15,9 @@ linear scale = 0.0615755
 Tone exposure = 8
 inside pixels = 6,588,416
 ```
+
+色彩：绝对 XYZ 直接进入 sRGB(D65) 矩阵；不再二次除 D65。
+直接查看格式做 FWHM=1 px 高斯卷积（sigma=0.4247 px）。
 
 产物：
 

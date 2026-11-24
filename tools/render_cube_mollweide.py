@@ -11,6 +11,7 @@ from pathlib import Path
 import numpy as np
 import tables
 from PIL import Image
+from scipy.ndimage import gaussian_filter
 
 from oasis_datasets import hpx
 from render_cube_cie import CMF, WHITE_D65, XYZ_TO_SRGB, srgb_encode
@@ -40,6 +41,7 @@ def main(argv=None):
     ap.add_argument("--width", type=int, default=4096)
     ap.add_argument("--height", type=int, default=2048)
     ap.add_argument("--tone-exposure", type=float, default=8.0)
+    ap.add_argument("--fwhm", type=float, default=1.0)
     ap.add_argument("--stem", default="gaia_dr3_v4_cie_mollweide")
     args = ap.parse_args(argv)
 
@@ -65,7 +67,7 @@ def main(argv=None):
         if (st // (32 * args.width)) % 16 == 0:
             print(f"  xyz {en}/{idx.size}", flush=True)
     del flux
-    xyz /= WHITE_D65
+    # absolute XYZ -> sRGB(D65); no second D65 division
     rgb = np.maximum(xyz @ XYZ_TO_SRGB.T, 0.0)
     Y = xyz[:, 1]
     lum = Y[mask]
@@ -79,6 +81,9 @@ def main(argv=None):
     ratio = np.divide(Ld, L, out=np.zeros_like(Ld), where=L > 0)
     tm = rgb * tone_scale * ratio[:, None]
     srgb = srgb_encode(tm).reshape(args.height, args.width, 3)
+    if args.fwhm > 0:
+        sigma = args.fwhm / 2.354820045
+        srgb = gaussian_filter(srgb, sigma=(sigma, sigma, 0.0), mode="nearest")
     srgb[~inside] = 0.0
     u8 = np.round(srgb * 255.0).astype(np.uint8)
     png = out / f"{args.stem}_{args.width}x{args.height}_reinhard.png"
@@ -88,7 +93,8 @@ def main(argv=None):
     meta = {"cube": str(cube), "projection": "mollweide", "nside": nside,
             "width": args.width, "height": args.height, "cie": "CIE 1931 2-degree analytic",
             "white": "D65", "scale": scale, "p99_9_luminance": p,
-            "tone_exposure": args.tone_exposure, "png": str(png), "jpeg": str(jpg)}
+            "tone_exposure": args.tone_exposure, "fwhm_pixels": args.fwhm,
+            "png": str(png), "jpeg": str(jpg)}
     (out / f"{args.stem}_{args.width}x{args.height}.json").write_text(json.dumps(meta, indent=2))
     print("wrote", png, jpg, flush=True)
 

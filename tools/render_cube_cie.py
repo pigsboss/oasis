@@ -18,6 +18,7 @@ import numpy as np
 import tables
 from PIL import Image
 import tifffile
+from scipy.ndimage import gaussian_filter
 
 from oasis_datasets import hpx
 from oasis_datasets.spectra import WAVELENGTH
@@ -87,8 +88,8 @@ def build_map(cube: Path, width: int, height: int, chunk_rows: int = 32):
         if (st // (chunk_rows * width)) % 16 == 0:
             print(f"  xyz {en}/{flat_ipix.size}", flush=True)
     del flux
-    # normalize to D65 white and convert to linear sRGB
-    xyz /= WHITE_D65
+    # The XYZ values are absolute; sRGB already encodes the D65 white point.
+    # Do not divide by D65 again (that introduces a red cast).
     rgb = xyz @ XYZ_TO_SRGB.T
     rgb = np.maximum(rgb, 0.0)
     Y = xyz[:, 1]
@@ -108,6 +109,8 @@ def main(argv=None):
     ap.add_argument("--height", type=int, default=4096)
     ap.add_argument("--chunk-rows", type=int, default=32)
     ap.add_argument("--tone-exposure", type=float, default=8.0)
+    ap.add_argument("--fwhm", type=float, default=1.0,
+                    help="Gaussian FWHM in output pixels for PNG/JPEG only")
     ap.add_argument("--stem", default="gaia_dr3_v4_cie_equirect")
     args = ap.parse_args(argv)
 
@@ -136,7 +139,10 @@ def main(argv=None):
     ratio = np.divide(Ld, L, out=np.zeros_like(Ld), where=L > 0)
     tm = rgb * tone_scale * ratio[:, None]
     srgb = srgb_encode(tm).reshape(height, width, 3)
-    u8 = np.round(srgb * 255.0).astype(np.uint8)
+    if args.fwhm > 0:
+        sigma = float(args.fwhm) / 2.354820045
+        srgb = gaussian_filter(srgb, sigma=(sigma, sigma, 0.0), mode="nearest")
+    u8 = np.round(np.clip(srgb, 0.0, 1.0) * 255.0).astype(np.uint8)
     png_path = out / f"{args.stem}_{width}x{height}_reinhard.png"
     jpg_path = out / f"{args.stem}_{width}x{height}_reinhard.jpg"
     img = Image.fromarray(u8, "RGB")
@@ -147,6 +153,8 @@ def main(argv=None):
         "projection": "equirectangular", "cie": "CIE 1931 2-degree analytic",
         "white": "D65", "scale": scale, "p99_9_luminance": float(1.0/scale),
         "tone_exposure": float(args.tone_exposure),
+        "fwhm_pixels": float(args.fwhm),
+        "color_note": "no second D65 division; sRGB matrix handles D65",
         "tiff": str(tif_path), "png": str(png_path), "jpeg": str(jpg_path),
     }
     (out / f"{args.stem}_{width}x{height}.json").write_text(

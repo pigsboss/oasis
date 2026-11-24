@@ -4,8 +4,8 @@
 - 输入：`gaia_dr3_spectral_n2048_v4.h5`
 - 投影：等距圆柱（equirectangular），8192 × 4096
 - CIE：CIE 1931 2° 配色函数（Wyman 2013 解析近似）
-- 白点：D65
-- 输出：16-bit 线性 TIFF、Reinhard PNG/JPEG
+- 白点：sRGB/D65（绝对 XYZ 直接进入 sRGB 矩阵，不再二次除 D65）
+- 输出：16-bit 线性 TIFF（无模糊）、Reinhard PNG/JPEG（高斯 FWHM=1 px）
 
 ## 1. 模型
 
@@ -52,8 +52,9 @@ gaia_dr3_v4_cie_equirect_8192x4096_reinhard.jpg  36 MB
 gaia_dr3_v4_cie_equirect_8192x4096.json
 ```
 
-TIFF：`uint16`，RGB，线性光，按 p99.9 亮度裁剪到 16 bit。
-PNG/JPEG：8-bit sRGB，Reinhard tone-mapped。
+TIFF：`uint16`，RGB，线性光，按 p99.9 亮度裁剪到 16 bit；**不做高斯模糊**，作为 CIE 位图存档。
+PNG/JPEG：8-bit sRGB，Reinhard tone-mapped，再做 **FWHM=1 px 高斯卷积**
+（sigma=1/2.35482=0.4247 px），仅用于直接查看。
 
 ## 4. 工具
 
@@ -71,6 +72,8 @@ PYTHONPATH=src /home/huo/Projects/distoptics/.venv/bin/python \
 - 16-bit TIFF 对 p99.9 以上高光裁剪；
 - CIE CMF 为解析近似，不是官方表格插值；
 - 未做银河消光/前景去红化；
+- 之前整体偏红来自把绝对 XYZ 又除了一次 D65 白点；已修正；
+- 高斯只作用于 PNG/JPEG，不作用于 TIFF；
 - 等距圆柱在两极有面积畸变；
 - F/G 级源无可靠通量，在图中贡献为零；
 - 当前未使用 XP continuous 的 B 级源。
