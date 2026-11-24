@@ -32,6 +32,7 @@ def star_rgb_table(gains):
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--catalog", default="/mnt/data/huo/Datasets/catalogs/gaia/t3/gaia_t3.h5")
+    ap.add_argument("--max-g", type=float, default=None)
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--width", type=int, default=8192)
     ap.add_argument("--height", type=int, default=4096)
@@ -51,6 +52,8 @@ def main(argv=None):
         bprp = np.asarray(t.cols.bp_rp[:], dtype=np.float64)
     print(f"stars {ra.size}, render {W}x{H}, output {args.width}x{args.height}", flush=True)
     ok = np.isfinite(ra) & np.isfinite(dec) & np.isfinite(g)
+    if args.max_g is not None:
+        ok &= g <= args.max_g
     ra, dec, g, bprp = ra[ok], dec[ok], g[ok], bprp[ok]
     # display white balance matching the maps
     gains = np.array([0.80819, 1.02472, 1.27098], dtype=np.float32)
@@ -92,7 +95,7 @@ def main(argv=None):
     im.save(png); im.save(jpg, quality=95, subsampling=0)
     meta = {"catalog": args.catalog, "n_stars": int(ra.size), "width": args.width,
             "height": args.height, "supersample": ss, "fwhm_pixels": args.fwhm,
-            "gamma": args.gamma, "psf": "Gaussian display PSF",
+            "gamma": args.gamma, "max_g": args.max_g, "psf": "Gaussian display PSF",
             "exposure_percentile": args.exposure_percentile, "scale": scale,
             "png": str(png), "jpeg": str(jpg)}
     (dst / f"{args.stem}_{args.width}x{args.height}_psf{args.fwhm:g}.json").write_text(json.dumps(meta, indent=2))

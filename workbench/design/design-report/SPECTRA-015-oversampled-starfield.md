@@ -50,3 +50,15 @@ PYTHONPATH=src python tools/render_starfield.py \
 - 用完整 Gaia 亮星极限（例如 G≤15）扩展恒星层；
 - 从立方体中只取平滑弥散背景，避免与恒星层双计；
 - 或者直接改用 Gaia 源表 + XP/颜色模板做源级全天渲染。
+
+
+## 亮星极限样张
+
+| 版本 | 星数 | 文件 |
+|:--|--:|:--|
+| T1，G≤6 | 6,764 | `--catalog gaia_t1.h5` |
+| T2，G≤9 | 177,426 | `gaia_t2_8192x4096_psf3.png/jpg` |
+| G≤10 | 482,106 | `gaia_g10_8192x4096_psf3.png/jpg` |
+| T3，G≤12 | 3,087,828 | `gaia_t3_8192x4096_psf3.png/jpg` |
+
+T2 与 G≤10 都保留 FWHM=3 px 输出 PSF；T2 更适合干净的展示样张。
