@@ -62,3 +62,17 @@ PYTHONPATH=src python tools/render_starfield.py \
 | T3，G≤12 | 3,087,828 | `gaia_t3_8192x4096_psf3.png/jpg` |
 
 T2 与 G≤10 都保留 FWHM=3 px 输出 PSF；T2 更适合干净的展示样张。
+
+
+## 15/18/全量星表渲染
+
+使用完整 core 表，2× 超采样、PSF FWHM=3px、gamma 2.2、无 Reinhard：
+
+| 版本 | 星数 | 文件 |
+|:--|--:|:--|
+| G≤15 | 36,909,365 | `gaia_g15_8192x4096_psf3.png/jpg` |
+| G≤18 | 304,942,094 | `gaia_g18_8192x4096_psf3.png/jpg` |
+| 全量（有 G） | 1,806,254,432 | `gaia_full_8192x4096_psf3.png/jpg` |
+
+注：全量图当前是 **有 G 的 1,806,254,432 颗**；另有 5,455,339 个缺 G 源
+未进入该层，需要单独用 NIR/类别颜色叠加。
