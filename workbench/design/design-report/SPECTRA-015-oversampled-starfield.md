@@ -76,3 +76,17 @@ T2 与 G≤10 都保留 FWHM=3 px 输出 PSF；T2 更适合干净的展示样张
 
 注：全量图当前是 **有 G 的 1,806,254,432 颗**；另有 5,455,339 个缺 G 源
 未进入该层，需要单独用 NIR/类别颜色叠加。
+
+
+## 全量 Reinhard 版
+
+```text
+输入星数    1,806,254,432（有 G）
+超采样      2×
+PSF         Gaussian FWHM=3 px
+Tone        Reinhard luminance
+编码        gamma 2.2
+输出        gaia_full_8192x4096_psf3_reinhard.png/jpg
+```
+
+Reinhard 只压缩亮度，保留色度；全量仍因源密度极高而接近连续背景。

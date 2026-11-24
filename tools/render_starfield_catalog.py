@@ -37,6 +37,7 @@ def main(argv=None):
     ap.add_argument("--fwhm", type=float, default=3.0)
     ap.add_argument("--gamma", type=float, default=2.2)
     ap.add_argument("--exposure-percentile", type=float, default=99.9)
+    ap.add_argument("--tone-mode", choices=["gamma", "reinhard"], default="gamma")
     ap.add_argument("--chunk", type=int, default=10_000_000)
     ap.add_argument("--stem", required=True)
     args = ap.parse_args(argv)
@@ -84,18 +85,26 @@ def main(argv=None):
     pos = lum[lum > 0]
     p = float(np.percentile(pos, args.exposure_percentile)) if pos.size else 1.0
     scale = 1.0 / max(p, 1e-9)
-    out = np.power(np.clip(acc * scale, 0.0, 1.0), 1.0 / args.gamma)
+    if args.tone_mode == "reinhard":
+        L = lum * scale
+        Ld = L / (1.0 + L)
+        ratio = np.divide(Ld, L, out=np.zeros_like(Ld), where=L > 0)
+        rgb = acc * scale * ratio[..., None]
+        out = np.power(np.clip(rgb, 0.0, 1.0), 1.0 / args.gamma)
+    else:
+        out = np.power(np.clip(acc * scale, 0.0, 1.0), 1.0 / args.gamma)
     u8 = np.round(out * 255.0).astype(np.uint8)
     dst = Path(args.out_dir).expanduser(); dst.mkdir(parents=True, exist_ok=True)
-    png = dst / f"{args.stem}_{args.width}x{args.height}_psf{args.fwhm:g}.png"
-    jpg = dst / f"{args.stem}_{args.width}x{args.height}_psf{args.fwhm:g}.jpg"
+    tag = f"psf{args.fwhm:g}_{args.tone_mode}"
+    png = dst / f"{args.stem}_{args.width}x{args.height}_{tag}.png"
+    jpg = dst / f"{args.stem}_{args.width}x{args.height}_{tag}.jpg"
     im = Image.fromarray(u8, "RGB")
     im.save(png); im.save(jpg, quality=95, subsampling=0)
-    (dst / f"{args.stem}_{args.width}x{args.height}_psf{args.fwhm:g}.json").write_text(json.dumps({
+    (dst / f"{args.stem}_{args.width}x{args.height}_{tag}.json").write_text(json.dumps({
         "core": args.core, "max_g": args.max_g, "n_stars": int(n),
         "width": args.width, "height": args.height, "supersample": ss,
         "fwhm_pixels": args.fwhm, "gamma": args.gamma,
-        "psf": "Gaussian display PSF", "tone_mapping": "none (gamma direct)",
+        "psf": "Gaussian display PSF", "tone_mapping": args.tone_mode,
         "exposure_percentile": args.exposure_percentile, "scale": scale,
         "png": str(png), "jpeg": str(jpg),
     }, indent=2))
