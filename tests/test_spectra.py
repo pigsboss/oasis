@@ -100,7 +100,7 @@ class TestSpectralCube(unittest.TestCase):
             self.assertTrue(attrs["inferred"])
             self.assertEqual(attrs["model"], "blackbody_bp_rp")
             self.assertEqual(attrs["quality"], 2)
-            self.assertEqual(attrs["xp_fraction"], 0.0)
+            self.assertEqual(attrs["xp_fraction"], "per-pixel")
             self.assertIn(int(h5.root.spectra.quality[0]), set(range(7)) | {255})
 
 

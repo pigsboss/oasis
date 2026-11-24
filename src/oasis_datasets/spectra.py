@@ -104,6 +104,7 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                         buffer_parents: int = 4096,
                         no_g_supp: Path | str | None = None,
                         nir_supp: Path | str | None = None,
+                        xp_supp: Path | str | None = None,
                         progress=None) -> SpectralCubeResult:
     """Stream a consolidated spatial table into a per-pixel spectral cube.
 
@@ -126,6 +127,16 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
     supp_ids = supp_code = supp_rp = None
     nir_ids = nir_ok2 = nir_okw = None
     nir_j = nir_h = nir_k = nir_w1 = nir_w2 = None
+    xp_ids = xp_pix = xp_flux = xp_count = None
+    if xp_supp is not None:
+        with tables.open_file(Path(xp_supp).expanduser(), "r") as xh:
+            xp_ids = np.asarray(xh.root.source_id[:], dtype=np.int64)
+            xp_pix = np.asarray(xh.root.pixels.pix[:], dtype=np.int64)
+            xp_count = np.asarray(xh.root.pixels.count[:], dtype=np.int32)
+            xp_flux = xh.root.pixels.xp_flux  # keep file open? load below
+            xp_flux = xp_flux[:]
+        order = np.argsort(xp_ids)
+        xp_ids = xp_ids[order]
     if nir_supp is not None and no_g_supp is None:
         raise ValueError("nir_supp requires no_g_supp")
     if nir_supp is not None:
@@ -186,9 +197,11 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 gmag = np.asarray(table.read(start, stop, field="phot_g_mean_mag"), dtype=np.float64)
                 bprp = np.asarray(table.read(start, stop, field="bp_rp"), dtype=np.float64)
                 source_ids = (np.asarray(table.read(start, stop, field="source_id"), dtype=np.int64)
-                              if (no_g_supp is not None or nir_supp is not None) else None)
+                              if (no_g_supp is not None or nir_supp is not None
+                                  or xp_supp is not None) else None)
                 rp_mag = (np.asarray(table.read(start, stop, field="phot_rp_mean_mag"), dtype=np.float64)
-                          if (no_g_supp is not None or nir_supp is not None) else None)
+                          if (no_g_supp is not None or nir_supp is not None
+                              or xp_supp is not None) else None)
                 good = (np.isfinite(ra) & np.isfinite(dec)
                         & (dec >= -90.0) & (dec <= 90.0))
                 if not np.any(good):
@@ -197,7 +210,7 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 dec = dec[good]
                 gmag = gmag[good]
                 bprp = bprp[good]
-                if no_g_supp is not None or nir_supp is not None:
+                if no_g_supp is not None or nir_supp is not None or xp_supp is not None:
                     source_ids = source_ids[good]
                     rp_mag = rp_mag[good]
                 child = hpx.ang2pix_nest(
@@ -268,6 +281,17 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                     f = ~d & ~has_rp & (codes >= 0)
                     qgroup[sel[f]] = 5
                     qgroup[sel[~d & ~has_rp & (codes < 0)]] = 6
+                xp_flag = None
+                if xp_supp is not None:
+                    xpos = np.searchsorted(xp_ids, source_ids)
+                    xok = xpos < xp_ids.size
+                    xpos2 = xpos[xok]
+                    xsel = np.flatnonzero(xok)
+                    xfound = xp_ids[xpos2] == source_ids[xsel]
+                    xp_flag = np.zeros(len(source_ids), dtype=bool)
+                    xp_flag[xsel[xfound]] = True
+                    qgroup[xp_flag] = 0
+                    g_eff[xp_flag] = np.nan  # no C-template double count
                 tidx, miss = template_indices(bprp_eff)
                 missing_bprp += int(miss.sum())
                 weights = np.zeros_like(g_eff, dtype=np.float32)
@@ -339,21 +363,29 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 for start in range(0, remaining, 8192):
                     n = min(8192, remaining - start)
                     flux.append(np.zeros((n, nwave), dtype=np.float32))
+            if xp_supp is not None:
+                for st in range(0, xp_pix.size, 4096):
+                    sl = slice(st, min(xp_pix.size, st + 4096))
+                    block = np.asarray(flux[xp_pix[sl]], dtype=np.float32)
+                    block += xp_flux[sl]
+                    flux[xp_pix[sl]] = block
             # small metadata arrays
             dst.create_array(spectra, "wavelength", WAVELENGTH)
             dst.create_array(spectra, "templates", templates)
             dst.create_array(spectra, "teff", TEFF_GRID)
             dst.create_array(spectra, "count", counts)
             dst.create_array(spectra, "tier_counts", tier_counts)
+            xp_fraction = np.divide(tier_counts[:, 0], counts,
+                                    out=np.zeros(npix, dtype=np.float32),
+                                    where=counts > 0).astype(np.float32)
+            dst.create_array(spectra, "xp_fraction", xp_fraction)
+            dst.create_array(spectra, "inferred_fraction",
+                             1.0 - xp_fraction)
             # 0=A,1=B,2=C,3=D,4=E,5=F,6=G; worst tier per pixel.
             quality = (6 - np.argmax((tier_counts > 0)[:, ::-1],
                                      axis=1)).astype(np.uint8)
             quality[counts == 0] = 255  # empty pixel: no tier
             dst.create_array(spectra, "quality", quality)
-            dst.create_array(spectra, "inferred_fraction",
-                             np.ones(npix, dtype=np.float32))
-            dst.create_array(spectra, "xp_fraction",
-                             np.zeros(npix, dtype=np.float32))
             meta = {
                 "kind": "spectral_cube", "nside": nside, "order": target_order,
                 "npix": npix, "nwave": nwave, "wave_min": float(WAVELENGTH[0]),
@@ -378,7 +410,8 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 },
                 "no_g_supp": str(no_g_supp) if no_g_supp is not None else None,
                 "nir_supp": str(nir_supp) if nir_supp is not None else None,
-                "xp_fraction": 0.0,
+                "xp_supp": str(xp_supp) if xp_supp is not None else None,
+                "xp_fraction": "per-pixel",
                 "bunit": "relative flux (G=6.5 reference, 600 nm normalized)",
                 "source": str(source), "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
                 "note": "BP-RP -> Teff blackbody templates; not measured XP spectra",
@@ -389,5 +422,7 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                                            dtype=np.uint8))
     return SpectralCubeResult(
         str(out), processed, nside, npix, nwave,
-        model=("blackbody_bp_rp_v3" if no_g_supp is not None else "blackbody_bp_rp"),
+        model=("xp_plus_tiered_v4" if xp_supp is not None
+               else ("blackbody_bp_rp_v3" if no_g_supp is not None
+                     else "blackbody_bp_rp")),
         missing_bprp=missing_bprp, missing_g=missing_g)
