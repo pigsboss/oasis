@@ -141,12 +141,12 @@ v3 已采用 A–G 数值码：
 255 = 空像素
 ```
 
-v3 全量统计：
+v4 全量统计（XP 已接入）：
 
 ```text
-A          0
-B          0
-C  1,540,770,340
+A     34,467,653
+B              0
+C  1,506,302,687
 D    267,478,000
 E      2,541,258
 F        641,979
@@ -154,8 +154,8 @@ G        278,194
 合计 1,811,709,771
 ```
 
-A/B 为 0：本轮 v3 尚未把 XP sampled 表接入立方；正常 G 源归 C，
-缺 G 源按 NIR/RP/分类归 D/E/F/G。
+XP sampled 已接入 A：34,467,653 个源使用实测 XP 谱，且不再叠加其 C 级黑体模板。
+B 仍为 0；XP continuous 尚未接入。
 
 ## 7. 与现有产品的对应
 
@@ -164,7 +164,8 @@ A/B 为 0：本轮 v3 尚未把 XP sampled 表接入立方；正常 G 源归 C�
 | `gaia_dr3_core_spatial.h5` | 1.811B 行 core 14 列 |
 | `no_g_supp.h5` | 5.45M 缺 G 源 flags/class/RP |
 | `nir_supp.h5` | 5.45M 源 + 2MASS JHK + AllWISE W1–W4 + 匹配质量 |
-| `gaia_dr3_spectral_n2048_v3.h5` | v3 A–G tiered；tier_counts + quality；67 GiB |
+| `gaia_dr3_spectral_n2048_v4.h5` | v4 A–G + 实测 XP；tier_counts + quality + xp_fraction；67 GiB |
+| `gaia_dr3_spectral_n2048_v3.h5` | v3 A–G，无 XP；历史产品 |
 | `gaia_dr3_spectral_n2048_v2.h5` | v2 数值 quality 4/5/6/7（历史产品） |
 | XP sampled 镜像 | 107 GB，3386/3386 MD5 OK |
 | XP summary 镜像 | 9.2 GB，3386/3386 MD5 OK |

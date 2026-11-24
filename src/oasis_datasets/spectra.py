@@ -128,6 +128,7 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
     nir_ids = nir_ok2 = nir_okw = None
     nir_j = nir_h = nir_k = nir_w1 = nir_w2 = None
     xp_ids = xp_pix = xp_flux = xp_count = None
+    xp_dense = None
     if xp_supp is not None:
         with tables.open_file(Path(xp_supp).expanduser(), "r") as xh:
             xp_ids = np.asarray(xh.root.source_id[:], dtype=np.int64)
@@ -137,6 +138,8 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
             xp_flux = xp_flux[:]
         order = np.argsort(xp_ids)
         xp_ids = xp_ids[order]
+        xp_dense = np.zeros((npix, nwave), dtype=np.float32)
+        xp_dense[xp_pix] = xp_flux
     if nir_supp is not None and no_g_supp is None:
         raise ValueError("nir_supp requires no_g_supp")
     if nir_supp is not None:
@@ -317,6 +320,8 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                         # flush the finished parent
                         base = current_parent * children
                         spec = local @ templates
+                        if xp_dense is not None:
+                            spec += xp_dense[base:base + children]
                         pending.append(np.asarray(spec, dtype=np.float32))
                         counts[base:base + children] += local_group.sum(axis=1)
                         tier_counts[base:base + children] += local_group
@@ -352,6 +357,8 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
             if current_parent >= 0:
                 base = current_parent * children
                 spec = local @ templates
+                if xp_dense is not None:
+                    spec += xp_dense[base:base + children]
                 pending.append(np.asarray(spec, dtype=np.float32))
                 counts[base:base + children] += local_group.sum(axis=1)
                 tier_counts[base:base + children] += local_group
@@ -363,12 +370,6 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 for start in range(0, remaining, 8192):
                     n = min(8192, remaining - start)
                     flux.append(np.zeros((n, nwave), dtype=np.float32))
-            if xp_supp is not None:
-                for st in range(0, xp_pix.size, 4096):
-                    sl = slice(st, min(xp_pix.size, st + 4096))
-                    block = np.asarray(flux[xp_pix[sl]], dtype=np.float32)
-                    block += xp_flux[sl]
-                    flux[xp_pix[sl]] = block
             # small metadata arrays
             dst.create_array(spectra, "wavelength", WAVELENGTH)
             dst.create_array(spectra, "templates", templates)
@@ -396,8 +397,9 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 "note_missing_g": ("RP-only/class templates used when available; "
                                    "no-broadband sources count but zero flux"),
                 "inferred": True,
-                "model": ("blackbody_bp_rp_v3" if no_g_supp is not None
-                          else "blackbody_bp_rp"),
+                "model": ("xp_plus_tiered_v4" if xp_supp is not None
+                          else ("blackbody_bp_rp_v3" if no_g_supp is not None
+                                else "blackbody_bp_rp")),
                 "quality": 2, "quality_name": "tiered_spectral_model",
                 "tier_names": ["A", "B", "C", "D", "E", "F", "G"],
                 "tier_map": {
