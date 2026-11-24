@@ -47,6 +47,7 @@ class GridIndex:
     ra: np.ndarray
     dec: np.ndarray
     ids: np.ndarray | None
+    row_index: np.ndarray
     ncell: int
     cell_rad: float
 
@@ -70,7 +71,8 @@ def _read_catalog(path: Path | str, node: str, ra_col: str, dec_col: str,
         ids = (np.asarray(t.cols._f_col(id_col)[:]) if id_col else None)
     if ra.shape != dec.shape:
         raise ValueError("RA/Dec length mismatch")
-    return ra, dec, ids
+    mask = np.isfinite(ra) & np.isfinite(dec)
+    return ra[mask], dec[mask], (ids[mask] if ids is not None else None), np.flatnonzero(mask)
 
 
 def build_grid_index(path: Path | str, node: str = "/table",
@@ -78,11 +80,7 @@ def build_grid_index(path: Path | str, node: str = "/table",
                      id_col: str | None = None,
                      radius_arcsec: float = 3.0) -> GridIndex:
     """Index the right-hand catalogue on a unit-sphere cell grid."""
-    ra, dec, ids = _read_catalog(path, node, ra_col, dec_col, id_col)
-    good = np.isfinite(ra) & np.isfinite(dec)
-    ra, dec = ra[good], dec[good]
-    if ids is not None:
-        ids = ids[good]
+    ra, dec, ids, source_rows = _read_catalog(path, node, ra_col, dec_col, id_col)
     radius_rad = float(radius_arcsec) * np.pi / (180.0 * 3600.0)
     cell = max(radius_rad * 1.01, 1e-8)
     x, y, z = _unit_vectors(ra, dec)
@@ -90,6 +88,7 @@ def build_grid_index(path: Path | str, node: str = "/table",
     order = np.argsort(keys, kind="mergesort")
     return GridIndex(keys=keys[order], ra=ra[order], dec=dec[order],
                      ids=(ids[order] if ids is not None else None),
+                     row_index=source_rows[order],
                      ncell=ncell, cell_rad=cell)
 
 
@@ -129,7 +128,7 @@ def crossmatch_tables(left: Path | str, right: Path | str,
     right_index = build_grid_index(right, right_node, right_ra, right_dec,
                                    right_id, radius_arcsec)
     radius = float(radius_arcsec)
-    left_ra_arr, left_dec_arr, left_ids = _read_catalog(
+    left_ra_arr, left_dec_arr, left_ids, _left_rows = _read_catalog(
         left, left_node, left_ra, left_dec, left_id)
     left_rows = left_ra_arr.size
     out = Path(out).expanduser()
@@ -138,7 +137,7 @@ def crossmatch_tables(left: Path | str, right: Path | str,
         return _write_csv_matches(out, left_ra_arr, left_dec_arr, left_ids,
                                   right_index, radius, chunk_rows)
     dtype = [("left_index", "i8"), ("right_index", "i8"),
-             ("sep_arcsec", "f8")]
+             ("right_table_index", "i8"), ("sep_arcsec", "f8")]
     if left_ids is not None:
         dtype.append(("left_id", left_ids.dtype))
     if right_index.ids is not None:
@@ -146,23 +145,58 @@ def crossmatch_tables(left: Path | str, right: Path | str,
     matches = []
     for start in range(0, left_rows, chunk_rows):
         stop = min(left_rows, start + chunk_rows)
-        for i in range(start, stop):
-            if not (np.isfinite(left_ra_arr[i]) and np.isfinite(left_dec_arr[i])):
-                continue
-            x, y, z = _unit_vectors(left_ra_arr[i:i + 1], left_dec_arr[i:i + 1])
-            cand, cra, cdec = _query_candidates(right_index, float(x[0]), float(y[0]), float(z[0]))
-            if cand.size == 0:
-                continue
-            sep = hpx.angular_distance_deg(left_ra_arr[i], left_dec_arr[i], cra, cdec) * 3600.0
-            j = int(np.argmin(sep))
-            if sep[j] <= radius:
-                matches.append((i, int(cand[j]), float(sep[j])))
+        lra = left_ra_arr[start:stop]
+        ldec = left_dec_arr[start:stop]
+        good = np.isfinite(lra) & np.isfinite(ldec)
+        if not np.any(good):
+            continue
+        x, y, z = _unit_vectors(lra[good], ldec[good])
+        scale = 1.0 / right_index.cell_rad
+        ncell = right_index.ncell
+        ix = np.floor((x + 1.0) * scale).astype(np.int64)
+        iy = np.floor((y + 1.0) * scale).astype(np.int64)
+        iz = np.floor((z + 1.0) * scale).astype(np.int64)
+        base_idx = np.flatnonzero(good)
+        best = np.full(base_idx.size, np.inf)
+        best_j = np.full(base_idx.size, -1, dtype=np.int64)
+        best_sep = np.full(base_idx.size, np.inf)
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                for dz in (-1, 0, 1):
+                    a = ix + dx; b = iy + dy; c = iz + dz
+                    valid = (a >= 0) & (b >= 0) & (c >= 0) & \
+                            (a < ncell) & (b < ncell) & (c < ncell)
+                    if not np.any(valid):
+                        continue
+                    keys = (a[valid] * ncell + b[valid]) * ncell + c[valid]
+                    lo = np.searchsorted(right_index.keys, keys, side="left")
+                    hi = np.searchsorted(right_index.keys, keys, side="right")
+                    cnt = hi - lo
+                    total = int(cnt.sum())
+                    if total == 0:
+                        continue
+                    left_local = np.repeat(np.flatnonzero(valid), cnt)
+                    starts = np.repeat(lo, cnt)
+                    offsets = np.arange(total) - np.repeat(np.cumsum(cnt) - cnt, cnt)
+                    right_local = starts + offsets
+                    d = hpx.angular_distance_deg(
+                        lra[base_idx[left_local]], ldec[base_idx[left_local]],
+                        right_index.ra[right_local], right_index.dec[right_local]) * 3600.0
+                    take = d < best[left_local]
+                    if np.any(take):
+                        ids = left_local[take]
+                        best[ids] = d[take]
+                        best_j[ids] = right_local[take]
+        ok = best <= radius
+        for local, sep, j in zip(base_idx[ok], best[ok], best_j[ok]):
+            matches.append((start + int(local), int(j), float(sep)))
     with tables.open_file(out, "w") as h5:
         if matches:
             arr = np.zeros(len(matches), dtype=np.dtype(dtype))
             for n, (li, ri, sep) in enumerate(matches):
                 arr[n]["left_index"] = li
                 arr[n]["right_index"] = ri
+                arr[n]["right_table_index"] = right_index.row_index[ri]
                 arr[n]["sep_arcsec"] = sep
                 if left_ids is not None:
                     arr[n]["left_id"] = left_ids[li]
