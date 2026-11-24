@@ -379,7 +379,8 @@ def cmd_spectral_cube(args) -> int:
         result = build_spectral_cube(
             args.source, args.out, nside=args.nside,
             chunk_rows=args.chunk, buffer_parents=args.buffer_parents,
-            no_g_supp=args.no_g_supp, progress=progress)
+            no_g_supp=args.no_g_supp, nir_supp=args.nir_supp,
+            progress=progress)
     except (ValueError, OSError, FileExistsError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
@@ -702,6 +703,8 @@ def register(sub, common) -> dict:
     p_sc.add_argument("--buffer-parents", type=int, default=4096)
     p_sc.add_argument("--no-g-supp", default=None,
                       help="no_g_supp.h5 with source_id/class_code/rp_mag")
+    p_sc.add_argument("--nir-supp", default=None,
+                      help="nir_supp.h5 with 2MASS/AllWISE matches")
     p_sc.add_argument("--progress", action="store_true")
     p_sc.set_defaults(func=cmd_spectral_cube)
 
