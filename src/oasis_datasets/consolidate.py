@@ -44,7 +44,7 @@ import yaml
 
 from . import hpx
 
-NULL_TOKENS = {"", "\\n", "null", "nan", "na"}
+NULL_TOKENS = {"", "\\n", "\\N", "null", "nan", "na", "nnnn", "nnn", "n"}
 PROFILE = os.environ.get("OASIS_CONSOLIDATE_PROFILE") == "1"
 
 #: Default Gaia working set for sky work.  Missing columns are dropped with a
@@ -539,6 +539,15 @@ def infer_types(source_files: list[Path], profile: Profile, columns: list[str],
     return types, maxlens
 
 
+def _normalize_kind(kind: str) -> str:
+    """Accept both schema-file and compact-profile shorthand dtypes."""
+    mapping = {
+        "f8": "float64", "f4": "float32", "f2": "float16",
+        "i8": "int64", "i4": "int32", "i2": "int16", "i1": "int8",
+    }
+    return mapping.get(kind, kind)
+
+
 def _numpy_dtype(columns: list[str], types: list[str], maxlens: list[int]) -> np.dtype:
     fields = []
     for name, kind, length in zip(columns, types, maxlens):
@@ -561,15 +570,34 @@ def _numpy_dtype(columns: list[str], types: list[str], maxlens: list[int]) -> np
 
 def _coerce(values, kind: str, width: int):
     # Gaia's null token is lowercase; avoid a .lower() call per field.
-    nulls = (b"", b"null", b"nan", b"na", b"\\n") if values and isinstance(values[0], bytes) else NULL_TOKENS
+    nulls = ((b"", b"null", b"nan", b"na", b"\\n", b"\\N", b"nnnn", b"nnn", b"n")
+             if values and isinstance(values[0], bytes) else NULL_TOKENS)
     if kind in ("int8", "int16", "int32", "int64"):
         # PyTables has no nullable ints.  Gaia uses null for some flag/int
         # columns; use -1 as the documented sentinel (astrotoys does the same).
-        return np.array([int(v) if v not in nulls else -1
-                         for v in values], dtype=np.dtype(kind))
+        def _int_or_null(v):
+            if v in nulls:
+                return -1
+            try:
+                return int(v)
+            except ValueError:
+                text = v.decode("ascii", "ignore") if isinstance(v, bytes) else str(v)
+                if set(text.lower()) <= set("0n"):
+                    return -1
+                raise
+        return np.array([_int_or_null(v) for v in values], dtype=np.dtype(kind))
     if kind in ("uint8", "uint16", "uint32", "uint64"):
-        return np.array([int(v) if v not in nulls else 0
-                         for v in values], dtype=np.dtype(kind))
+        def _uint_or_null(v):
+            if v in nulls:
+                return 0
+            try:
+                return int(v)
+            except ValueError:
+                text = v.decode("ascii", "ignore") if isinstance(v, bytes) else str(v)
+                if set(text.lower()) <= set("0n"):
+                    return 0
+                raise
+        return np.array([_uint_or_null(v) for v in values], dtype=np.dtype(kind))
     if kind in ("float32", "float64"):
         return np.array([np.nan if v in nulls else float(v) for v in values],
                         dtype=np.dtype(kind))
@@ -770,7 +798,8 @@ def build_plan(source: Path | None, dataset_path: Path | None, app: Path,
         if missing:
             return None, f"schema lacks selected columns: {', '.join(missing)}"
     elif profile.schema_types:
-        schema_types = {c: t for c, t in profile.schema_types.items() if c in selected}
+        schema_types = {c: _normalize_kind(t)
+                        for c, t in profile.schema_types.items() if c in selected}
         schema_widths = {c: profile.schema_widths.get(c, 30) for c in selected}
         missing = [c for c in selected if c not in schema_types]
         if missing:
