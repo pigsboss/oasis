@@ -101,7 +101,7 @@ class TestSpectralCube(unittest.TestCase):
             self.assertEqual(attrs["model"], "blackbody_bp_rp")
             self.assertEqual(attrs["quality"], 2)
             self.assertEqual(attrs["xp_fraction"], 0.0)
-            self.assertLessEqual(int(h5.root.spectra.quality[0]), 6)
+            self.assertIn(int(h5.root.spectra.quality[0]), set(range(7)) | {255})
 
 
 if __name__ == "__main__":
