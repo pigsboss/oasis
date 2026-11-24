@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>OASIS · Gaia DR3 Sky Viewer</title>
+<style>
+  :root{--fg:#f3eee4;--dim:#a69c8e;--line:#3a332d;--accent:#e8b96a}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#050505;color:var(--fg);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
+  #sky{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+  #sky.dragging{cursor:grabbing}
+  .hud{position:fixed;z-index:2;pointer-events:none}
+  #brand{top:20px;left:22px;font-size:11px;letter-spacing:.20em;text-transform:uppercase;color:var(--dim)}
+  #brand b{display:block;color:var(--fg);font-size:15px;letter-spacing:.08em;margin-bottom:5px;font-weight:600}
+  #stats{top:20px;right:22px;text-align:right;font-variant-numeric:tabular-nums;color:var(--dim);font-size:11px;line-height:1.7}
+  #stats b{color:var(--fg);font-weight:500}
+  #hint{bottom:18px;left:22px;font-size:11px;color:var(--dim);line-height:1.7}
+  #hint kbd{border:1px solid var(--line);border-radius:3px;padding:1px 5px;color:var(--fg);font-size:10px}
+  #bar{position:fixed;z-index:3;right:20px;bottom:18px;display:flex;gap:8px}
+  button{appearance:none;background:rgba(10,10,10,.64);border:1px solid var(--line);
+    color:var(--fg);border-radius:999px;padding:8px 13px;font-size:11px;letter-spacing:.04em;
+    backdrop-filter:blur(8px);cursor:pointer;transition:border-color .2s,background .2s}
+  button:hover{border-color:var(--accent);background:rgba(20,18,15,.86)}
+  button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+  #loading{position:fixed;inset:0;z-index:5;background:#050505;display:flex;
+    align-items:center;justify-content:center;flex-direction:column;gap:14px;
+    transition:opacity .5s;color:var(--dim);font-size:12px;letter-spacing:.08em}
+  #loading.hide{opacity:0;pointer-events:none}
+  #bar-progress{width:220px;height:1px;background:#2a2521;overflow:hidden}
+  #bar-progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+  #error{color:#ff9e80;max-width:70vw;text-align:center;line-height:1.6}
+  @media(max-width:640px){#brand{top:14px;left:14px}#stats{top:14px;right:14px}#hint{left:14px;bottom:66px}#bar{right:14px;bottom:14px}}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="hud" id="brand"><b>GAIA DR3 · TRUE COLOUR</b>OASIS spectral cube v4 · CIE 1931</div>
+<div class="hud" id="stats"><div>FOV <b id="fov">65°</b></div><div>RA <b id="ra">—</b> · DEC <b id="dec">—</b></div></div>
+<div class="hud" id="hint">拖动旋转 · 滚轮/双指缩放 · 双击复位<br><kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd><kbd>↓</kbd> 旋转 · <kbd>+</kbd><kbd>−</kbd> 缩放</div>
+<div id="bar"><button id="auto" aria-pressed="true">自动旋转</button><button id="reset">复位</button><button id="full">全屏</button></div>
+<div id="loading"><div id="error">正在加载立方体贴图…</div><div id="bar-progress"><i></i></div></div>
+<script>
+(() => {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const canvas = $("#sky");
+  const gl = canvas.getContext("webgl", {alpha:false, antialias:false, premultipliedAlpha:false})
+          || canvas.getContext("experimental-webgl", {alpha:false, antialias:false});
+  if (!gl) { $("#error").textContent = "此浏览器不支持 WebGL。"; return; }
+
+  const VS = `
+    attribute vec2 a_pos;
+    varying vec2 v_pos;
+    void main(){ v_pos = a_pos; gl_Position = vec4(a_pos, 0.0, 1.0); }
+  `;
+  const FS = `
+    precision highp float;
+    uniform samplerCube u_sky;
+    uniform vec2 u_res;
+    uniform float u_fov;
+    uniform vec2 u_rot;
+    varying vec2 v_pos;
+    vec3 rotY(vec3 p, float c, float s){ return vec3(c*p.x + s*p.z, p.y, -s*p.x + c*p.z); }
+    vec3 rotX(vec3 p, float c, float s){ return vec3(p.x, c*p.y - s*p.z, s*p.y + c*p.z); }
+    void main(){
+      float aspect = u_res.x / max(u_res.y, 1.0);
+      vec2 p = v_pos;
+      p.x *= aspect;
+      float t = tan(u_fov * 0.5);
+      vec3 dir = normalize(vec3(p.x * t, p.y * t, -1.0));
+      dir = rotY(dir, cos(u_rot.x), sin(u_rot.x));
+      dir = rotX(dir, cos(u_rot.y), sin(u_rot.y));
+      gl_FragColor = vec4(textureCube(u_sky, dir).rgb, 1.0);
+    }
+  `;
+
+  function compile(type, src){
+    const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, VS));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FS));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  gl.useProgram(prog);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, "a_pos");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const uSky = gl.getUniformLocation(prog, "u_sky");
+  const uRes = gl.getUniformLocation(prog, "u_res");
+  const uFov = gl.getUniformLocation(prog, "u_fov");
+  const uRot = gl.getUniformLocation(prog, "u_rot");
+
+  const faces = [
+    ["px.jpg", gl.TEXTURE_CUBE_MAP_POSITIVE_X],
+    ["nx.jpg", gl.TEXTURE_CUBE_MAP_NEGATIVE_X],
+    ["py.jpg", gl.TEXTURE_CUBE_MAP_POSITIVE_Y],
+    ["ny.jpg", gl.TEXTURE_CUBE_MAP_NEGATIVE_Y],
+    ["pz.jpg", gl.TEXTURE_CUBE_MAP_POSITIVE_Z],
+    ["nz.jpg", gl.TEXTURE_CUBE_MAP_NEGATIVE_Z],
+  ];
+  const tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_CUBE_MAP, tex);
+  gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+  gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+
+  let yaw = 0.55, pitch = -0.18, fov = 65.0;
+  let auto = true, dirty = true, ready = false;
+  const pointers = new Map();
+  let drag = null, pinch = null;
+  let vYaw = 0, vPitch = 0;
+
+  function resize(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = Math.max(1, Math.floor(innerWidth * dpr));
+    const h = Math.max(1, Math.floor(innerHeight * dpr));
+    if (canvas.width !== w || canvas.height !== h){
+      canvas.width = w; canvas.height = h;
+      gl.viewport(0, 0, w, h);
+      dirty = true;
+    }
+  }
+
+  function radec(){
+    // forward direction at screen centre
+    const t = Math.tan(fov * Math.PI / 360.0);
+    let x = 0, y = 0, z = -1;
+    let c = Math.cos(yaw), s = Math.sin(yaw);
+    let x1 = c*x + s*z, z1 = -s*x + c*z;
+    x = x1; z = z1;
+    c = Math.cos(pitch); s = Math.sin(pitch);
+    let y1 = c*y - s*z, z2 = s*y + c*z;
+    y = y1; z = z2;
+    const lon = Math.atan2(z, x) * 180/Math.PI;
+    const lat = Math.asin(Math.max(-1, Math.min(1, y))) * 180/Math.PI;
+    $("#ra").textContent = ((lon + 360) % 360).toFixed(1) + "°";
+    $("#dec").textContent = lat.toFixed(1) + "°";
+  }
+
+  function draw(){
+    if (!ready) return;
+    if (auto && !drag && !pinch){ yaw += 0.00045; dirty = true; }
+    if (!drag && !pinch){
+      yaw += vYaw; pitch += vPitch;
+      vYaw *= 0.92; vPitch *= 0.92;
+      pitch = Math.max(-1.48, Math.min(1.48, pitch));
+      if (Math.abs(vYaw) > 1e-6 || Math.abs(vPitch) > 1e-6) dirty = true;
+    }
+    if (dirty){
+      resize();
+      gl.useProgram(prog);
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_CUBE_MAP, tex);
+      gl.uniform1i(uSky, 0);
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform1f(uFov, fov * Math.PI / 180.0);
+      gl.uniform2f(uRot, yaw, pitch);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      $("#fov").textContent = fov.toFixed(0) + "°";
+      radec();
+      dirty = false;
+    }
+    requestAnimationFrame(draw);
+  }
+
+  function clampFov(v){ return Math.max(12, Math.min(110, v)); }
+
+  function reset(){
+    yaw = 0.55; pitch = -0.18; fov = 65; vYaw = vPitch = 0; dirty = true;
+  }
+
+  canvas.addEventListener("pointerdown", (e) => {
+    canvas.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
+    canvas.classList.add("dragging");
+    if (pointers.size === 1){
+      drag = {id:e.pointerId, x:e.clientX, y:e.clientY};
+      vYaw = vPitch = 0;
+    } else if (pointers.size === 2){
+      const a = [...pointers.values()];
+      pinch = {d:Math.hypot(a[0].x-a[1].x, a[0].y-a[1].y), fov:fov};
+      drag = null;
+    }
+  });
+  canvas.addEventListener("pointermove", (e) => {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
+    if (pointers.size === 1 && drag && drag.id === e.pointerId){
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      drag.x = e.clientX; drag.y = e.clientY;
+      yaw += dx * 0.0042; pitch += dy * 0.0042;
+      pitch = Math.max(-1.48, Math.min(1.48, pitch));
+      vYaw = dx * 0.00045; vPitch = dy * 0.00045;
+      dirty = true;
+    } else if (pointers.size === 2 && pinch){
+      const a = [...pointers.values()];
+      const d = Math.hypot(a[0].x-a[1].x, a[0].y-a[1].y);
+      if (d > 4) fov = clampFov(pinch.fov * pinch.d / d);
+      dirty = true;
+    }
+  });
+  function up(e){
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinch = null;
+    if (pointers.size === 0){ drag = null; canvas.classList.remove("dragging"); }
+  }
+  canvas.addEventListener("pointerup", up);
+  canvas.addEventListener("pointercancel", up);
+  canvas.addEventListener("pointerleave", up);
+  canvas.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    fov = clampFov(fov * Math.exp(e.deltaY * 0.0012));
+    dirty = true;
+  }, {passive:false});
+  canvas.addEventListener("dblclick", reset);
+  canvas.addEventListener("contextmenu", e => e.preventDefault());
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") { yaw -= 0.05; dirty = true; }
+    else if (e.key === "ArrowRight") { yaw += 0.05; dirty = true; }
+    else if (e.key === "ArrowUp") { pitch = Math.min(1.48, pitch - 0.05); dirty = true; }
+    else if (e.key === "ArrowDown") { pitch = Math.max(-1.48, pitch + 0.05); dirty = true; }
+    else if (e.key === "+" || e.key === "=") { fov = clampFov(fov - 4); dirty = true; }
+    else if (e.key === "-" || e.key === "_") { fov = clampFov(fov + 4); dirty = true; }
+    else if (e.key.toLowerCase() === "r") reset();
+  });
+
+  $("#reset").onclick = reset;
+  $("#auto").onclick = () => { auto = !auto; $("#auto").setAttribute("aria-pressed", String(auto)); };
+  $("#full").onclick = () => {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+    else document.exitFullscreen?.();
+  };
+  window.addEventListener("resize", () => { dirty = true; });
+
+  let loaded = 0;
+  Promise.all(faces.map(([url, target]) => new Promise((resolve, reject) => {
+    const img = new Image();
+    img.decoding = "async";
+    img.onload = () => {
+      gl.bindTexture(gl.TEXTURE_CUBE_MAP, tex);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+      gl.texImage2D(target, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img);
+      loaded++;
+      $("#bar-progress i").style.width = (loaded / faces.length * 100) + "%";
+      resolve();
+    };
+    img.onerror = () => reject(new Error("无法加载 " + url));
+    img.src = url;
+  }))).then(() => {
+    gl.bindTexture(gl.TEXTURE_CUBE_MAP, tex);
+    gl.generateMipmap(gl.TEXTURE_CUBE_MAP);
+    ready = true; dirty = true;
+    $("#loading").classList.add("hide");
+    requestAnimationFrame(draw);
+  }).catch((err) => {
+    $("#error").textContent = err.message + "\n请用本地 HTTP 服务打开此目录。";
+    console.error(err);
+  });
+})();
+</script>
+</body>
+</html>
