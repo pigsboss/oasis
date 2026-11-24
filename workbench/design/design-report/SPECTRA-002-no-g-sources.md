@@ -122,6 +122,33 @@ BP 有效              5,309（0.10%）
 - quality 覆盖 4/5/6/7；
 - meta 记录 `model=blackbody_bp_rp_v2` 和 `no_g_supp`。
 
+## 5.1 v2 实测
+
+```text
+shape              (50,331,648, 343)
+file               71.5 GB
+count              1,811,709,771
+count_normal       1,806,254,432
+count_rp_only          3,811,182
+count_class               36,946
+count_no_phot          1,607,211
+quality 4/5/6/7    47,357,356 / 1,899,234 / 25,576 / 1,049,482 pixels
+flux               all finite
+```
+
+`count_normal + count_rp_only + count_class + count_no_phot`
+= 1,811,709,771。
+
+## 5.2 数据下载
+
+已下载并校验：
+
+- `xp_sampled_mean_spectrum`：107 GB，3386 文件；
+- `xp_summary`：9.2 GB，3386 文件，MD5 3386/3386 通过。
+
+`astrophysical_parameters` 为可选大数据（258 GB），
+本地 `gaia_blosc5.h5` 已含 AP/GSP/class 列，因此不作为 v2 立方的前置依赖。
+
 ## 6. 风险
 
 - 分类概率是 Gaia DSC 模型输出，不是直接目标类型；
