@@ -55,7 +55,7 @@ gaia_dr3_v4_cie_equirect_8192x4096.json
 ```
 
 TIFF：`uint16`，RGB，线性光，按 p99.9 亮度裁剪到 16 bit；**不做高斯模糊**，作为 CIE 位图存档。
-PNG/JPEG：从 TIFF 线性色直接 **gamma 2.2 + exposure=8**，再做 **FWHM=1 px 高斯卷积**
+PNG/JPEG：从 TIFF 线性色直接 **gamma 2.2 + exposure=4**，再做 **FWHM=1 px 高斯卷积**
 （sigma=1/2.35482=0.4247 px），**无 Reinhard**。
 
 ## 4. 工具
