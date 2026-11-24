@@ -285,6 +285,11 @@ PYTHONPATH=src /home/huo/Projects/distoptics/.venv/bin/python -m unittest discov
   - **10°**：中位 **275 ms**，P95 797 ms；中位 2,808,933 行（1,569,075–7,878,665）；
   - 结果均为精确 `ra/dec` 锥，spatial 连续区间读；1′ 主要受 fixed/open 开销影响，
     1°/10° 主要受该天区实际行数影响。数据在 page cache 中。
+- **M5.11 缺 G 源 v2**：`spectral-cube --no-g-supp no_g_supp.h5`；
+  5,455,339 个缺 G 源中 3,848,128 有 RP，使用 RP-only 恒星回退或 QSO/星系模板；
+  1,607,211 无 G/BP/RP，仅保留 count、flux=0、quality=7；v2 文件：
+  `/mnt/data/huo/Datasets/Gaia/gdr3/spectral/gaia_dr3_spectral_n2048_v2.h5`；
+  分析见 `SPECTRA-002-no-g-sources.md`。
 - **M5.10 光谱立方 Phase 1**：`spectral-cube` 从 core/spatial 表流式生成逐像素 343 点立方；
   已生成 nside 2048、50,331,648 像素、343 点、**69.9 GB** float32：
   `/mnt/data/huo/Datasets/Gaia/gdr3/spectral/gaia_dr3_spectral_n2048.h5`；

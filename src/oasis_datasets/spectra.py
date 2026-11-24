@@ -56,6 +56,18 @@ def blackbody_templates(wavelength: np.ndarray = WAVELENGTH,
 
 TEMPLATES = blackbody_templates()
 
+# Gaia DSC classprob_dsc_combmod_* argmax codes.
+NO_G_CLASS_NAMES = ("star", "quasar", "galaxy", "whitedwarf", "binarystar")
+# class -> (estimated BP-RP, estimated G-RP, quality group)
+# group 1 = RP-only stellar fallback, group 2 = class template.
+NO_G_CLASS_MODEL = {
+    0: (0.80, 0.60, 1),   # star
+    4: (0.80, 0.60, 1),   # binary star
+    1: (0.30, 0.30, 2),   # quasar
+    2: (0.80, 0.50, 2),   # galaxy
+    3: (0.00, 0.00, 2),   # white dwarf
+}
+
 
 def template_indices(bp_rp: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Map BP-RP to template index; returns (indices, missing_mask)."""
@@ -90,6 +102,7 @@ def _flush_pending(flux, pending: list[np.ndarray]) -> None:
 def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                         chunk_rows: int = 1_000_000,
                         buffer_parents: int = 4096,
+                        no_g_supp: Path | str | None = None,
                         progress=None) -> SpectralCubeResult:
     """Stream a consolidated spatial table into a per-pixel spectral cube.
 
@@ -109,6 +122,18 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
     if out.exists():
         raise FileExistsError(f"output exists: {out}")
 
+    supp_ids = supp_code = supp_rp = None
+    if no_g_supp is not None:
+        with tables.open_file(Path(no_g_supp).expanduser(), "r") as sh:
+            st = sh.get_node("/no_g")
+            supp_ids = np.asarray(st.cols.source_id[:], dtype=np.int64)
+            supp_code = np.asarray(st.cols.class_code[:], dtype=np.int8)
+            supp_rp = np.asarray(st.cols.rp_mag[:], dtype=np.float64)
+        order = np.argsort(supp_ids)
+        supp_ids = supp_ids[order]
+        supp_code = supp_code[order]
+        supp_rp = supp_rp[order]
+
     with tables.open_file(source, "r") as src:
         table = src.get_node("/table")
         source_order = int(table.attrs.order or 9)
@@ -123,12 +148,16 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 spectra, "flux", atom=tables.Float32Atom(),
                 shape=(0, nwave), chunkshape=(8192, nwave), filters=None)
             counts = np.zeros(npix, dtype=np.int64)
+            count_normal = np.zeros(npix, dtype=np.int64)
+            count_rp_only = np.zeros(npix, dtype=np.int64)
+            count_class = np.zeros(npix, dtype=np.int64)
+            count_no_phot = np.zeros(npix, dtype=np.int64)
             missing_bprp = 0
             missing_g = 0
             processed = 0
             current_parent = -1
             local = None
-            local_count = None
+            local_group = None
             next_parent = 0
             pending: list[np.ndarray] = []
             pending_rows = 0
@@ -139,6 +168,10 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 dec = np.asarray(table.read(start, stop, field="dec"), dtype=np.float64)
                 gmag = np.asarray(table.read(start, stop, field="phot_g_mean_mag"), dtype=np.float64)
                 bprp = np.asarray(table.read(start, stop, field="bp_rp"), dtype=np.float64)
+                source_ids = (np.asarray(table.read(start, stop, field="source_id"), dtype=np.int64)
+                              if no_g_supp is not None else None)
+                rp_mag = (np.asarray(table.read(start, stop, field="phot_rp_mean_mag"), dtype=np.float64)
+                          if no_g_supp is not None else None)
                 good = (np.isfinite(ra) & np.isfinite(dec)
                         & (dec >= -90.0) & (dec <= 90.0))
                 if not np.any(good):
@@ -147,18 +180,51 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 dec = dec[good]
                 gmag = gmag[good]
                 bprp = bprp[good]
+                if no_g_supp is not None:
+                    source_ids = source_ids[good]
+                    rp_mag = rp_mag[good]
                 child = hpx.ang2pix_nest(
                     nside, np.radians(90.0 - dec), np.radians(np.mod(ra, 360.0)))
                 child = np.asarray(child, dtype=np.int64)
                 parent = child // children
                 offset = child - parent * children
-                tidx, miss = template_indices(bprp)
-                missing_bprp += int(miss.sum())
                 gvalid = np.isfinite(gmag)
                 missing_g += int((~gvalid).sum())
-                weights = np.zeros_like(gmag, dtype=np.float32)
-                weights[gvalid] = np.power(
-                    10.0, -0.4 * (gmag[gvalid] - 6.5)).astype(np.float32)
+                g_eff = gmag.copy()
+                bprp_eff = bprp.copy()
+                qgroup = np.zeros(len(gmag), dtype=np.uint8)  # 0 normal
+                if no_g_supp is not None and np.any(~gvalid):
+                    idx = np.flatnonzero(~gvalid)
+                    pos = np.searchsorted(supp_ids, source_ids[idx])
+                    ok = pos < supp_ids.size
+                    pos = pos[ok]
+                    sel = idx[ok]
+                    found = supp_ids[pos] == source_ids[sel]
+                    sel = sel[found]
+                    codes = supp_code[pos[found]]
+                    rp = rp_mag[sel].copy()
+                    rp_side = supp_rp[pos[found]]
+                    rp[~np.isfinite(rp)] = rp_side[~np.isfinite(rp)]
+                    has_rp = np.isfinite(rp)
+                    for cls, (bprp_v, dgrp, q) in NO_G_CLASS_MODEL.items():
+                        m = has_rp & (codes == cls)
+                        if np.any(m):
+                            bprp_eff[sel[m]] = bprp_v
+                            g_eff[sel[m]] = rp[m] + dgrp
+                            qgroup[sel[m]] = q
+                    m = has_rp & (codes == -1)
+                    if np.any(m):
+                        bprp_eff[sel[m]] = 0.80
+                        g_eff[sel[m]] = rp[m] + 0.60
+                        qgroup[sel[m]] = 1
+                    # no RP at all, or no supplement row
+                    qgroup[idx] = np.where(qgroup[idx] == 0, 3, qgroup[idx])
+                tidx, miss = template_indices(bprp_eff)
+                missing_bprp += int(miss.sum())
+                weights = np.zeros_like(g_eff, dtype=np.float32)
+                wgood = np.isfinite(g_eff) & (qgroup != 3)
+                weights[wgood] = np.power(
+                    10.0, -0.4 * (g_eff[wgood] - 6.5)).astype(np.float32)
                 # parent is non-decreasing because the source table is ipix-sorted
                 if current_parent < 0:
                     current_parent = int(parent[0])
@@ -167,7 +233,7 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                         pending.append(np.zeros((gap, nwave), dtype=np.float32))
                         pending_rows += gap
                     local = np.zeros((children, ntemp), dtype=np.float32)
-                    local_count = np.zeros(children, dtype=np.int64)
+                    local_group = np.zeros((children, 4), dtype=np.int64)
                 changes = np.flatnonzero(parent[1:] != parent[:-1]) + 1
                 first = 0
                 for end in np.r_[changes, len(parent)]:
@@ -179,7 +245,11 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                         base = current_parent * children
                         spec = local @ templates
                         pending.append(np.asarray(spec, dtype=np.float32))
-                        counts[base:base + children] += local_count
+                        counts[base:base + children] += local_group.sum(axis=1)
+                        count_normal[base:base + children] += local_group[:, 0]
+                        count_rp_only[base:base + children] += local_group[:, 1]
+                        count_class[base:base + children] += local_group[:, 2]
+                        count_no_phot[base:base + children] += local_group[:, 3]
                         pending_rows += children
                         next_parent = current_parent + 1
                         if pending_rows >= buffer_parents * children:
@@ -196,10 +266,14 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                             next_parent = p
                         current_parent = p
                         local = np.zeros((children, ntemp), dtype=np.float32)
-                        local_count = np.zeros(children, dtype=np.int64)
+                        local_group = np.zeros((children, 4), dtype=np.int64)
                     np.add.at(local, (offset[first:end], tidx[first:end]),
                               weights[first:end])
-                    local_count += np.bincount(offset[first:end], minlength=children)
+                    for q in range(4):
+                        m = qgroup[first:end] == q
+                        if np.any(m):
+                            local_group[:, q] += np.bincount(
+                                offset[first:end][m], minlength=children)
                     first = end
                 processed += len(parent)
                 if progress:
@@ -209,7 +283,11 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 base = current_parent * children
                 spec = local @ templates
                 pending.append(np.asarray(spec, dtype=np.float32))
-                counts[base:base + children] += local_count
+                counts[base:base + children] += local_group.sum(axis=1)
+                count_normal[base:base + children] += local_group[:, 0]
+                count_rp_only[base:base + children] += local_group[:, 1]
+                count_class[base:base + children] += local_group[:, 2]
+                count_no_phot[base:base + children] += local_group[:, 3]
                 pending_rows += children
                 next_parent = current_parent + 1
             _flush_pending(flux, pending)
@@ -223,8 +301,15 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
             dst.create_array(spectra, "templates", templates)
             dst.create_array(spectra, "teff", TEFF_GRID)
             dst.create_array(spectra, "count", counts)
-            dst.create_array(spectra, "quality",
-                             np.full(npix, 4, dtype=np.uint8))
+            dst.create_array(spectra, "count_normal", count_normal)
+            dst.create_array(spectra, "count_rp_only", count_rp_only)
+            dst.create_array(spectra, "count_class", count_class)
+            dst.create_array(spectra, "count_no_phot", count_no_phot)
+            quality = np.full(npix, 4, dtype=np.uint8)
+            quality[count_rp_only > 0] = 5
+            quality[count_class > 0] = 6
+            quality[count_no_phot > 0] = 7
+            dst.create_array(spectra, "quality", quality)
             dst.create_array(spectra, "inferred_fraction",
                              np.ones(npix, dtype=np.float32))
             dst.create_array(spectra, "xp_fraction",
@@ -236,9 +321,19 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
                 "source_order": source_order, "children": children,
                 "rows": processed, "missing_bp_rp": missing_bprp,
                 "missing_g": missing_g,
-                "note_missing_g": "sources without G contribute count but zero flux",
-                "inferred": True, "model": "blackbody_bp_rp",
+                "note_missing_g": ("RP-only/class templates used when available; "
+                                   "no-broadband sources count but zero flux"),
+                "inferred": True,
+                "model": ("blackbody_bp_rp_v2" if no_g_supp is not None
+                          else "blackbody_bp_rp"),
                 "quality": 4, "quality_name": "inferred_blackbody",
+                "quality_groups": {
+                    "4": "G+BP-RP blackbody",
+                    "5": "RP-only stellar fallback",
+                    "6": "class-template fallback",
+                    "7": "no broadband photometry (zero flux)",
+                },
+                "no_g_supp": str(no_g_supp) if no_g_supp is not None else None,
                 "xp_fraction": 0.0,
                 "bunit": "relative flux (G=6.5 reference, 600 nm normalized)",
                 "source": str(source), "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -248,5 +343,7 @@ def build_spectral_cube(path: Path | str, out: Path | str, nside: int = 2048,
             dst.create_array(dst.root, "meta",
                              np.frombuffer(json.dumps(meta, ensure_ascii=False).encode(),
                                            dtype=np.uint8))
-    return SpectralCubeResult(str(out), processed, nside, npix, nwave,
-                              missing_bprp=missing_bprp, missing_g=missing_g)
+    return SpectralCubeResult(
+        str(out), processed, nside, npix, nwave,
+        model=("blackbody_bp_rp_v2" if no_g_supp is not None else "blackbody_bp_rp"),
+        missing_bprp=missing_bprp, missing_g=missing_g)
