@@ -5,7 +5,7 @@
 - 投影：Mollweide（椭圆全天空）
 - 尺寸：4096 × 2048
 - CIE：CIE 1931 2°，D65
-- 输出：Reinhard 映射后的 PNG/JPEG，高斯 FWHM=1 px
+- 输出：从 TIFF 直接 gamma 2.2 + exposure=8，FWHM=1 px；无 Reinhard
 
 ## 结果
 

@@ -7,7 +7,7 @@
 - 白点：sRGB/D65（绝对 XYZ 直接进入 sRGB 矩阵，不再二次除 D65）
 - 白平衡：gray-world（非黑区上半亮度中位数）
   增益 [0.80819, 1.02472, 1.27098]
-- 输出：16-bit 线性 TIFF（无模糊）、Reinhard PNG/JPEG（高斯 FWHM=1 px）
+- 输出：16-bit 线性 TIFF（无模糊）、gamma 2.2 直出 PNG/JPEG（无 Reinhard，FWHM=1 px）
 
 ## 1. 模型
 
@@ -55,8 +55,8 @@ gaia_dr3_v4_cie_equirect_8192x4096.json
 ```
 
 TIFF：`uint16`，RGB，线性光，按 p99.9 亮度裁剪到 16 bit；**不做高斯模糊**，作为 CIE 位图存档。
-PNG/JPEG：8-bit sRGB，Reinhard tone-mapped，再做 **FWHM=1 px 高斯卷积**
-（sigma=1/2.35482=0.4247 px），仅用于直接查看。
+PNG/JPEG：从 TIFF 线性色直接 **gamma 2.2 + exposure=8**，再做 **FWHM=1 px 高斯卷积**
+（sigma=1/2.35482=0.4247 px），**无 Reinhard**。
 
 ## 4. 工具
 
