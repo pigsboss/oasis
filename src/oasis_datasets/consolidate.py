@@ -56,6 +56,56 @@ GAIA_CORE_COLUMNS = [
     "ruwe", "duplicated_source", "phot_variable_flag",
 ]
 
+ALLWISE_COLUMNS = [
+    'designation', 'ra', 'dec', 'sigra', 'sigdec', 'sigradec', 'glon', 'glat',
+    'elon', 'elat', 'wx', 'wy', 'cntr', 'source_id', 'coadd_id', 'src',
+    'w1mpro', 'w1sigmpro', 'w1snr', 'w1rchi2', 'w2mpro', 'w2sigmpro', 'w2snr', 'w2rchi2',
+    'w3mpro', 'w3sigmpro', 'w3snr', 'w3rchi2', 'w4mpro', 'w4sigmpro', 'w4snr', 'w4rchi2',
+    'rchi2', 'nb', 'na', 'w1sat', 'w2sat', 'w3sat', 'w4sat', 'satnum',
+    'ra_pm', 'dec_pm', 'sigra_pm', 'sigdec_pm', 'sigradec_pm', 'pmra', 'sigpmra', 'pmdec',
+    'sigpmdec', 'w1rchi2_pm', 'w2rchi2_pm', 'w3rchi2_pm', 'w4rchi2_pm', 'rchi2_pm', 'pmcode', 'cc_flags',
+    'rel', 'ext_flg', 'var_flg', 'ph_qual', 'det_bit', 'moon_lev', 'w1nm', 'w1m',
+    'w2nm', 'w2m', 'w3nm', 'w3m', 'w4nm', 'w4m', 'w1cov', 'w2cov',
+    'w3cov', 'w4cov', 'w1cc_map', 'w1cc_map_str', 'w2cc_map', 'w2cc_map_str', 'w3cc_map', 'w3cc_map_str',
+    'w4cc_map', 'w4cc_map_str', 'best_use_cntr', 'ngrp', 'w1flux', 'w1sigflux', 'w1sky', 'w1sigsk',
+    'w1conf', 'w2flux', 'w2sigflux', 'w2sky', 'w2sigsk', 'w2conf', 'w3flux', 'w3sigflux',
+    'w3sky', 'w3sigsk', 'w3conf', 'w4flux', 'w4sigflux', 'w4sky', 'w4sigsk', 'w4conf',
+    'w1mag', 'w1sigm', 'w1flg', 'w1mcor', 'w2mag', 'w2sigm', 'w2flg', 'w2mcor',
+    'w3mag', 'w3sigm', 'w3flg', 'w3mcor', 'w4mag', 'w4sigm', 'w4flg', 'w4mcor',
+    'w1mag_1', 'w1sigm_1', 'w1flg_1', 'w2mag_1', 'w2sigm_1', 'w2flg_1', 'w3mag_1', 'w3sigm_1',
+    'w3flg_1', 'w4mag_1', 'w4sigm_1', 'w4flg_1', 'w1mag_2', 'w1sigm_2', 'w1flg_2', 'w2mag_2',
+    'w2sigm_2', 'w2flg_2', 'w3mag_2', 'w3sigm_2', 'w3flg_2', 'w4mag_2', 'w4sigm_2', 'w4flg_2',
+    'w1mag_3', 'w1sigm_3', 'w1flg_3', 'w2mag_3', 'w2sigm_3', 'w2flg_3', 'w3mag_3', 'w3sigm_3',
+    'w3flg_3', 'w4mag_3', 'w4sigm_3', 'w4flg_3', 'w1mag_4', 'w1sigm_4', 'w1flg_4', 'w2mag_4',
+    'w2sigm_4', 'w2flg_4', 'w3mag_4', 'w3sigm_4', 'w3flg_4', 'w4mag_4', 'w4sigm_4', 'w4flg_4',
+    'w1mag_5', 'w1sigm_5', 'w1flg_5', 'w2mag_5', 'w2sigm_5', 'w2flg_5', 'w3mag_5', 'w3sigm_5',
+    'w3flg_5', 'w4mag_5', 'w4sigm_5', 'w4flg_5', 'w1mag_6', 'w1sigm_6', 'w1flg_6', 'w2mag_6',
+    'w2sigm_6', 'w2flg_6', 'w3mag_6', 'w3sigm_6', 'w3flg_6', 'w4mag_6', 'w4sigm_6', 'w4flg_6',
+    'w1mag_7', 'w1sigm_7', 'w1flg_7', 'w2mag_7', 'w2sigm_7', 'w2flg_7', 'w3mag_7', 'w3sigm_7',
+    'w3flg_7', 'w4mag_7', 'w4sigm_7', 'w4flg_7', 'w1mag_8', 'w1sigm_8', 'w1flg_8', 'w2mag_8',
+    'w2sigm_8', 'w2flg_8', 'w3mag_8', 'w3sigm_8', 'w3flg_8', 'w4mag_8', 'w4sigm_8', 'w4flg_8',
+    'w1magp', 'w1sigp1', 'w1sigp2', 'w1k', 'w1ndf', 'w1mlq', 'w1mjdmin', 'w1mjdmax',
+    'w1mjdmean', 'w2magp', 'w2sigp1', 'w2sigp2', 'w2k', 'w2ndf', 'w2mlq', 'w2mjdmin',
+    'w2mjdmax', 'w2mjdmean', 'w3magp', 'w3sigp1', 'w3sigp2', 'w3k', 'w3ndf', 'w3mlq',
+    'w3mjdmin', 'w3mjdmax', 'w3mjdmean', 'w4magp', 'w4sigp1', 'w4sigp2', 'w4k', 'w4ndf',
+    'w4mlq', 'w4mjdmin', 'w4mjdmax', 'w4mjdmean', 'rho12', 'rho23', 'rho34', 'q12',
+    'q23', 'q34', 'xscprox', 'w1rsemi', 'w1ba', 'w1pa', 'w1gmag', 'w1gerr',
+    'w1gflg', 'w2rsemi', 'w2ba', 'w2pa', 'w2gmag', 'w2gerr', 'w2gflg', 'w3rsemi',
+    'w3ba', 'w3pa', 'w3gmag', 'w3gerr', 'w3gflg', 'w4rsemi', 'w4ba', 'w4pa',
+    'w4gmag', 'w4gerr', 'w4gflg', 'tmass_key', 'r_2mass', 'pa_2mass', 'n_2mass', 'j_m_2mass',
+    'j_msig_2mass', 'h_m_2mass', 'h_msig_2mass', 'k_m_2mass', 'k_msig_2mass', 'x', 'y', 'z',
+    'spt_ind', 'htm20',
+]
+
+ALLWISE_NIR_COLUMNS = [
+    'designation', 'ra', 'dec', 'sigra', 'sigdec', 'sigradec', 'glon', 'glat', 'elon', 'elat', 'wx', 'wy', 'cntr', 'source_id', 'coadd_id', 'src', 'w1mpro', 'w1sigmpro', 'w1snr', 'w1rchi2', 'w2mpro', 'w2sigmpro', 'w2snr', 'w2rchi2', 'w3mpro', 'w3sigmpro', 'w3snr', 'w3rchi2', 'w4mpro', 'w4sigmpro', 'w4snr', 'w4rchi2', 'ph_qual', 'cc_flags', 'ext_flg', 'var_flg',
+]
+
+TWOMASS_NIR_COLUMNS = [
+    'designation', 'ra', 'decl', 'j_m', 'h_m', 'k_m', 'j_msigcom', 'h_msigcom', 'k_msigcom', 'j_snr', 'h_snr', 'k_snr', 'ph_qual', 'rd_flg', 'cc_flg', 'gal_contam', 'mp_flg',
+]
+
+
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -81,6 +131,8 @@ class Profile:
     order: int = 9                     # HEALPix order for spatial layout
     hdu: int | str = 0                 # FITS HDU
     fast_csv: bool = False             # comma-split fast path when safe
+    schema_types: dict = field(default_factory=dict)
+    schema_widths: dict = field(default_factory=dict)
 
 
 BUILTIN_PROFILES: dict[str, Profile] = {
@@ -105,6 +157,50 @@ BUILTIN_PROFILES: dict[str, Profile] = {
         header_file="twomass_psc_schema", header_kind="sql_schema", glob="psc_*.gz",
         positions={"ra": "ra", "dec": "decl"}, id_key="designation", sort_key="designation",
         epoch={"mode": "global", "ref": "J2000"}, frame="ICRS"),
+
+    "allwise_psc": Profile(
+        name="allwise_psc", delimiter="|", header="none",
+        columns=list(ALLWISE_COLUMNS), glob="*.bz2",
+        positions={"ra": "ra", "dec": "dec"},
+        id_key="designation", sort_key="designation",
+        epoch={"mode": "global", "ref": "J2010"}, frame="ICRS",
+        layout="spatial", order=9),
+    "allwise_nir": Profile(
+        name="allwise_nir", delimiter="|", header="none",
+        columns=list(ALLWISE_COLUMNS), glob="*.bz2",
+        positions={"ra": "ra", "dec": "dec"},
+        id_key="designation", sort_key="designation",
+        epoch={"mode": "global", "ref": "J2010"}, frame="ICRS",
+        default_columns=list(ALLWISE_NIR_COLUMNS), layout="spatial", order=9,
+        schema_types={
+            "designation": "str", "source_id": "str", "coadd_id": "str",
+            "ra": "f8", "dec": "f8", "sigra": "f4", "sigdec": "f4",
+            "sigradec": "f4", "glon": "f8", "glat": "f8", "elon": "f8",
+            "elat": "f8", "wx": "f4", "wy": "f4", "cntr": "i8", "src": "i4",
+            "w1mpro": "f4", "w1sigmpro": "f4", "w1snr": "f4", "w1rchi2": "f4",
+            "w2mpro": "f4", "w2sigmpro": "f4", "w2snr": "f4", "w2rchi2": "f4",
+            "w3mpro": "f4", "w3sigmpro": "f4", "w3snr": "f4", "w3rchi2": "f4",
+            "w4mpro": "f4", "w4sigmpro": "f4", "w4snr": "f4", "w4rchi2": "f4",
+            "ph_qual": "str", "cc_flags": "str", "ext_flg": "i2", "var_flg": "i2",
+        },
+        schema_widths={"designation": 20, "source_id": 28, "coadd_id": 20,
+                       "ph_qual": 4, "cc_flags": 4}),
+    "twomass_nir": Profile(
+        name="twomass_nir", delimiter="|", header="external",
+        header_file="twomass_psc_schema", header_kind="sql_schema", glob="psc_*.gz",
+        positions={"ra": "ra", "dec": "decl"},
+        id_key="designation", sort_key="designation",
+        epoch={"mode": "global", "ref": "J2000"}, frame="ICRS",
+        default_columns=list(TWOMASS_NIR_COLUMNS), layout="spatial", order=9,
+        schema_types={
+            "designation": "str", "ra": "f8", "decl": "f8",
+            "j_m": "f4", "h_m": "f4", "k_m": "f4",
+            "j_msigcom": "f4", "h_msigcom": "f4", "k_msigcom": "f4",
+            "j_snr": "f4", "h_snr": "f4", "k_snr": "f4",
+            "ph_qual": "str", "rd_flg": "str", "cc_flg": "str",
+            "gal_contam": "i2", "mp_flg": "i2",
+        },
+        schema_widths={"designation": 17, "ph_qual": 3, "rd_flg": 3, "cc_flg": 3}),
 }
 
 
@@ -113,6 +209,8 @@ DATASET_PROFILE = {
     "gaia_gdr2_gaia_source": "gaia_tier",
     "tess_tic": "tess_tic",
     "twomass_psc": "twomass_psc",
+    "allwise_nir": "allwise_nir",
+    "twomass_nir": "twomass_nir",
 }
 
 
@@ -571,11 +669,15 @@ def build_plan(source: Path | None, dataset_path: Path | None, app: Path,
     try:
         profile = load_profile(profile_spec, dataset_id)
     except ValueError as exc:
-        if profile_spec is None and src and "gaia" in str(src).lower():
-            low = str(src).lower()
+        low = str(src).lower() if src else ""
+        if profile_spec is None and "gaia" in low:
             profile = (BUILTIN_PROFILES["gaia_dr3_source"]
                        if "gdr3" in low and "gaia_source" in low
                        else BUILTIN_PROFILES["gaia_tier"])
+        elif profile_spec is None and ("allwise" in low or "wise-allwise" in low):
+            profile = BUILTIN_PROFILES["allwise_nir"]
+        elif profile_spec is None and "2mass" in low:
+            profile = BUILTIN_PROFILES["twomass_nir"]
         else:
             return None, str(exc)
     profile = copy.deepcopy(profile)
@@ -625,9 +727,12 @@ def build_plan(source: Path | None, dataset_path: Path | None, app: Path,
         marker = []
     selected = [c for c in marker if c in columns]
     warnings = [f"requested column not in source: {c}" for c in marker if c not in columns]
-    for need in ("source_id", "ra", "dec"):
-        if need not in columns:
-            return None, f"required column '{need}' not in source"
+    id_key = profile.id_key
+    if not id_key or id_key not in columns:
+        return None, f"required id column '{id_key}' not in source"
+    for need in (profile.positions.get("ra"), profile.positions.get("dec")):
+        if not need or need not in columns:
+            return None, f"required position column '{need}' not in source"
     if layout == "spatial":
         for need in (profile.positions.get("ra"), profile.positions.get("dec")):
             if not need or need not in columns:
@@ -645,7 +750,7 @@ def build_plan(source: Path | None, dataset_path: Path | None, app: Path,
         return None, ("region filter requires position columns "
                       f"{profile.positions} present in the catalogue")
     if index is None:
-        index_columns = ["source_id"]
+        index_columns = ([id_key] if id_key == "source_id" else [])
         if "phot_g_mean_mag" in selected:
             index_columns.append("phot_g_mean_mag")
     else:
@@ -664,6 +769,12 @@ def build_plan(source: Path | None, dataset_path: Path | None, app: Path,
         missing = [c for c in selected if c not in schema_types]
         if missing:
             return None, f"schema lacks selected columns: {', '.join(missing)}"
+    elif profile.schema_types:
+        schema_types = {c: t for c, t in profile.schema_types.items() if c in selected}
+        schema_widths = {c: profile.schema_widths.get(c, 30) for c in selected}
+        missing = [c for c in selected if c not in schema_types]
+        if missing:
+            return None, f"profile schema lacks selected columns: {', '.join(missing)}"
     stem = name or dataset_id or (src.stem.split(".")[0] if src.is_file() else src.name)
     dest_dir = Path(app).expanduser() / "consolidated"
     return ConsolidatePlan(
@@ -852,8 +963,9 @@ def _reader_worker(plan, source_cols, index, kinds, widths, ra_col, dec_col,
                         continue
                 block.append(values)
                 count += 1
-                if len(samples) < 3 and "source_id" in source_cols:
-                    sid = values[source_cols.index("source_id")]
+                id_key = plan.profile.id_key
+                if len(samples) < 3 and id_key in source_cols:
+                    sid = values[source_cols.index(id_key)]
                     samples[str(sid)] = list(values)
                 if len(block) >= block_rows:
                     publish(block)
@@ -1026,8 +1138,9 @@ def _run_csv(plan: ConsolidatePlan, tmp: Path, emit) -> tuple[list[str], list[st
                         continue
                 block.append(values)
                 if len(samples) < 3:
+                    id_key = plan.profile.id_key
                     try:
-                        sid = values[source_cols.index("source_id")]
+                        sid = values[source_cols.index(id_key)]
                     except (ValueError, IndexError):
                         sid = None
                     if sid is not None:
@@ -1102,8 +1215,9 @@ def _run_fits(plan: ConsolidatePlan, tmp: Path, emit) -> tuple[list[str], list[s
                     continue
                 _append_fits_block(table, plain, source_cols, ra_col, dec_col, plan.order)
                 rows_out += len(plain)
-                if len(samples) < 3 and "source_id" in source_cols:
-                    sid = plain["source_id"][0]
+                id_key = plan.profile.id_key
+                if len(samples) < 3 and id_key in source_cols:
+                    sid = plain[id_key][0]
                     samples[str(sid)] = [str(plain[c][0]) for c in source_cols]
                 shard_counts[plan.source_files[0].name] = shard_counts.get(
                     plan.source_files[0].name, 0) + len(plain)
@@ -1317,11 +1431,15 @@ def verify_samples(plan: ConsolidatePlan, cols: list[str],
         return report
     with tables.open_file(plan.dest_h5, "r") as h5:
         table = h5.get_node("/table")
+        id_key = plan.profile.id_key
         for sid, expected in samples.items():
-            if "source_id" in table.dtype.names:
-                got_rows = table.read_where(f"source_id == {int(sid)}")
+            if id_key in table.dtype.names:
+                if table.dtype[id_key].kind in ("i", "u"):
+                    got_rows = table.read_where(f"{id_key} == {int(sid)}")
+                else:
+                    got_rows = table.read_where(f"{id_key} == {sid!r}")
             else:
-                got_rows = table[:1]
+                continue
             if len(got_rows) == 0:
                 report["mismatches"].append({"source_id": sid, "reason": "not found"})
                 continue

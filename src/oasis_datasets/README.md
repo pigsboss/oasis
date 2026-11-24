@@ -120,6 +120,30 @@ tools/oasis-datasets consolidate --from gaia.fits --app /tmp/skyapp --profile ga
 - `consolidate-select` 的 `--where` 是 PyTables 表达式（列名白名单校验）；
 - FITS 输出需 astropy；系统 Python 无 astropy 时 CSV/NPY 仍可用。
 
+### AllWISE / 2MASS 固化
+
+```bash
+# 紧凑 NIR（无 G 源交叉证认优先）
+tools/oasis-datasets consolidate --from /mnt/data/huo/Datasets/WISE \
+    --profile allwise_nir --app /mnt/data/huo/Datasets/catalogs/nir \
+    --column-profile core --layout spatial --order 9 --jobs 48 --apply
+tools/oasis-datasets consolidate --from /mnt/data/huo/Datasets/2MASS \
+    --profile twomass_nir --app /mnt/data/huo/Datasets/catalogs/nir \
+    --column-profile core --layout spatial --order 9 --jobs 32 --apply
+
+# 全量列
+tools/oasis-datasets consolidate --from /mnt/data/huo/Datasets/WISE \
+    --profile allwise_psc --column-profile full --layout spatial --order 9 --apply
+tools/oasis-datasets consolidate --from /mnt/data/huo/Datasets/2MASS \
+    --profile twomass_psc --column-profile full --layout spatial --order 9 --apply
+```
+
+- AllWISE：`designation, ra, dec, source_id, W1..W4, ph_qual/cc_flags/...`
+- 2MASS：`designation, ra, decl, J/H/K, msig/snr, ph_qual/rd_flg/cc_flg/...`
+- compact profile 使用内置 schema，跳过全表类型扫描；
+- full profile 建议给 `--schema`，否则会做全表类型推断；
+- 路径自动识别 `WISE`/`2MASS` 时默认 compact。
+
 ### 源表交叉证认
 
 ```bash
@@ -202,7 +226,7 @@ tools/oasis-datasets hpxmap gaia.h5 --nside 256 --quantity weighted_mean \
 
 对照 AstroToys `table2hpx.py`：它固定 nside 4096，用 `source_id//2**35` 的 level-12 近似像素，并用 `gmag2photrate`；本工具支持任意 nside、实际 RA/Dec 精确像素、任意物理表达式。
 
-测试（16 项）：
+测试（18 项）：
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
@@ -301,6 +325,8 @@ PYTHONPATH=src /home/huo/Projects/distoptics/.venv/bin/python -m unittest discov
   - **10°**：中位 **275 ms**，P95 797 ms；中位 2,808,933 行（1,569,075–7,878,665）；
   - 结果均为精确 `ra/dec` 锥，spatial 连续区间读；1′ 主要受 fixed/open 开销影响，
     1°/10° 主要受该天区实际行数影响。数据在 page cache 中。
+- **M5.13 AllWISE/2MASS compact**：新增 `allwise_psc/allwise_nir` 与 `twomass_nir` profile；
+  compact 列、内置 schema、自动路径识别；测试覆盖两种 compact 固化。
 - **M5.12 通用交叉证认**：`crossmatch` HDF5 源表最近邻；
   单位球三维网格索引、3″ 半径、HDF5/CSV 输出；测试覆盖 brute-force 一致性。
 - **M5.11 缺 G 源 v2**：`spectral-cube --no-g-supp no_g_supp.h5`；
