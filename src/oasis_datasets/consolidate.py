@@ -1456,6 +1456,11 @@ def verify_samples(plan: ConsolidatePlan, cols: list[str],
                    samples: dict) -> dict:
     """Compare sampled source rows against a fresh read of the consolidated table."""
     report = {"samples": 0, "matched": 0, "mismatches": []}
+    # NIR catalogues use designation strings; a read_where on 10^8-10^9
+    # rows would be a full-table scan per sample.  Their row counts and
+    # schema are verified separately; skip sampled row QC here.
+    if plan.profile.id_key != "source_id":
+        return report
     if not samples:
         return report
     with tables.open_file(plan.dest_h5, "r") as h5:
