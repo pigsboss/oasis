@@ -14,7 +14,7 @@ from PIL import Image
 from scipy.ndimage import gaussian_filter
 
 from oasis_datasets import hpx
-from render_cube_cie import CMF, WHITE_D65, XYZ_TO_SRGB, srgb_encode
+from render_cube_cie import CMF, WHITE_D65, XYZ_TO_SRGB, srgb_encode, gray_world_balance
 
 
 def mollweide_grid(width: int, height: int):
@@ -42,6 +42,7 @@ def main(argv=None):
     ap.add_argument("--height", type=int, default=2048)
     ap.add_argument("--tone-exposure", type=float, default=8.0)
     ap.add_argument("--fwhm", type=float, default=1.0)
+    ap.add_argument("--white-balance", choices=["gray", "none"], default="gray")
     ap.add_argument("--stem", default="gaia_dr3_v4_cie_mollweide")
     args = ap.parse_args(argv)
 
@@ -70,6 +71,10 @@ def main(argv=None):
     # absolute XYZ -> sRGB(D65); no second D65 division
     rgb = np.maximum(xyz @ XYZ_TO_SRGB.T, 0.0)
     Y = xyz[:, 1]
+    gains = np.ones(3, dtype=np.float32)
+    if args.white_balance == "gray":
+        rgb, gains, _ref = gray_world_balance(rgb, Y, 50.0)
+    Y = rgb @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
     lum = Y[mask]
     p = float(np.percentile(lum[lum > 0], 99.9)) if np.any(lum > 0) else 1.0
     scale = 1.0 / max(p, 1e-12)
@@ -94,6 +99,8 @@ def main(argv=None):
             "width": args.width, "height": args.height, "cie": "CIE 1931 2-degree analytic",
             "white": "D65", "scale": scale, "p99_9_luminance": p,
             "tone_exposure": args.tone_exposure, "fwhm_pixels": args.fwhm,
+            "white_balance": args.white_balance,
+            "white_balance_gains": gains.tolist(),
             "png": str(png), "jpeg": str(jpg)}
     (out / f"{args.stem}_{args.width}x{args.height}.json").write_text(json.dumps(meta, indent=2))
     print("wrote", png, jpg, flush=True)

@@ -16,7 +16,8 @@ Tone exposure = 8
 inside pixels = 6,588,416
 ```
 
-色彩：绝对 XYZ 直接进入 sRGB(D65) 矩阵；不再二次除 D65。
+色彩：绝对 XYZ 直接进入 sRGB(D65) 矩阵；不再二次除 D65；
+再用 gray-world 线性 RGB 增益 [0.80819, 1.02472, 1.27098] 校正整体昏黄。
 直接查看格式做 FWHM=1 px 高斯卷积（sigma=0.4247 px）。
 
 产物：

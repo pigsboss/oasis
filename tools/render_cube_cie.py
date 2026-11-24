@@ -50,13 +50,28 @@ XYZ_TO_SRGB = np.array([
 ], dtype=np.float32)
 
 
+def gray_world_balance(rgb: np.ndarray, y: np.ndarray, percentile: float = 50.0):
+    """Robust gray-world balance on the brighter half of the sky."""
+    valid = y > 0
+    if not np.any(valid):
+        return rgb, np.ones(3, dtype=np.float32), np.zeros(3, dtype=np.float32)
+    threshold = np.percentile(y[valid], percentile)
+    sample = rgb[valid & (y >= threshold)]
+    ref = np.median(sample, axis=0).astype(np.float32)
+    ref = np.maximum(ref, 1e-9)
+    gains = (float(ref.mean()) / ref).astype(np.float32)
+    gains = np.clip(gains, 0.5, 2.0)
+    return rgb * gains, gains, ref
+
+
 def srgb_encode(x: np.ndarray) -> np.ndarray:
     x = np.clip(x, 0.0, 1.0)
     return np.where(x <= 0.0031308, 12.92 * x,
                     1.055 * np.power(x, 1.0 / 2.4) - 0.055)
 
 
-def build_map(cube: Path, width: int, height: int, chunk_rows: int = 32):
+def build_map(cube: Path, width: int, height: int, chunk_rows: int = 32,
+              white_balance: str = "gray"):
     with tables.open_file(cube, "r") as h:
         s = h.root.spectra
         # use the stored nside from metadata if possible
@@ -90,15 +105,18 @@ def build_map(cube: Path, width: int, height: int, chunk_rows: int = 32):
     del flux
     # The XYZ values are absolute; sRGB already encodes the D65 white point.
     # Do not divide by D65 again (that introduces a red cast).
-    rgb = xyz @ XYZ_TO_SRGB.T
-    rgb = np.maximum(rgb, 0.0)
+    rgb = np.maximum(xyz @ XYZ_TO_SRGB.T, 0.0)
     Y = xyz[:, 1]
+    gains = np.ones(3, dtype=np.float32)
+    if white_balance == "gray":
+        rgb, gains, _ref = gray_world_balance(rgb, Y, 50.0)
+    Y = rgb @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
     lum = np.maximum(Y, 0.0)
     valid = lum > 0
     p = float(np.percentile(lum[valid], 99.9)) if np.any(valid) else 1.0
     scale = 1.0 / max(p, 1e-12)
     print(f"luminance p99.9={p:.6g} scale={scale:.6g}", flush=True)
-    return rgb, Y, scale, nside, width, height
+    return rgb, Y, scale, nside, width, height, gains
 
 
 def main(argv=None):
@@ -111,13 +129,14 @@ def main(argv=None):
     ap.add_argument("--tone-exposure", type=float, default=8.0)
     ap.add_argument("--fwhm", type=float, default=1.0,
                     help="Gaussian FWHM in output pixels for PNG/JPEG only")
+    ap.add_argument("--white-balance", choices=["gray", "none"], default="gray")
     ap.add_argument("--stem", default="gaia_dr3_v4_cie_equirect")
     args = ap.parse_args(argv)
 
     cube = Path(args.cube).expanduser()
     out = Path(args.out_dir).expanduser(); out.mkdir(parents=True, exist_ok=True)
-    rgb, Y, scale, nside, width, height = build_map(
-        cube, args.width, args.height, args.chunk_rows)
+    rgb, Y, scale, nside, width, height, gains = build_map(
+        cube, args.width, args.height, args.chunk_rows, args.white_balance)
 
     # 16-bit linear TIFF
     linear = np.clip(rgb * scale, 0.0, 1.0)
@@ -154,7 +173,9 @@ def main(argv=None):
         "white": "D65", "scale": scale, "p99_9_luminance": float(1.0/scale),
         "tone_exposure": float(args.tone_exposure),
         "fwhm_pixels": float(args.fwhm),
-        "color_note": "no second D65 division; sRGB matrix handles D65",
+        "color_note": "absolute XYZ -> sRGB(D65); no second D65 division",
+        "white_balance": args.white_balance,
+        "white_balance_gains": gains.tolist(),
         "tiff": str(tif_path), "png": str(png_path), "jpeg": str(jpg_path),
     }
     (out / f"{args.stem}_{width}x{height}.json").write_text(

@@ -12,6 +12,7 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
+from scipy.ndimage import gaussian_filter
 
 
 def face_dirs(n: int, face: str):
@@ -44,6 +45,7 @@ def main(argv=None):
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--size", type=int, default=2048)
     ap.add_argument("--quality", type=int, default=92)
+    ap.add_argument("--fwhm", type=float, default=1.0)
     args = ap.parse_args(argv)
     src = Image.open(args.equirect).convert("RGB")
     a = np.asarray(src)
@@ -57,6 +59,11 @@ def main(argv=None):
         u = np.clip((lon / 360.0 * w).astype(np.int64), 0, w - 1)
         v = np.clip(((90.0 - lat) / 180.0 * h).astype(np.int64), 0, h - 1)
         rgb = a[v, u]
+        if args.fwhm > 0:
+            sigma = args.fwhm / 2.354820045
+            rgb = gaussian_filter(rgb.astype(np.float32),
+                                  sigma=(sigma, sigma, 0.0), mode="nearest")
+            rgb = np.clip(np.round(rgb), 0, 255).astype(np.uint8)
         # Naming: px, nx, py, ny, pz, nz
         name = {"+x": "px", "-x": "nx", "+y": "py", "-y": "ny",
                 "+z": "pz", "-z": "nz"}[face] + ".jpg"
