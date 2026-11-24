@@ -234,6 +234,12 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 PYTHONPATH=src /home/huo/Projects/distoptics/.venv/bin/python -m unittest discover -s tests -v
 ```
 
+## Gaia DR3 光谱信息分级
+
+A–G 七级定义、缺 G 源映射、源级/图级字段：
+
+[`docs/design/gdr3_spectral_tiers.md`](../../docs/design/gdr3_spectral_tiers.md)
+
 ## 清单与审计（M1）
 
 - `~/.config/oasis/inventory.yaml`：发布型数据集清单（渠道/许可证/存储偏好/版本规则）；

@@ -32,6 +32,24 @@
 | 【派生】`gaia_t1/t2/t3` | `source_id` | `ra/dec`（ICRS，J2016.0） | 无（单件 + 分档） | CSV.gz（10 列，表头行）＋HDF5 rendition | source_id 升序 | manifest sha256 | 按需重导 | ≤236 MB |
 | 【派生】`mpc_elements` | packed `designation` | **无**（根数＋逐行 epoch） | 无 | CSV.gz（20 列）＋HDF5 rendition | 原文件序 | manifest sha256 | 随 MPC | 93 MB |
 
+## 2.1 Gaia DR3 光谱信息分级（A–G）
+
+Gaia DR3 源表按光谱信息可用性分为 A–G 七级，定义、缺 G 源映射、源级/图级字段与实施约束见：
+
+[`docs/design/gdr3_spectral_tiers.md`](../../../docs/design/gdr3_spectral_tiers.md)
+
+摘要：
+
+- A：XP sampled 实测 343 点；
+- B：XP continuous 重建；
+- C：≥3 波段（典型 G+BP+RP）；
+- D：有限测光 + 颜色/Teff（含 RP+NIR、黑体 fallback）；
+- E：单波段 RP-only/NIR-only；
+- F：无测光但有分类，只保留 class prior，不给可靠通量；
+- G：无测光无分类，mask。
+
+等效黑体不是独立等级，只是 C/D 的 fallback 模型。
+
 ## 3. 共性属性（分三级）
 
 **① 全体共性（8/8）**
