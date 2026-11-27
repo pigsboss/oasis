@@ -28,3 +28,25 @@
 - 与之前的 full Reinhard 星场参数相同，因此像素结果一致；
 - 5,455,339 个缺 G 源仍未加入该层；
 - v5 的 B 级已包含在有 G 的 1,806,254,432 颗中，但源级颜色仍用 BP-RP，不是逐源 XP。
+
+## 32k × 16k / 10-bit
+
+```text
+输出        32768×16384
+超采样      2×，65536×32768
+PSF         Gaussian FWHM=3 px
+Tone        Reinhard luminance
+位深        10 bit/通道，3 通道
+容器        16-bit TIFF/PNG，数值量化为 10 bit
+坐标        Galactic，银心在画面中央
+```
+
+文件：
+
+```text
+/mnt/data/huo/Datasets/Gaia/gdr3/spectral/maps_cie_32k/
+  gaia_cie_galactic_32k_32768x16384_psf3_reinhard_10bit.tiff
+  gaia_cie_galactic_32k_32768x16384_psf3_reinhard_10bit.png
+  gaia_cie_galactic_32k_32768x16384_psf3_reinhard.jpg
+  gaia_cie_galactic_32k_32768x16384_psf3_reinhard_10bit.json
+```

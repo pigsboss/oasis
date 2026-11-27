@@ -11,6 +11,8 @@ from pathlib import Path
 
 import numpy as np
 import tables
+import tifffile
+import png as pypng
 from PIL import Image
 from scipy.ndimage import gaussian_filter
 
@@ -38,6 +40,8 @@ def main(argv=None):
     ap.add_argument("--gamma", type=float, default=2.2)
     ap.add_argument("--exposure-percentile", type=float, default=99.9)
     ap.add_argument("--tone-mode", choices=["gamma", "reinhard"], default="gamma")
+    ap.add_argument("--bit-depth", type=int, choices=[8, 10], default=8,
+                    help="8=PNG/JPEG; 10=10-bit quantised RGB in 16-bit TIFF/PNG")
     ap.add_argument("--frame", choices=["icrs", "galactic"], default="icrs")
     ap.add_argument("--chunk", type=int, default=10_000_000)
     ap.add_argument("--stem", required=True)
@@ -85,9 +89,13 @@ def main(argv=None):
             flux = np.power(10.0, -0.4 * (g - 6.5)).astype(np.float32)
             tidx, _ = template_indices(bprp)
             col = colors[tidx]
-            for c in range(3):
-                acc[..., c] += np.bincount(idx, weights=flux * col[:, c],
-                                           minlength=W * H).reshape(H, W).astype(np.float32)
+            if W * H > 300_000_000:
+                np.add.at(acc.reshape(-1, 3), idx,
+                          (flux[:, None] * col).astype(np.float32))
+            else:
+                for c in range(3):
+                    acc[..., c] += np.bincount(idx, weights=flux * col[:, c],
+                                               minlength=W * H).reshape(H, W).astype(np.float32)
             n += ra.size
             if start % (args.chunk * 10) == 0:
                 print(f"{stop}/{total} kept={n} {time.time()-t0:.0f}s", flush=True)
@@ -112,15 +120,35 @@ def main(argv=None):
     u8 = np.round(out * 255.0).astype(np.uint8)
     dst = Path(args.out_dir).expanduser(); dst.mkdir(parents=True, exist_ok=True)
     tag = f"psf{args.fwhm:g}_{args.tone_mode}"
+    if args.bit_depth == 10:
+        tag += "_10bit"
     png = dst / f"{args.stem}_{args.width}x{args.height}_{tag}.png"
     jpg = dst / f"{args.stem}_{args.width}x{args.height}_{tag}.jpg"
-    im = Image.fromarray(u8, "RGB")
-    im.save(png); im.save(jpg, quality=95, subsampling=0)
+    if args.bit_depth == 10:
+        q10 = np.rint(np.clip(out, 0.0, 1.0) * 1023.0).astype(np.uint16)
+        q16 = np.rint(q10.astype(np.float32) * (65535.0 / 1023.0)).astype(np.uint16)
+        tif = dst / f"{args.stem}_{args.width}x{args.height}_{tag}.tiff"
+        tifffile.imwrite(tif, q16, photometric="rgb", compression="zlib",
+                         metadata={"bit_depth": 10, "channels": 3,
+                                   "quantisation": "round(1023)"})
+        png = dst / f"{args.stem}_{args.width}x{args.height}_{tag}.png"
+        with open(png, "wb") as f:
+            pypng.Writer(args.width, args.height, greyscale=False,
+                         bitdepth=16).write(f, q16.reshape(args.height, -1))
+        im8 = Image.fromarray((q10 * 255 // 1023).astype(np.uint8), "RGB")
+        im8.save(jpg, quality=95, subsampling=0)
+        im = None
+    else:
+        im = Image.fromarray(u8, "RGB")
+        im.save(png); im.save(jpg, quality=95, subsampling=0)
     (dst / f"{args.stem}_{args.width}x{args.height}_{tag}.json").write_text(json.dumps({
         "core": args.core, "max_g": args.max_g, "n_stars": int(n),
         "width": args.width, "height": args.height, "supersample": ss,
         "fwhm_pixels": args.fwhm, "gamma": args.gamma, "frame": args.frame,
         "psf": "Gaussian display PSF", "tone_mapping": args.tone_mode,
+        "bit_depth": args.bit_depth, "channels": 3,
+        "container": ("16-bit TIFF/PNG with 10-bit quantisation"
+                      if args.bit_depth == 10 else "8-bit RGB"),
         "exposure_percentile": args.exposure_percentile, "scale": scale,
         "png": str(png), "jpeg": str(jpg),
     }, indent=2))
