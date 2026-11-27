@@ -15,7 +15,7 @@ from PIL import Image
 from scipy.ndimage import gaussian_filter
 
 from oasis_datasets.spectra import TEMPLATES, template_indices
-from render_cube_cie import CMF, XYZ_TO_SRGB
+from oasis_datasets.cie import CMF, XYZ_TO_SRGB
 
 
 def star_rgb_table():
