@@ -380,7 +380,8 @@ def cmd_spectral_cube(args) -> int:
             args.source, args.out, nside=args.nside,
             chunk_rows=args.chunk, buffer_parents=args.buffer_parents,
             no_g_supp=args.no_g_supp, nir_supp=args.nir_supp,
-            xp_supp=args.xp_supp, progress=progress)
+            xp_supp=args.xp_supp, xp_b_ids=args.xp_b_ids,
+            xp_b_flux=args.xp_b_flux, progress=progress)
     except (ValueError, OSError, FileExistsError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
@@ -707,6 +708,10 @@ def register(sub, common) -> dict:
                       help="nir_supp.h5 with 2MASS/AllWISE matches")
     p_sc.add_argument("--xp-supp", default=None,
                       help="xp_supp.h5 with sampled XP per-pixel spectra")
+    p_sc.add_argument("--xp-b-ids", default=None,
+                      help="xp_b_ids.npy with continuous-not-sampled source IDs")
+    p_sc.add_argument("--xp-b-flux", default=None,
+                      help="b_pixel_flux.h5 with dense B per-pixel spectra")
     p_sc.add_argument("--progress", action="store_true")
     p_sc.set_defaults(func=cmd_spectral_cube)
 
